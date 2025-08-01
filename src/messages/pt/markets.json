@@ -1,0 +1,33 @@
+{
+  "title": "Mercados Ativos",
+  "search": {
+    "placeholder": "Buscar mercados...",
+    "filters": "Filtros",
+    "search": "Buscar"
+  },
+  "categories": {
+    "all": "Todos",
+    "politics": "Política",
+    "crypto": "Cripto",
+    "sports": "Esportes",
+    "economics": "Economia",
+    "entertainment": "Entretenimento",
+    "technology": "Tecnologia",
+    "culture": "Cultura",
+    "world": "Mundo"
+  },
+  "card": {
+    "volume": "Volume",
+    "closes": "Fecha em",
+    "liquidity": "Liquidez",
+    "traders": "Traders",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "status": {
+    "active": "Ativo",
+    "closed": "Fechado",
+    "resolved": "Resolvido",
+    "pending": "Pendente"
+  }
+} 

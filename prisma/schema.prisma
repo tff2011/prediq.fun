@@ -1,0 +1,244 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+    // Further reading:
+    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+    url      = env("DATABASE_URL")
+}
+
+// ==================== MARKETS ====================
+model Market {
+    id          String   @id @default(cuid())
+    title       String
+    description String?
+    category    String
+    imageUrl    String?
+    
+    // Market timing
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    closesAt    DateTime
+    resolvedAt  DateTime?
+    
+    // Market state
+    status      MarketStatus @default(ACTIVE)
+    resolution  MarketResolution?
+    
+    // Market data
+    volume      Decimal  @default(0) @db.Decimal(20, 2)
+    liquidity   Decimal  @default(0) @db.Decimal(20, 2)
+    
+    // Blockchain data (when integrated)
+    contractAddress String?
+    txHash          String?
+    
+    // Relations
+    createdBy   User     @relation(fields: [createdById], references: [id])
+    createdById String
+    outcomes    Outcome[]
+    bets        Bet[]
+    positions   Position[]
+    
+    @@index([status, closesAt])
+    @@index([category])
+    @@index([createdById])
+}
+
+enum MarketStatus {
+    ACTIVE
+    CLOSED
+    RESOLVED
+    DISPUTED
+    CANCELLED
+}
+
+enum MarketResolution {
+    YES
+    NO
+    INVALID
+}
+
+// ==================== OUTCOMES ====================
+model Outcome {
+    id          String   @id @default(cuid())
+    marketId    String
+    name        String
+    probability Decimal  @db.Decimal(5, 4) // 0.0000 to 1.0000
+    
+    market      Market   @relation(fields: [marketId], references: [id], onDelete: Cascade)
+    bets        Bet[]
+    positions   Position[]
+    
+    @@unique([marketId, name])
+    @@index([marketId])
+}
+
+// ==================== BETS ====================
+model Bet {
+    id          String   @id @default(cuid())
+    createdAt   DateTime @default(now())
+    
+    // Bet details
+    type        BetType
+    amount      Decimal  @db.Decimal(20, 6)
+    shares      Decimal  @db.Decimal(20, 6)
+    price       Decimal  @db.Decimal(5, 4) // Price per share
+    
+    // Relations
+    userId      String
+    marketId    String
+    outcomeId   String
+    
+    user        User     @relation(fields: [userId], references: [id])
+    market      Market   @relation(fields: [marketId], references: [id])
+    outcome     Outcome  @relation(fields: [outcomeId], references: [id])
+    
+    @@index([userId])
+    @@index([marketId])
+    @@index([createdAt])
+}
+
+enum BetType {
+    BUY
+    SELL
+}
+
+// ==================== POSITIONS ====================
+model Position {
+    id          String   @id @default(cuid())
+    
+    // Position data
+    shares      Decimal  @db.Decimal(20, 6)
+    avgPrice    Decimal  @db.Decimal(5, 4)
+    invested    Decimal  @db.Decimal(20, 6)
+    
+    // Relations
+    userId      String
+    marketId    String
+    outcomeId   String
+    
+    user        User     @relation(fields: [userId], references: [id])
+    market      Market   @relation(fields: [marketId], references: [id])
+    outcome     Outcome  @relation(fields: [outcomeId], references: [id])
+    
+    @@unique([userId, marketId, outcomeId])
+    @@index([userId])
+    @@index([marketId])
+}
+
+// ==================== TRANSACTIONS ====================
+model Transaction {
+    id          String   @id @default(cuid())
+    createdAt   DateTime @default(now())
+    
+    type        TransactionType
+    amount      Decimal  @db.Decimal(20, 6)
+    currency    String   @default("USD")
+    status      TransactionStatus @default(PENDING)
+    
+    // Blockchain data (optional)
+    txHash      String?
+    blockNumber Int?
+    
+    // Relations
+    userId      String
+    user        User     @relation(fields: [userId], references: [id])
+    
+    @@index([userId])
+    @@index([status])
+}
+
+enum TransactionType {
+    DEPOSIT
+    WITHDRAWAL
+    BET_PLACED
+    BET_SOLD
+    WINNINGS
+    REFUND
+}
+
+enum TransactionStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    CANCELLED
+}
+
+// ==================== OLD POST MODEL (TO BE REMOVED) ====================
+model Post {
+    id        Int      @id @default(autoincrement())
+    name      String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdById String
+
+    @@index([name])
+}
+
+// Necessary for Next auth
+model Account {
+    id                       String  @id @default(cuid())
+    userId                   String
+    type                     String
+    provider                 String
+    providerAccountId        String
+    refresh_token            String?
+    access_token             String?
+    expires_at               Int?
+    token_type               String?
+    scope                    String?
+    id_token                 String?
+    session_state            String?
+    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    refresh_token_expires_in Int?
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    
+    // User stats
+    balance       Decimal   @default(0) @db.Decimal(20, 6)
+    totalInvested Decimal   @default(0) @db.Decimal(20, 6)
+    totalWinnings Decimal   @default(0) @db.Decimal(20, 6)
+    
+    // Relations
+    accounts      Account[]
+    sessions      Session[]
+    posts         Post[]
+    markets       Market[]
+    bets          Bet[]
+    positions     Position[]
+    transactions  Transaction[]
+}
+
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
+
+    @@unique([identifier, token])
+}

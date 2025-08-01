@@ -1,0 +1,27 @@
+{
+  "home": "Início",
+  "markets": "Mercados",
+  "portfolio": "Portfólio",
+  "createMarket": "Criar Mercado",
+  "profile": "Perfil",
+  "settings": "Configurações",
+  "logout": "Sair",
+  "login": "Entrar",
+  "signup": "Cadastrar",
+  "howItWorks": "Como funciona",
+  "trending": "Em alta",
+  "new": "Novos",
+  "search": {
+    "placeholder": "Buscar mercados..."
+  },
+  "categories": {
+    "politics": "Política",
+    "sports": "Esportes",
+    "crypto": "Cripto",
+    "technology": "Tecnologia",
+    "culture": "Cultura",
+    "world": "Mundo",
+    "economics": "Economia"
+  },
+  "more": "Mais"
+} 

@@ -1,0 +1,22 @@
+{
+  "title": "Meu Perfil",
+  "subtitle": "Gerencie suas informações e configurações",
+  "sections": {
+    "personal": "Informações Pessoais",
+    "preferences": "Preferências",
+    "security": "Segurança",
+    "notifications": "Notificações"
+  },
+  "fields": {
+    "name": "Nome completo",
+    "email": "E-mail",
+    "avatar": "Foto de perfil",
+    "bio": "Biografia",
+    "location": "Localização"
+  },
+  "actions": {
+    "save": "Salvar alterações",
+    "cancel": "Cancelar",
+    "delete": "Excluir conta"
+  }
+} 

@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+:root {
+  /* Base colors */
+  --background: 210 20% 98%; /* #f9fafb */
+  --foreground: 215 20% 20%; /* #1f2937 */
+  --card: 0 0% 100%; /* #ffffff */
+  --card-foreground: 215 20% 20%; /* #1f2937 */
+  --popover: 0 0% 100%; /* #ffffff */
+  --popover-foreground: 215 20% 20%; /* #1f2937 */
+  
+  /* Primary brand colors */
+  --primary: 243 75% 59%; /* #4f46e5 indigo-600 */
+  --primary-foreground: 0 0% 100%; /* #ffffff */
+  
+  /* Secondary colors */
+  --secondary: 217 19% 27%; /* #374151 gray-700 */
+  --secondary-foreground: 0 0% 100%; /* #ffffff */
+  
+  /* Muted colors */
+  --muted: 210 14% 89%; /* #e5e7eb gray-200 */
+  --muted-foreground: 215 16% 47%; /* #6b7280 gray-500 */
+  
+  /* Accent colors */
+  --accent: 158 64% 52%; /* #10b981 green-500 */
+  --accent-foreground: 0 0% 100%; /* #ffffff */
+  
+  /* Destructive colors */
+  --destructive: 0 72% 51%; /* #ef4444 red-500 */
+  --destructive-foreground: 0 0% 100%; /* #ffffff */
+  
+  /* Border and input */
+  --border: 210 14% 89%; /* #e5e7eb gray-200 */
+  --input: 210 14% 89%; /* #e5e7eb gray-200 */
+  --ring: 243 75% 59%; /* #4f46e5 indigo-600 */
+  
+  /* Prediction market specific */
+  --success: 158 64% 52%; /* #10b981 green-500 */
+  --success-foreground: 0 0% 100%; /* #ffffff */
+  --warning: 43 96% 56%; /* #f59e0b amber-500 */
+  --warning-foreground: 0 0% 100%; /* #ffffff */
+  --info: 199 89% 48%; /* #0ea5e9 sky-500 */
+  --info-foreground: 0 0% 100%; /* #ffffff */
+  
+  /* Market YES/NO colors */
+  --yes: 158 64% 52%; /* #10b981 green-500 */
+  --yes-foreground: 0 0% 100%; /* #ffffff */
+  --yes-hover: 158 64% 42%; /* darker green */
+  --no: 0 72% 51%; /* #ef4444 red-500 */
+  --no-foreground: 0 0% 100%; /* #ffffff */
+  --no-hover: 0 72% 41%; /* darker red */
+  
+  /* Chart colors */
+  --chart-1: 243 75% 59%; /* indigo */
+  --chart-2: 158 64% 52%; /* green */
+  --chart-3: 0 72% 51%; /* red */
+  --chart-4: 43 96% 56%; /* amber */
+  --chart-5: 199 89% 48%; /* sky */
+  
+  /* Other variables */
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Base colors */
+  --background: 0 0% 8%; /* #141414 */
+  --foreground: 210 14% 89%; /* #e5e7eb gray-200 */
+  --card: 0 0% 12%; /* #1e1e1e */
+  --card-foreground: 210 14% 89%; /* #e5e7eb gray-200 */
+  --popover: 0 0% 12%; /* #1e1e1e */
+  --popover-foreground: 210 14% 89%; /* #e5e7eb gray-200 */
+  
+  /* Primary brand colors */
+  --primary: 234 89% 74%; /* #818cf8 indigo-400 */
+  --primary-foreground: 0 0% 0%; /* #000000 */
+  
+  /* Secondary colors */
+  --secondary: 215 16% 47%; /* #6b7280 gray-500 */
+  --secondary-foreground: 0 0% 100%; /* #ffffff */
+  
+  /* Muted colors */
+  --muted: 215 20% 34%; /* #4b5563 gray-600 */
+  --muted-foreground: 210 14% 66%; /* #9ca3af gray-400 */
+  
+  /* Accent colors */
+  --accent: 157 66% 66%; /* #6ee7b7 green-300 */
+  --accent-foreground: 0 0% 0%; /* #000000 */
+  
+  /* Destructive colors */
+  --destructive: 0 86% 71%; /* #f87171 red-400 */
+  --destructive-foreground: 0 0% 0%; /* #000000 */
+  
+  /* Border and input */
+  --border: 215 20% 34%; /* #374151 gray-700 */
+  --input: 215 20% 34%; /* #374151 gray-700 */
+  --ring: 234 89% 74%; /* #818cf8 indigo-400 */
+  
+  /* Prediction market specific */
+  --success: 157 66% 66%; /* #6ee7b7 green-300 */
+  --success-foreground: 0 0% 0%; /* #000000 */
+  --warning: 45 93% 64%; /* #fbbf24 amber-400 */
+  --warning-foreground: 0 0% 0%; /* #000000 */
+  --info: 199 91% 64%; /* #38bdf8 sky-400 */
+  --info-foreground: 0 0% 0%; /* #000000 */
+  
+  /* Market YES/NO colors */
+  --yes: 157 66% 66%; /* #6ee7b7 green-300 */
+  --yes-foreground: 0 0% 0%; /* #000000 */
+  --yes-hover: 157 66% 56%; /* darker green */
+  --no: 0 86% 71%; /* #f87171 red-400 */
+  --no-foreground: 0 0% 0%; /* #000000 */
+  --no-hover: 0 86% 61%; /* darker red */
+  
+  /* Chart colors */
+  --chart-1: 234 89% 74%; /* indigo-400 */
+  --chart-2: 157 66% 66%; /* green-300 */
+  --chart-3: 0 86% 71%; /* red-400 */
+  --chart-4: 45 93% 64%; /* amber-400 */
+  --chart-5: 199 91% 64%; /* sky-400 */
+}
+
+/* Melhorias para responsividade */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container responsivo */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
+/* Melhorias para mobile */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Scrollbar utilities */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Header specific styles */
+.header-search {
+  background: hsl(var(--muted) / 0.5);
+  border: 1px solid hsl(var(--border));
+  transition: all 0.2s ease;
+}
+
+.header-search:focus-within {
+  background: hsl(var(--background));
+  border-color: hsl(var(--ring));
+}
+
+/* Smooth transitions for header elements */
+.header-nav-link {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Mobile menu animations */
+.mobile-menu-enter {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobile-menu-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.mobile-menu-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}

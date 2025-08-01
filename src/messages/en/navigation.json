@@ -1,0 +1,27 @@
+{
+  "home": "Home",
+  "markets": "Markets",
+  "portfolio": "Portfolio",
+  "createMarket": "Create Market",
+  "profile": "Profile",
+  "settings": "Settings",
+  "logout": "Logout",
+  "login": "Sign In",
+  "signup": "Sign Up",
+  "howItWorks": "How it works",
+  "trending": "Trending",
+  "new": "New",
+  "search": {
+    "placeholder": "Search markets..."
+  },
+  "categories": {
+    "politics": "Politics",
+    "sports": "Sports",
+    "crypto": "Crypto",
+    "technology": "Technology",
+    "culture": "Culture",
+    "world": "World",
+    "economics": "Economics"
+  },
+  "more": "More"
+} 

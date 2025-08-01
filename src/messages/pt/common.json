@@ -1,0 +1,26 @@
+{
+  "buttons": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "back": "Voltar"
+  },
+  "labels": {
+    "email": "E-mail",
+    "password": "Senha",
+    "name": "Nome",
+    "description": "Descrição"
+  },
+  "errors": {
+    "required": "Este campo é obrigatório",
+    "invalid": "Valor inválido",
+    "network": "Erro de rede. Tente novamente."
+  },
+  "language": {
+    "select": "Selecionar idioma",
+    "portuguese": "Português",
+    "english": "Inglês"
+  }
+} 

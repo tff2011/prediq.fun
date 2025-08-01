@@ -1,0 +1,33 @@
+{
+  "title": "Active Markets",
+  "search": {
+    "placeholder": "Search markets...",
+    "filters": "Filters",
+    "search": "Search"
+  },
+  "categories": {
+    "all": "All",
+    "politics": "Politics",
+    "crypto": "Crypto",
+    "sports": "Sports",
+    "economics": "Economics",
+    "entertainment": "Entertainment",
+    "technology": "Technology",
+    "culture": "Culture",
+    "world": "World"
+  },
+  "card": {
+    "volume": "Volume",
+    "closes": "Closes on",
+    "liquidity": "Liquidity",
+    "traders": "Traders",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "status": {
+    "active": "Active",
+    "closed": "Closed",
+    "resolved": "Resolved",
+    "pending": "Pending"
+  }
+} 
