@@ -12,7 +12,8 @@ async function loadMessages(locale: string) {
     'createMarket',
     'footer',
     'profile',
-    'howItWorks'
+    'howItWorks',
+    'terms'
   ]
 
   const messages: Record<string, any> = {}

@@ -12,9 +12,6 @@
     "howItWorks": "How it works",
     "trending": "Trending",
     "new": "New",
-    "search": {
-      "placeholder": "Search markets..."
-    },
     "categories": {
       "politics": "Politics",
       "sports": "Sports",
@@ -23,6 +20,35 @@
       "culture": "Culture",
       "world": "World",
       "economics": "Economics"
+    },
+    "search": {
+      "placeholder": "Search markets...",
+      "topics": "TOPICS",
+      "active": "Active",
+      "ended": "Ended",
+      "seeAll": "See All",
+      "noResults": "No results found",
+      "search": "Search",
+      "resultsFor": "Results for",
+      "allMarkets": "All Markets",
+      "resultFound": "result found",
+      "resultsFound": "results found",
+      "noResultsTitle": "No results found",
+      "noResultsDesc": "Try using different keywords or explore other categories",
+      "volume": "Volume",
+      "traders": "Traders",
+      "probability": "Probability",
+      "closes": "Closes on",
+      "chanceOf": "chance",
+      "categories": {
+        "politics": "Politics",
+        "sports": "Sports",
+        "crypto": "Crypto",
+        "technology": "Technology",
+        "culture": "Culture",
+        "world": "World",
+        "economics": "Economics"
+      }
     },
     "more": "More",
     "myMarkets": "My Markets",

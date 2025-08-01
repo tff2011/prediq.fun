@@ -1,32 +1,113 @@
 {
   "terms": {
-    "title": "Termos de Uso",
+    "title": "Termos de Uso do PredIQ.fun",
     "lastUpdated": "Última Atualização",
     "sections": {
       "introduction": {
-        "title": "Introdução",
-        "content": "Estes Termos de Uso regem o uso da plataforma de mercados de previsão PredIQ.fun."
+        "title": "1. Introdução",
+        "paragraph1": "Estes Termos de Uso fornecem os termos e condições sob os quais você, pessoalmente ou em nome de uma entidade (\"você\" ou \"seu\"), tem permissão para usar, interagir ou acessar a plataforma e serviços fornecidos pela PredIQ.fun (\"a Empresa,\" \"nós,\" \"nos,\" ou \"nosso\"). Estes Termos de Uso, juntamente com nossa Política de Privacidade (coletivamente, os \"Termos\"), constituem um acordo vinculativo entre você e nós.",
+        "paragraph2": "Estes Termos são aplicáveis a todo conteúdo, funcionalidade e recursos disponíveis no PredIQ.fun (a \"Plataforma\") incluindo mercados de previsão, interfaces de negociação, serviços de informação e protocolos de contratos inteligentes baseados em blockchain relacionados.",
+        "importantNotice": {
+          "title": "AVISO IMPORTANTE:",
+          "content": "AO ACESSAR, USAR OU INTERAGIR COM A PLATAFORMA, VOCÊ CONCORDA EM ESTAR VINCULADO A ESTES TERMOS. SE VOCÊ NÃO CONCORDAR COM TODOS OS TERMOS, NÃO ESTÁ AUTORIZADO A USAR A PLATAFORMA."
+        }
       },
       "platform": {
-        "title": "Descrição da Plataforma",
-        "content": "PredIQ.fun é uma plataforma descentralizada de mercados de previsão para negociar eventos futuros."
+        "title": "2. Descrição da Plataforma",
+        "paragraph1": "PredIQ.fun é uma plataforma descentralizada de mercados de previsão que permite aos usuários criar, negociar e resolver mercados de previsão sobre vários tópicos incluindo política, esportes, criptomoedas, economia e eventos atuais. A plataforma opera usando tecnologia blockchain e contratos inteligentes.",
+        "paragraph2": "A Plataforma fornece conteúdo informativo sobre eventos atuais e permite aos usuários participar de mercados de previsão através de transações blockchain autodirigidas. Não operamos como uma bolsa tradicional e não temos controle sobre suas transações ou fundos."
       },
       "eligibility": {
-        "title": "Elegibilidade e Restrições do Usuário",
-        "content": "Usuários devem ter 18+ anos e cumprir regulamentações locais."
+        "title": "3. Elegibilidade e Restrições do Usuário",
+        "ageSection": {
+          "title": "Idade e Autoridade Legal",
+          "content": "A Plataforma é destinada apenas para usuários com 18 anos de idade ou mais. Ao usar a Plataforma, você declara que tem autoridade legal para aceitar estes Termos."
+        },
+        "restrictedJurisdictions": {
+          "title": "Jurisdições Restritas",
+          "warningTitle": "RESTRIÇÕES DE NEGOCIAÇÃO:",
+          "warningText": "O uso da Plataforma para negociação não é permitido por pessoas ou entidades residentes ou cidadãos de:",
+          "countries": [
+            "Estados Unidos da América",
+            "Reino Unido",
+            "Países sujeitos a sanções abrangentes (Irã, Coreia do Norte, Cuba, Síria)",
+            "Qualquer jurisdição onde a negociação de mercados de previsão seja proibida"
+          ],
+          "vpnWarning": "O uso de VPNs ou outras ferramentas para contornar essas restrições é estritamente proibido."
+        },
+        "userRepresentations": {
+          "title": "Declarações do Usuário",
+          "intro": "Ao usar a Plataforma, você declara e garante que:",
+          "items": [
+            "Você não está sujeito a sanções econômicas ou em qualquer lista de pessoas proibidas",
+            "Você tem conhecimento e experiência suficientes com tecnologia blockchain e mercados de previsão",
+            "Seu uso está em conformidade com todas as leis e regulamentos aplicáveis",
+            "Você entende os riscos financeiros envolvidos na negociação de mercados de previsão"
+          ]
+        }
       },
       "risks": {
-        "title": "Riscos Financeiros e Isenções",
-        "content": "Mercados de previsão envolvem risco substancial de perda."
+        "title": "4. Riscos Financeiros e Isenções",
+        "riskWarning": {
+          "title": "AVISO DE RISCO:",
+          "items": [
+            "Mercados de previsão são altamente especulativos e carregam risco substancial de perda",
+            "Você pode perder todo o valor que investir em qualquer mercado",
+            "Todas as transações são irreversíveis e finais",
+            "Resultados de mercado são resolvidos por oráculos descentralizados, não pela Empresa",
+            "Valores de criptomoedas podem ser altamente voláteis"
+          ]
+        },
+        "acknowledgment": "Você reconhece que está usando a Plataforma por sua própria conta e risco e que deve participar apenas com fundos que pode perder inteiramente."
       },
       "conduct": {
-        "title": "Conduta Proibida",
-        "content": "Usuários não devem se envolver em manipulação de mercado ou atividades fraudulentas."
+        "title": "5. Conduta Proibida",
+        "intro": "Você concorda em não:",
+        "items": [
+          "Violar quaisquer leis ou regulamentos aplicáveis",
+          "Envolver-se em manipulação de mercado, negociação fictícia ou atividades fraudulentas",
+          "Usar sistemas de negociação automatizados ou bots sem permissão",
+          "Contornar medidas de segurança da plataforma ou controles de acesso",
+          "Fornecer informações falsas ou enganosas",
+          "Interferir no funcionamento adequado da Plataforma",
+          "Usar a Plataforma para lavagem de dinheiro ou financiamento do terrorismo"
+        ]
+      },
+      "intellectualProperty": {
+        "title": "6. Propriedade Intelectual",
+        "content": "A Plataforma e seu conteúdo, recursos e funcionalidade são de propriedade da Empresa e são protegidos por direitos autorais, marcas registradas e outras leis de propriedade intelectual. Você recebe uma licença limitada e não exclusiva para usar a Plataforma para seus propósitos pretendidos."
+      },
+      "privacy": {
+        "title": "7. Privacidade e Dados",
+        "content": "Sua privacidade é importante para nós. Nossa coleta e uso de informações pessoais são regidos por nossa Política de Privacidade, que é incorporada a estes Termos por referência."
+      },
+      "disclaimers": {
+        "title": "8. Isenções e Limitações",
+        "asIsWarning": "A PLATAFORMA É FORNECIDA \"COMO ESTÁ\" SEM GARANTIAS DE QUALQUER TIPO.",
+        "warrantyDisclaimer": "Rejeitamos todas as garantias, sejam expressas ou implícitas, incluindo garantias de comercialização, adequação para um propósito específico e não violação.",
+        "limitationTitle": "LIMITAÇÃO DE RESPONSABILIDADE:",
+        "limitationContent": "Na máxima extensão permitida por lei, a Empresa não será responsável por quaisquer danos indiretos, incidentais, especiais ou consequenciais. Nossa responsabilidade total não excederá $100."
+      },
+      "indemnification": {
+        "title": "9. Indenização",
+        "content": "Você concorda em defender, indenizar e isentar a Empresa de quaisquer reivindicações, danos ou despesas decorrentes do seu uso da Plataforma ou violação destes Termos."
+      },
+      "governingLaw": {
+        "title": "10. Lei Aplicável e Resolução de Disputas",
+        "content": "Estes Termos são regidos pelas leis de [Jurisdição]. Quaisquer disputas serão resolvidas através de arbitragem vinculativa, e você renuncia ao seu direito de participar em ações judiciais coletivas."
+      },
+      "changes": {
+        "title": "11. Alterações nos Termos",
+        "content": "Reservamo-nos o direito de modificar estes Termos a qualquer momento. As alterações entrarão em vigor após a publicação na Plataforma. Seu uso continuado constitui aceitação dos Termos modificados."
       },
       "contact": {
-        "title": "Informações de Contato",
+        "title": "12. Informações de Contato",
+        "content": "Para perguntas sobre estes Termos, entre em contato conosco em:",
         "email": "legal@prediq.fun"
       }
+    },
+    "footer": {
+      "acknowledgment": "Ao usar o PredIQ.fun, você reconhece que leu, entendeu e concorda em estar vinculado a estes Termos de Uso."
     }
   }
 }

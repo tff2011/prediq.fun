@@ -8,16 +8,16 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
-        politics: "bg-indigo-400/20 text-indigo-800 border-indigo-300 shadow-sm dark:bg-indigo-500/10 dark:text-indigo-300 dark:border-indigo-500/20",
-        crypto: "bg-yellow-300/30 text-yellow-900 border-yellow-400 shadow-sm dark:bg-amber-500/10 dark:text-amber-300 dark:border-amber-500/20",
-        sports: "bg-emerald-400/20 text-emerald-900 border-emerald-300 shadow-sm dark:bg-emerald-500/10 dark:text-emerald-300 dark:border-emerald-500/20",
-        economics: "bg-sky-400/20 text-sky-900 border-sky-300 shadow-sm dark:bg-sky-500/10 dark:text-sky-300 dark:border-sky-500/20",
+        politics: "bg-indigo-200 text-indigo-800 border-indigo-300 shadow-sm hover:bg-indigo-300 dark:bg-indigo-500/20 dark:text-indigo-300 dark:border-indigo-500/30 dark:hover:bg-indigo-500/30",
+        crypto: "bg-amber-200 text-amber-800 border-amber-300 shadow-sm hover:bg-amber-300 dark:bg-amber-500/20 dark:text-amber-300 dark:border-amber-500/30 dark:hover:bg-amber-500/30",
+        sports: "bg-emerald-200 text-emerald-800 border-emerald-300 shadow-sm hover:bg-emerald-300 dark:bg-emerald-500/20 dark:text-emerald-300 dark:border-emerald-500/30 dark:hover:bg-emerald-500/30",
+        economics: "bg-sky-200 text-sky-800 border-sky-300 shadow-sm hover:bg-sky-300 dark:bg-sky-500/20 dark:text-sky-300 dark:border-sky-500/30 dark:hover:bg-sky-500/30",
       },
     },
     defaultVariants: {

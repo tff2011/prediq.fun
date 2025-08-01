@@ -52,7 +52,7 @@ export function MarketCard({ id, question, volume, endsAt, category }: Props) {
   }
   
   return (
-    <Card className="cursor-pointer hover:shadow-md transition-all duration-200 border border-gray-50 dark:border-gray-800/50 group">
+    <Card className="cursor-pointer hover:shadow-lg transition-all duration-200 border border-border/60 group bg-card text-foreground shadow-sm hover:border-border">
       <CardContent className="p-6">
         {category && (
           <div className="mt-2 mb-4">
@@ -67,22 +67,22 @@ export function MarketCard({ id, question, volume, endsAt, category }: Props) {
           </CardTitle>
         </div>
         
-        <div className="flex gap-2 mb-6">
-          <div className="flex-1 bg-[hsl(var(--yes)/0.15)] dark:bg-[hsl(var(--yes)/0.25)] border border-[hsl(var(--yes))] rounded-xl p-4 text-center hover:bg-[hsl(var(--yes)/0.22)] dark:hover:bg-[hsl(var(--yes)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md">
+        <div className="flex gap-3 mb-6">
+          <div className="flex-1 bg-green-50 dark:bg-[hsl(var(--yes)/0.25)] border border-green-200 dark:border-[hsl(var(--yes))] rounded-xl p-4 text-center hover:bg-green-100 dark:hover:bg-[hsl(var(--yes)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md hover:border-green-300 dark:hover:border-[hsl(var(--yes)/0.3)]">
             <div className="text-3xl font-bold text-[hsl(var(--yes))]">
               {yesPercentage}%
             </div>
-            <div className="text-xs text-[hsl(var(--yes))] uppercase font-semibold tracking-wider mt-1">{t('card.yes')}</div>
+            <div className="text-xs text-[hsl(var(--yes)/0.8)] dark:text-[hsl(var(--yes))] uppercase font-semibold tracking-wider mt-1">{t('card.yes')}</div>
           </div>
-          <div className="flex-1 bg-[hsl(var(--no)/0.15)] dark:bg-[hsl(var(--no)/0.25)] border border-[hsl(var(--no))] rounded-xl p-4 text-center hover:bg-[hsl(var(--no)/0.22)] dark:hover:bg-[hsl(var(--no)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md">
+          <div className="flex-1 bg-red-50 dark:bg-[hsl(var(--no)/0.25)] border border-red-200 dark:border-[hsl(var(--no))] rounded-xl p-4 text-center hover:bg-red-100 dark:hover:bg-[hsl(var(--no)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md hover:border-red-300 dark:hover:border-[hsl(var(--no)/0.3)]">
             <div className="text-3xl font-bold text-[hsl(var(--no))]">
               {noPercentage}%
             </div>
-            <div className="text-xs text-[hsl(var(--no))] uppercase font-semibold tracking-wider mt-1">{t('card.no')}</div>
+            <div className="text-xs text-[hsl(var(--no)/0.8)] dark:text-[hsl(var(--no))] uppercase font-semibold tracking-wider mt-1">{t('card.no')}</div>
           </div>
         </div>
         
-        <div className="pt-3 border-t border-gray-50 dark:border-gray-800/50 grid grid-cols-3 gap-2 text-sm">
+        <div className="pt-3 border-t border-border grid grid-cols-3 gap-2 text-sm">
           <div className="flex flex-col">
             <span className="text-muted-foreground flex items-center gap-1">
               <TrendingUp className="w-3 h-3" />

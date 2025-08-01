@@ -73,7 +73,7 @@ export function Navbar({ locale }: NavbarProps) {
               </Button>
               <Button 
                 size="sm" 
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-md border-0 cursor-pointer"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md border-0 cursor-pointer"
                 onClick={handleSignup}
               >
                 {t('signup')}
@@ -261,7 +261,7 @@ export function Navbar({ locale }: NavbarProps) {
                 </Button>
                 <Button 
                   size="sm" 
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-md border-0 w-full cursor-pointer"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md border-0 w-full cursor-pointer"
                   onClick={() => {
                     handleSignup()
                     setIsMobileMenuOpen(false)

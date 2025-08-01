@@ -30,6 +30,7 @@
       "closed": "Fechado",
       "resolved": "Resolvido",
       "pending": "Pendente"
-    }
+    },
+    "available": "mercados disponíveis"
   }
 }
