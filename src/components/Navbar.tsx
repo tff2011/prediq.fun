@@ -8,6 +8,13 @@ import { SearchBar } from "./SearchBar"
 import { useTranslations } from "next-intl"
 import { TrendingUp, Menu, X, ChevronDown, Info } from "lucide-react"
 import { useState } from "react"
+import { HowItWorksModal } from "./HowItWorksModal"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 interface NavbarProps {
   locale: string
@@ -17,10 +24,20 @@ export function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('navigation')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   
+  const handleLogin = () => {
+    // TODO: Implementar lógica de login
+    console.log('Login clicked')
+  }
+  
+  const handleSignup = () => {
+    // TODO: Implementar lógica de cadastro
+    console.log('Signup clicked')
+  }
+  
   return (
-    <header className="w-full sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <header className="w-full sticky top-0 z-50 bg-background/98 backdrop-blur-md supports-[backdrop-filter]:bg-background/90 border-b border-border shadow-sm">
       {/* Top Bar - Logo, Search, Auth */}
-      <div className="border-b border-border/50">
+      <div className="border-b border-border/50 bg-background/98">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
@@ -43,19 +60,22 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3 shrink-0">
-              <Link 
-                href={`/${locale}/how-it-works`} 
-                className="flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors"
-              >
-                <Info className="h-4 w-4" />
-                {t('howItWorks')}
-              </Link>
+              <HowItWorksModal />
               <LanguageSwitcher currentLocale={locale} />
               <ThemeToggle />
-              <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-primary hover:text-primary/80 cursor-pointer"
+                onClick={handleLogin}
+              >
                 {t('login')}
               </Button>
-              <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button 
+                size="sm" 
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-md border-0 cursor-pointer"
+                onClick={handleSignup}
+              >
                 {t('signup')}
               </Button>
             </div>
@@ -68,7 +88,7 @@ export function Navbar({ locale }: NavbarProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2"
+                className="p-2 cursor-pointer"
               >
                 {isMobileMenuOpen ? (
                   <X className="h-5 w-5" />
@@ -82,7 +102,7 @@ export function Navbar({ locale }: NavbarProps) {
       </div>
 
       {/* Secondary Navigation Bar - Categories */}
-      <div className="border-b border-border/50">
+      <div className="border-b border-border/50 bg-background/95">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2">
             {/* Left Navigation */}
@@ -129,10 +149,52 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Right More Menu */}
             <div className="hidden lg:flex items-center">
-              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                {t('more')}
-                <ChevronDown className="h-4 w-4 ml-1" />
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground cursor-pointer">
+                    {t('more')}
+                    <ChevronDown className="h-4 w-4 ml-1" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  align="end" 
+                  className="w-48 bg-background border border-border shadow-lg backdrop-blur-sm"
+                  sideOffset={5}
+                >
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      href={`/${locale}/create-market`} 
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      {t('createMarket')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      href={`/${locale}/my-markets`} 
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      {t('myMarkets')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      href={`/${locale}/leaderboard`} 
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      {t('leaderboard')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link 
+                      href={`/${locale}/about`} 
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    >
+                      {t('about')}
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>
@@ -140,7 +202,7 @@ export function Navbar({ locale }: NavbarProps) {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border/50 bg-background">
+        <div className="md:hidden border-t border-border/50 bg-background/98 backdrop-blur-md shadow-lg">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col gap-4">
               <Link 
@@ -183,18 +245,28 @@ export function Navbar({ locale }: NavbarProps) {
                 </div>
               </div>
               <div className="border-t border-border/50 pt-4 flex flex-col gap-2">
-                <Link 
-                  href={`/${locale}/how-it-works`} 
-                  className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <div onClick={() => setIsMobileMenuOpen(false)}>
+                  <HowItWorksModal />
+                </div>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full cursor-pointer"
+                  onClick={() => {
+                    handleLogin()
+                    setIsMobileMenuOpen(false)
+                  }}
                 >
-                  <Info className="h-4 w-4" />
-                  {t('howItWorks')}
-                </Link>
-                <Button variant="outline" size="sm" className="w-full">
                   {t('login')}
                 </Button>
-                <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground w-full">
+                <Button 
+                  size="sm" 
+                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-md border-0 w-full cursor-pointer"
+                  onClick={() => {
+                    handleSignup()
+                    setIsMobileMenuOpen(false)
+                  }}
+                >
                   {t('signup')}
                 </Button>
               </div>

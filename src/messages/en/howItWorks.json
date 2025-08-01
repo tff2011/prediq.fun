@@ -1,0 +1,38 @@
+{
+  "howItWorks": {
+    "button": "How it works",
+    "title": "How It Works",
+    "subtitle": "Learn how to participate in prediction markets",
+    "nextButton": "Next",
+    "getStartedButton": "Get Started",
+    "steps": [
+      {
+        "title": "Choose a Market",
+        "description": "Browse available markets and find events you're interested in predicting."
+      },
+      {
+        "title": "Make Your Prediction",
+        "description": "Buy YES or NO shares based on your belief about the outcome."
+      },
+      {
+        "title": "Trade Anytime",
+        "description": "Change your position by buying or selling shares as new information emerges."
+      },
+      {
+        "title": "Get Rewarded",
+        "description": "If your prediction is correct, earn profits when the market resolves."
+      }
+    ],
+    "features": {
+      "title": "Key Features",
+      "decentralized": "Decentralized & Transparent",
+      "realTime": "Real-time Trading",
+      "lowFees": "Low Transaction Fees",
+      "secure": "Secure & Auditable"
+    },
+    "cta": {
+      "start": "Start Trading",
+      "learnMore": "Learn More"
+    }
+  }
+}

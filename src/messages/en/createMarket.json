@@ -1,12 +1,14 @@
 {
-  "title": "Create New Market",
-  "subtitle": "Set up a new prediction market",
-  "fields": {
-    "question": "Market question",
-    "questionHint": "Ask a clear Yes/No question",
-    "category": "Category",
-    "closingDate": "Closing date",
-    "description": "Detailed description",
-    "descriptionHint": "Provide context and resolution criteria"
+  "createMarket": {
+    "title": "Create New Market",
+    "subtitle": "Set up a new prediction market",
+    "fields": {
+      "question": "Market question",
+      "questionHint": "Ask a clear Yes/No question",
+      "category": "Category",
+      "closingDate": "Closing date",
+      "description": "Detailed description",
+      "descriptionHint": "Provide context and resolution criteria"
+    }
   }
-} 
+}

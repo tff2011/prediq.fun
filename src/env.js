@@ -25,7 +25,14 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: z.string().optional(),
+    NEXT_PUBLIC_WEB3AUTH_NETWORK: z.enum(["testnet", "mainnet"]).default("testnet"),
+    NEXT_PUBLIC_CHAIN_ID: z.string().default("80002"),
+    NEXT_PUBLIC_RPC_URL: z.string().url().default("https://rpc-amoy.polygon.technology/"),
+    NEXT_PUBLIC_BLOCK_EXPLORER: z.string().url().default("https://www.oklink.com/amoy"),
+    NEXT_PUBLIC_MARKET_FACTORY_ADDRESS: z.string().optional(),
+    NEXT_PUBLIC_UMA_ORACLE_ADDRESS: z.string().optional(),
+    NEXT_PUBLIC_WS_URL: z.string().optional(),
   },
 
   /**
@@ -38,6 +45,14 @@ export const env = createEnv({
     AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
+    NEXT_PUBLIC_WEB3AUTH_NETWORK: process.env.NEXT_PUBLIC_WEB3AUTH_NETWORK,
+    NEXT_PUBLIC_CHAIN_ID: process.env.NEXT_PUBLIC_CHAIN_ID,
+    NEXT_PUBLIC_RPC_URL: process.env.NEXT_PUBLIC_RPC_URL,
+    NEXT_PUBLIC_BLOCK_EXPLORER: process.env.NEXT_PUBLIC_BLOCK_EXPLORER,
+    NEXT_PUBLIC_MARKET_FACTORY_ADDRESS: process.env.NEXT_PUBLIC_MARKET_FACTORY_ADDRESS,
+    NEXT_PUBLIC_UMA_ORACLE_ADDRESS: process.env.NEXT_PUBLIC_UMA_ORACLE_ADDRESS,
+    NEXT_PUBLIC_WS_URL: process.env.NEXT_PUBLIC_WS_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

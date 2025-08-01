@@ -1,0 +1,32 @@
+{
+  "terms": {
+    "title": "Termos de Uso",
+    "lastUpdated": "Última Atualização",
+    "sections": {
+      "introduction": {
+        "title": "Introdução",
+        "content": "Estes Termos de Uso regem o uso da plataforma de mercados de previsão PredIQ.fun."
+      },
+      "platform": {
+        "title": "Descrição da Plataforma",
+        "content": "PredIQ.fun é uma plataforma descentralizada de mercados de previsão para negociar eventos futuros."
+      },
+      "eligibility": {
+        "title": "Elegibilidade e Restrições do Usuário",
+        "content": "Usuários devem ter 18+ anos e cumprir regulamentações locais."
+      },
+      "risks": {
+        "title": "Riscos Financeiros e Isenções",
+        "content": "Mercados de previsão envolvem risco substancial de perda."
+      },
+      "conduct": {
+        "title": "Conduta Proibida",
+        "content": "Usuários não devem se envolver em manipulação de mercado ou atividades fraudulentas."
+      },
+      "contact": {
+        "title": "Informações de Contato",
+        "email": "legal@prediq.fun"
+      }
+    }
+  }
+}

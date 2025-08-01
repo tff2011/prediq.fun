@@ -1,22 +1,24 @@
 {
-  "title": "My Profile",
-  "subtitle": "Manage your information and settings",
-  "sections": {
-    "personal": "Personal Information",
-    "preferences": "Preferences",
-    "security": "Security",
-    "notifications": "Notifications"
-  },
-  "fields": {
-    "name": "Full name",
-    "email": "Email",
-    "avatar": "Profile picture",
-    "bio": "Biography",
-    "location": "Location"
-  },
-  "actions": {
-    "save": "Save changes",
-    "cancel": "Cancel",
-    "delete": "Delete account"
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your information and settings",
+    "sections": {
+      "personal": "Personal Information",
+      "preferences": "Preferences",
+      "security": "Security",
+      "notifications": "Notifications"
+    },
+    "fields": {
+      "name": "Full name",
+      "email": "Email",
+      "avatar": "Profile picture",
+      "bio": "Biography",
+      "location": "Location"
+    },
+    "actions": {
+      "save": "Save changes",
+      "cancel": "Cancel",
+      "delete": "Delete account"
+    }
   }
-} 
+}

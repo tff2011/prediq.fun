@@ -1,8 +1,10 @@
 {
-  "title": "Decentralized Prediction Markets",
-  "subtitle": "Participate with real predictions on politics, crypto and sports 💡",
-  "hero": {
-    "headline": "Bet on the Future",
-    "subheadline": "Trade on real-world events with probability-based predictions"
+  "home": {
+    "title": "Decentralized Prediction Markets",
+    "subtitle": "Participate with real predictions on politics, crypto and sports 💡",
+    "hero": {
+      "headline": "Bet on the Future",
+      "subheadline": "Trade on real-world events with probability-based predictions"
+    }
   }
-} 
+}

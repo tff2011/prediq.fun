@@ -28,19 +28,23 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" className="flex items-center gap-2">
+        <Button variant="ghost" size="sm" className="flex items-center gap-2 cursor-pointer">
           <Globe className="h-4 w-4" />
           <span className="hidden sm:inline">{currentLanguage.name}</span>
           <span className="sm:hidden">{currentLanguage.flag}</span>
           <ChevronDown className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-32">
+      <DropdownMenuContent 
+        align="end" 
+        className="w-40 bg-background border border-border shadow-lg backdrop-blur-sm"
+        sideOffset={5}
+      >
         {Object.entries(languages).map(([locale, langInfo]) => (
           <DropdownMenuItem
             key={locale}
             onClick={() => switchLanguage(locale)}
-            className={`flex items-center gap-2 ${
+            className={`flex items-center gap-2 cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${
               currentLocale === locale ? 'bg-primary/10 text-primary' : ''
             }`}
           >

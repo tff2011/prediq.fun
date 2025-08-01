@@ -1,12 +1,14 @@
 {
-  "title": "Criar Novo Mercado",
-  "subtitle": "Configure um novo mercado de previsão",
-  "fields": {
-    "question": "Pergunta do mercado",
-    "questionHint": "Faça uma pergunta clara com resposta Sim/Não",
-    "category": "Categoria",
-    "closingDate": "Data de fechamento",
-    "description": "Descrição detalhada",
-    "descriptionHint": "Forneça contexto e critérios de resolução"
+  "createMarket": {
+    "title": "Criar Novo Mercado",
+    "subtitle": "Configure um novo mercado de previsão",
+    "fields": {
+      "question": "Pergunta do mercado",
+      "questionHint": "Faça uma pergunta clara com resposta Sim/Não",
+      "category": "Categoria",
+      "closingDate": "Data de fechamento",
+      "description": "Descrição detalhada",
+      "descriptionHint": "Forneça contexto e critérios de resolução"
+    }
   }
-} 
+}

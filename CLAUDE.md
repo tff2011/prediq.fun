@@ -1,273 +1,190 @@
-Claro! 🎯 Aqui está uma documentação clara e objetiva em **inglês**, com base nas boas práticas que discutimos – para o seu projeto de **prediction market** usando **T3 Stack + Neon + Prisma + tRPC + NextAuth**, com foco em escalabilidade e migração segura.
+# CLAUDE.md
 
----
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# 🧭 Developer Guide — `prediq.fun`
+## Project Overview
 
-Welcome to the codebase of **prediq.fun**, a prediction market platform powered by the T3 Stack. This document provides conventions, best practices, and architectural decisions that every contributor must follow to ensure maintainability, performance, and ease of migration.
+`prediq.fun` is a prediction market platform built with the T3 Stack. Users can create, trade, and resolve prediction markets on various topics (politics, sports, crypto, etc.).
 
-> 📚 **IMPORTANT**: Always consult the complete documentation in the `/docs` folder for detailed guides, examples, and advanced topics. This file provides an overview, but the `/docs` folder contains comprehensive technical documentation.
-
----
-
-## 📚 Tech Stack
-
-| Layer         | Tool                             |
-|---------------|----------------------------------|
-| UI / App      | **Next.js** (App Router)         |
-| UI Components | **shadcn/ui** (Radix UI + Tailwind) |
-| Styling       | **Tailwind CSS**                 |
-| API Layer     | **tRPC**                         |
-| Auth          | **NextAuth.js**                  |
-| ORM           | **Prisma**                       |
-| Database      | **Neon (PostgreSQL)**            |
-| Lint/Format   | **ESLint + Prettier**            |
-| Validation    | **Zod**                          |
-| Deployment    | **Vercel**                       |
-
----
-
-## ✅ Code Style & Tooling
-
-### Linting / Formatting
-
-- We use **ESLint** for linting JS/TS
-- **Prettier** is used for code formatting
-- Use `pnpm lint` and `pnpm format` before pushing code
-
-### File Structure
-
-Follow `app/` layout of Next.js App Router.
+## Development Commands
 
 ```bash
-.
-├── app/              # App router pages
-├── components/       # Shared UI components
-│   └── ui/          # shadcn/ui components
-├── server/           # tRPC routers, server utils
-│   └── api/
-├── lib/              # shared helpers
-├── prisma/           # schema.prisma lives here
-└── styles/
+# Development
+npm run dev              # Start dev server with Turbo
+npm run check           # Run lint + typecheck
+npm run typecheck       # TypeScript type checking
+
+# Database
+npm run db:push         # Push schema to dev database
+npm run db:studio       # Open Prisma Studio
+npm run db:generate     # Generate Prisma client
+npm run db:migrate      # Deploy migrations to production
+
+# Code Quality
+npm run lint            # ESLint
+npm run lint:fix        # ESLint with auto-fix
+npm run format:check    # Check Prettier formatting
+npm run format:write    # Apply Prettier formatting
+
+# Build & Deploy
+npm run build           # Production build
+npm run preview         # Build and start locally
+npm run start           # Start production server
 ```
 
----
+## Architecture
 
-## 🧠 Architecture Guidelines
+### Core Stack
+- **Next.js 15** with App Router
+- **tRPC** for type-safe APIs
+- **Prisma** ORM with PostgreSQL (Neon)
+- **NextAuth.js** for authentication
+- **shadcn/ui** components with Tailwind CSS
+- **next-intl** for internationalization
 
-### Backend (tRPC + Prisma):
+### Database Models
+The Prisma schema defines the prediction market structure:
+- `Market`: Core prediction market entity with title, category, timing, and resolution data
+- `Outcome`: YES/NO outcomes for each market with probability tracking
+- `Bet`: Individual user bets on market outcomes
+- `Position`: Aggregated user positions per market
+- `Transaction`: Financial transaction history
+- `User`: Extended with balance and trading statistics
 
-- All API logic lives in `server/api/routers`
-- Input & output must be validated with **Zod**
-- Use **`protectedProcedure`** for authenticated routes
-- Use **`publicProcedure`** only if the data is public
+Key architectural decisions:
+- Use `cuid()` for all primary keys (not UUID) for better local generation
+- Platform-agnostic schema design to enable future database migrations
+- Decimal type for financial data to avoid floating-point precision issues
 
-> Always assume your API will be consumed by **untrusted input**.
+### API Structure
+All business logic lives in `src/server/api/routers/`:
+- `market.ts`: Market CRUD operations, resolution logic
+- `bet.ts`: Betting operations, position calculations
+- `user.ts`: User profiles, balance management
+- `post.ts`: Basic post operations (T3 Stack default)
 
-#### Example:
+Always use:
+- `protectedProcedure` for authenticated routes
+- `publicProcedure` only for truly public data
+- Zod schemas for input/output validation
+- TRPCError for consistent error handling
 
-```ts
-export const marketRouter = createTRPCRouter({
-  create: protectedProcedure
-    .input(z.object({
-      title: z.string().min(5),
-      closesAt: z.date(),
-    }))
-    .mutation(async ({ ctx, input }) => {
-      return db.market.create({
-        data: {
-          title: input.title,
-          closesAt: input.closesAt,
-          authorId: ctx.session.user.id,
-        }
-      });
-    }),
-});
+### Frontend Architecture
+- App Router with internationalized routes (`[locale]`)
+- Component architecture: `components/` for reusable UI, `app/` for pages
+- Translation files in `src/messages/[locale]/` with nested JSON structure
+- Dark/light mode support with `next-themes`
+
+### UI Components
+Built on shadcn/ui with key prediction market components:
+- `MarketCard`: Displays market info with YES/NO voting percentages
+- `MarketList`: Grid of market cards with filtering
+- `SearchBar`: Market search with category filtering
+- `HowItWorksModal`: Tutorial modal for new users
+- `Navbar`: Two-tier navigation with categories
+
+Visual design follows consistent color palette with proper dark mode support. Market cards use gradients in light mode and simpler backgrounds in dark mode.
+
+## Translation System
+
+Uses next-intl with nested JSON structure. Translation files must wrap content in namespace objects:
+
+```json
+{
+  "markets": {
+    "title": "Active Markets",
+    "card": {
+      "yes": "Yes",
+      "no": "No"
+    }
+  }
+}
 ```
 
----
+Use `useTranslations('markets')` then access with `t('card.yes')`.
 
-## 🧩 Prisma Best Practices
+## Development Guidelines
 
-- PostgreSQL is the datasource (`Neon.tech`)
-- Use **`uuid()`** as ID if possible
-- Avoid provider-specific types (`jsonb`, `tsvector`)
-- Prefer `prisma db push` for dev and `prisma migrate` for staging/prod
+### Code Style
+- Use the existing ESLint/Prettier configuration
+- Follow established naming conventions
+- All database operations must use Prisma
+- No raw SQL unless absolutely necessary
+- Always validate inputs with Zod schemas
+- Add `cursor-pointer` class to all interactive buttons and clickable elements
 
-### Keep schema **Platform-Agnostic**:
-To enable future migration to PlanetScale (MySQL):
+### Database Changes
+- Use `npm run db:push` for development
+- Use `npm run db:migrate` for production deployments
+- Keep schema platform-agnostic (avoid PostgreSQL-specific features)
+- Test migrations on staging before production
 
-```prisma
-// Good practice
-id        String   @id @default(uuid())
-meta      Json
-createdAt DateTime @default(now())
+### Testing Strategy
+- Run `npm run check` before committing (lint + typecheck)
+- Use Prisma Studio to inspect database changes
+- Test dark/light mode for UI changes
+- Verify translations in both English and Portuguese
 
-// Avoid PostgreSQL-only features
-// ❌ @db.JsonB, ❌ raw SQL defaults
-```
+### Environment Setup
+Required environment variables:
+- `DATABASE_URL`: Neon PostgreSQL connection string
+- `NEXTAUTH_SECRET`: Authentication secret
+- `NEXTAUTH_URL`: Application URL for auth callbacks
 
----
+## Common Tasks
 
-## 🎨 UI/UX Guidelines (shadcn/ui)
+### Adding New Market Categories
+1. Update category validation in `src/server/api/routers/market.ts`
+2. Add translations to both `en/markets.json` and `pt/markets.json`
+3. Update category mapping in `MarketCard.tsx` component
+4. Add navigation links in `Navbar.tsx`
 
-### Component System
-- Use **shadcn/ui** as the foundation for all UI components
-- Components are local to the codebase (not a package dependency)
-- Built on **Radix UI** primitives for accessibility
-- Styled with **Tailwind CSS** for consistency
+### Modifying Market Card Display
+The `MarketCard` component has complex conditional styling for light/dark modes. When making changes:
+- Preserve both light and dark mode appearances
+- Use conditional classes like `dark:text-2xl` for dark mode specific styling
+- Test gradient backgrounds work properly in light mode
+- Ensure proper spacing and border colors
+- Add `cursor-pointer` to interactive elements
 
-### Key Components for Prediction Markets
-- **Button**: Voting, buying/selling shares, actions
-- **Card**: Display market information and stats
-- **Dialog/Modal**: Bet confirmation, login, details
-- **Tabs**: Market filters and view switching
-- **Toast**: User feedback and notifications
-- **Dropdown**: User menu, currency selectors
-- **Tooltip**: Explain odds and information icons
-- **Sheet**: Mobile sidebar and menu toggles
+### UI Component Standards
+When creating or modifying UI components:
+- Always add `cursor-pointer` class to buttons, links, and clickable elements
+- Test hover states in both light and dark modes
+- Ensure proper contrast ratios for accessibility
+- Use consistent spacing and border styles from the design system
 
-### Design Principles
-- Mobile-first responsive design
-- Dark mode support (class-based strategy)
-- Consistent spacing and typography
-- Accessible components with proper ARIA labels
-- Use only needed components to avoid bloat
+### Database Schema Updates
+1. Modify `prisma/schema.prisma`
+2. Run `npm run db:push` for development
+3. Update related tRPC routers and Zod schemas
+4. Update TypeScript types if needed
+5. Test with `npm run db:studio`
 
-### Customization
-- Edit components directly in `components/ui/`
-- Add variants using class-variance-authority (CVA)
-- Customize theme via Tailwind config
-- Keep components tree-shakable and performant
+## Legal and Compliance
 
----
+### Terms of Use Page
+- Located at `/[locale]/terms/page.tsx`
+- Comprehensive terms adapted from prediction market industry standards
+- Includes jurisdiction restrictions, risk warnings, and user obligations
+- Accessible via footer link in both English and Portuguese
+- Key sections: eligibility, financial risks, prohibited conduct, disclaimers
 
-## 🔐 Authentication (NextAuth.js)
+### Compliance Features
+- Geographic restrictions for regulatory compliance
+- Age verification requirements (18+)
+- Anti-money laundering and sanctions compliance
+- Risk disclosure and user acknowledgments
 
-- Use **NextAuth with Prisma Adapter**
-- User object is available on `ctx.session.user`
-- Keep sessions short-lived and stateless
-- Store minimal account metadata in Prisma `User` model
+## Future Development Areas
 
----
+Based on current todos and planned features:
+- Web3Auth integration for wallet-based authentication
+- Real-time WebSocket system for live market updates
+- Smart contract deployment on Polygon
+- Enhanced market resolution mechanisms
+- Privacy Policy and Cookie Policy pages
+- KYC/AML verification system
+- Mobile app considerations
 
-## 🌱 Environment Configuration
-
-Example `.env` entry:
-
-```env
-DATABASE_URL="postgres://user:pass@host.neon.tech/db?sslmode=require"
-NEXTAUTH_SECRET=your-secret
-```
-
-Use `.env.local` and DO NOT commit it.
-
----
-
-## 📈 Deployment (Vercel)
-
-- Every push to `main` deploys automatically to production
-- `staging` branch can be used for preprod environments
-- Preview deployments per PRs are supported
-
----
-
-## 🧩 How to Run Locally
-
-```bash
-pnpm install
-pnpm dev
-```
-
-To setup DB:
-```bash
-pnpm prisma db push  # Or `pnpm prisma migrate dev` if needed
-```
-
----
-
-## 🔄 Migration & Future Proofing
-
-We are currently on **Neon (PostgreSQL)** due to better free tier & autoscaling.
-
-However, our data model is compatible with:
-- **PlanetScale (MySQL)**: easy to migrate via Prisma
-- **Supabase**: Postgres-compatible
-- **Xata / Turso**: for specific use-cases
-
-Data migration strategy:
-- Keep model minimal
-- Use `uuid`, `datetime`, `json`, and avoid type-specific defaults
-- Have a data migration script ready via `prisma` or ETL tools
-
-Want to migrate? See `docs/migration.md`.
-
----
-
-## 🤝 Contributing Rules
-
-- Keep code type-safe with `Zod` and `tRPC`
-- No raw SQL unless strictly necessary
-- Don't bypass auth guards (`protectedProcedure`)
-- One feature = one PR = includes server + client code
-
----
-
-## 📦 Scripts
-
-```bash
-pnpm dev           # start dev server
-pnpm build         # build for production
-pnpm lint          # run ESLint
-pnpm format        # format files with Prettier
-pnpm prisma studio # open Prisma DB GUI
-```
-
----
-
-## 📘 Resources
-
-### 📚 Project Documentation
-- [📖 Complete Documentation](./docs/) - Start here for detailed guides
-- [🏗️ Architecture Overview](./docs/architecture.md)
-- [📦 Database Guidelines](./docs/prisma-guidelines.md)
-- [🔌 tRPC API Docs](./docs/trpc-api.md)
-- [🔐 Authentication Guide](./docs/auth.md)
-- [🌱 Environment Setup](./docs/env-setup.md)
-- [🔄 Migration Strategy](./docs/migration.md)
-- [🎨 UI System (shadcn/ui)](./docs/ui.md)
-- [🚀 Realtime Chat Architecture](./docs/realtime-chat.md)
-- [🔗 Web3Auth Integration](./docs/web3auth-integration.md)
-- [⛓️ Blockchain Architecture](./docs/blockchain-architecture.md)
-
-### 🔗 External Resources
-- [T3 Stack Docs](https://create.t3.gg/)
-- [shadcn/ui Docs](https://ui.shadcn.dev/)
-- [Radix UI Primitives](https://www.radix-ui.com/primitives/docs)
-- [Neon Docs](https://neon.tech/docs)
-- [Prisma Docs](https://www.prisma.io/docs)
-- [tRPC Docs](https://trpc.io/docs)
-- [Zod Docs](https://zod.dev)
-
----
-
-## 🚀 You're Ready!
-
-> 📚 **Remember**: Always consult the `/docs` folder for comprehensive technical documentation, examples, and implementation guides. This overview provides the foundation, but the detailed documentation in `/docs` contains everything you need to contribute effectively.
-
-> Stick to the conventions above, write type-safe code, and let's build the future of prediction markets! 🧠📈
-
----
-
-## 📖 Documentation Structure
-
-The `/docs` folder contains comprehensive documentation for every aspect of the project:
-
-- **Architecture & Setup**: Complete guides for project structure and configuration
-- **Database & API**: Detailed Prisma and tRPC documentation with examples
-- **Authentication**: Web3Auth integration and NextAuth configuration
-- **UI/UX**: shadcn/ui implementation and design system
-- **Real-time Features**: Chat architecture and WebSocket implementation
-- **Blockchain**: Smart contracts, CLOB, and UMA oracle integration
-
-Start with `docs/index.md` for an overview of all available documentation.
+The codebase is structured to support these future enhancements with minimal refactoring.

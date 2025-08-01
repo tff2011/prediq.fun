@@ -1,0 +1,38 @@
+{
+  "howItWorks": {
+    "button": "Como funciona",
+    "title": "Como Funciona",
+    "subtitle": "Aprenda como participar dos mercados de previsão",
+    "nextButton": "Próximo",
+    "getStartedButton": "Começar",
+    "steps": [
+      {
+        "title": "Escolha um Mercado",
+        "description": "Navegue pelos mercados disponíveis e encontre eventos que você está interessado em prever."
+      },
+      {
+        "title": "Faça sua Previsão",
+        "description": "Compre ações SIM ou NÃO baseado na sua crença sobre o resultado."
+      },
+      {
+        "title": "Negocie a Qualquer Momento",
+        "description": "Mude sua posição comprando ou vendendo ações conforme novas informações surgem."
+      },
+      {
+        "title": "Seja Recompensado",
+        "description": "Se sua previsão estiver correta, ganhe lucros quando o mercado for resolvido."
+      }
+    ],
+    "features": {
+      "title": "Principais Recursos",
+      "decentralized": "Descentralizado e Transparente",
+      "realTime": "Negociação em Tempo Real",
+      "lowFees": "Taxas Baixas",
+      "secure": "Seguro e Auditável"
+    },
+    "cta": {
+      "start": "Começar a Negociar",
+      "learnMore": "Saiba Mais"
+    }
+  }
+}

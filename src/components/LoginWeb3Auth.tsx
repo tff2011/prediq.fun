@@ -61,24 +61,28 @@ export function LoginWeb3Auth() {
             <span className="sm:hidden">Wallet</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuContent 
+          align="end" 
+          className="w-56 bg-background border border-border shadow-lg backdrop-blur-sm"
+          sideOffset={5}
+        >
           <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
             <Wallet className="mr-2 h-4 w-4" />
             <span className="font-mono text-xs">{userAddress}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
             Portfolio
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
             Histórico
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
             Configurações
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={logout} className="text-red-600 dark:text-red-400">
+          <DropdownMenuItem onClick={logout} className="text-red-600 dark:text-red-400 cursor-pointer hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-950 dark:hover:text-red-400 focus:bg-red-50 focus:text-red-700 dark:focus:bg-red-950 dark:focus:text-red-400">
             <LogOut className="mr-2 h-4 w-4" />
             {t('logout')}
           </DropdownMenuItem>

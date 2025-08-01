@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function MarketCard({ id, question, volume, endsAt, category }: Props) {
-  const t = useTranslations('markets.card')
+  const t = useTranslations('markets')
   
   // Use a deterministic value based on the market ID to avoid hydration issues
   const hashCode = (str: string) => {
@@ -44,54 +44,63 @@ export function MarketCard({ id, question, volume, endsAt, category }: Props) {
     return categoryMap[cat ?? ''] ?? 'default'
   }
   
+  // Get translated category name
+  const getTranslatedCategory = (cat?: string): string => {
+    if (!cat) return ''
+    const variant = getCategoryVariant(cat)
+    return variant !== 'default' ? t(`categories.${variant}`) : cat
+  }
+  
   return (
-    <Card className="cursor-pointer hover:shadow-xl transition-all duration-200 border-border overflow-hidden group">
-      <CardContent className="p-6 space-y-4">
-        <div className="space-y-2">
-          {category && (
-            <Badge variant={getCategoryVariant(category)} className="mb-2">
-              {category}
+    <Card className="cursor-pointer hover:shadow-md transition-all duration-200 border border-gray-50 dark:border-gray-800/50 group">
+      <CardContent className="p-6">
+        {category && (
+          <div className="mt-2 mb-4">
+            <Badge variant={getCategoryVariant(category)} className="inline-block">
+              {getTranslatedCategory(category)}
             </Badge>
-          )}
+          </div>
+        )}
+        <div className="mb-6">
           <CardTitle className="text-lg font-semibold leading-tight line-clamp-2 group-hover:text-primary transition-colors">
             {question}
           </CardTitle>
         </div>
         
-        <div className="flex gap-2">
-          <div className="flex-1 bg-success/10 border border-success/20 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-success">
+        <div className="flex gap-2 mb-6">
+          <div className="flex-1 bg-[hsl(var(--yes)/0.15)] dark:bg-[hsl(var(--yes)/0.25)] border border-[hsl(var(--yes))] rounded-xl p-4 text-center hover:bg-[hsl(var(--yes)/0.22)] dark:hover:bg-[hsl(var(--yes)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md">
+            <div className="text-3xl font-bold text-[hsl(var(--yes))]">
               {yesPercentage}%
             </div>
-            <div className="text-xs text-muted-foreground uppercase">{t('yes')}</div>
+            <div className="text-xs text-[hsl(var(--yes))] uppercase font-semibold tracking-wider mt-1">{t('card.yes')}</div>
           </div>
-          <div className="flex-1 bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-center">
-            <div className="text-2xl font-bold text-destructive">
+          <div className="flex-1 bg-[hsl(var(--no)/0.15)] dark:bg-[hsl(var(--no)/0.25)] border border-[hsl(var(--no))] rounded-xl p-4 text-center hover:bg-[hsl(var(--no)/0.22)] dark:hover:bg-[hsl(var(--no)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md">
+            <div className="text-3xl font-bold text-[hsl(var(--no))]">
               {noPercentage}%
             </div>
-            <div className="text-xs text-muted-foreground uppercase">{t('no')}</div>
+            <div className="text-xs text-[hsl(var(--no))] uppercase font-semibold tracking-wider mt-1">{t('card.no')}</div>
           </div>
         </div>
         
-        <div className="pt-3 border-t border-border grid grid-cols-3 gap-2 text-sm">
+        <div className="pt-3 border-t border-gray-50 dark:border-gray-800/50 grid grid-cols-3 gap-2 text-sm">
           <div className="flex flex-col">
             <span className="text-muted-foreground flex items-center gap-1">
               <TrendingUp className="w-3 h-3" />
-              {t('volume')}
+              {t('card.volume')}
             </span>
             <span className="font-semibold text-foreground">{volume}</span>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground flex items-center gap-1">
               <Users className="w-3 h-3" />
-              {t('traders')}
+              {t('card.traders')}
             </span>
             <span className="font-semibold text-foreground">{traders}</span>
           </div>
           <div className="flex flex-col">
             <span className="text-muted-foreground flex items-center gap-1">
               <Calendar className="w-3 h-3" />
-              {t('closes')}
+              {t('card.closes')}
             </span>
             <span className="font-semibold text-foreground">
               {new Date(endsAt).toLocaleDateString('pt-BR', { 

@@ -1,17 +1,19 @@
 {
-  "description": "Plataforma descentralizada de mercados de previsão",
-  "product": "Produto",
-  "markets": "Mercados",
-  "createMarket": "Criar Mercado",
-  "howItWorks": "Como Funciona",
-  "resources": "Recursos",
-  "documentation": "Documentação",
-  "api": "API",
-  "faq": "Perguntas Frequentes",
-  "legal": "Legal",
-  "terms": "Termos de Uso",
-  "privacy": "Privacidade",
-  "cookies": "Cookies",
-  "allRights": "Todos os direitos reservados",
-  "builtWith": "Feito com"
-} 
+  "footer": {
+    "description": "Plataforma descentralizada de mercados de previsão",
+    "product": "Produto",
+    "markets": "Mercados",
+    "createMarket": "Criar Mercado",
+    "howItWorks": "Como Funciona",
+    "resources": "Recursos",
+    "documentation": "Documentação",
+    "api": "API",
+    "faq": "Perguntas Frequentes",
+    "legal": "Legal",
+    "terms": "Termos de Uso",
+    "privacy": "Privacidade",
+    "cookies": "Cookies",
+    "allRights": "Todos os direitos reservados",
+    "builtWith": "Feito com"
+  }
+}

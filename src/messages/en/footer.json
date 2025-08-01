@@ -1,17 +1,19 @@
 {
-  "description": "Decentralized prediction markets platform",
-  "product": "Product",
-  "markets": "Markets",
-  "createMarket": "Create Market",
-  "howItWorks": "How It Works",
-  "resources": "Resources",
-  "documentation": "Documentation",
-  "api": "API",
-  "faq": "FAQ",
-  "legal": "Legal",
-  "terms": "Terms of Service",
-  "privacy": "Privacy",
-  "cookies": "Cookies",
-  "allRights": "All rights reserved",
-  "builtWith": "Built with"
-} 
+  "footer": {
+    "description": "Decentralized prediction markets platform",
+    "product": "Product",
+    "markets": "Markets",
+    "createMarket": "Create Market",
+    "howItWorks": "How It Works",
+    "resources": "Resources",
+    "documentation": "Documentation",
+    "api": "API",
+    "faq": "FAQ",
+    "legal": "Legal",
+    "terms": "Terms of Service",
+    "privacy": "Privacy",
+    "cookies": "Cookies",
+    "allRights": "All rights reserved",
+    "builtWith": "Built with"
+  }
+}
