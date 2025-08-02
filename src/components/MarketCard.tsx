@@ -83,37 +83,37 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl }:
               </div>
             )}
           </div>
-          <CardTitle className="text-[14px] font-bold leading-tight line-clamp-2 group-hover:text-primary group-hover:underline transition-all duration-300 flex-1">
+          <CardTitle className="text-[15px] font-extrabold leading-tight line-clamp-2 group-hover:text-primary group-hover:underline transition-all duration-300 flex-1">
             {question}
           </CardTitle>
         </div>
         
         {/* Yes/No Buttons */}
         <div className="flex gap-2">
-          <div className="flex-1 bg-[hsl(var(--yes)/0.2)] border border-[hsl(var(--yes)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[hsl(var(--yes)/0.6)] hover:bg-[hsl(var(--yes)/0.3)]">
+          <div className="flex-1 bg-[rgb(var(--yes)/0.2)] border border-[rgb(var(--yes)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[rgb(var(--yes)/0.6)] hover:bg-[rgb(var(--yes)/0.3)]">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-[hsl(var(--yes))] transition-transform duration-300 hover:scale-105">
+                <div className="text-xl font-bold text-[rgb(var(--yes))] transition-transform duration-300 hover:scale-105">
                   {yesPercentage}%
                 </div>
-                <div className="text-xs text-[hsl(var(--yes))] uppercase font-semibold tracking-wider">
+                <div className="text-xs text-[rgb(var(--yes))] uppercase font-semibold tracking-wider">
                   {t('card.yes')}
                 </div>
               </div>
-              <Triangle className="w-4 h-4 fill-current text-[hsl(var(--yes))]" />
+              <Triangle className="w-4 h-4 fill-current text-[rgb(var(--yes))]" />
             </div>
           </div>
-          <div className="flex-1 bg-[hsl(var(--no)/0.2)] border border-[hsl(var(--no)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[hsl(var(--no)/0.6)] hover:bg-[hsl(var(--no)/0.3)]">
+          <div className="flex-1 bg-[rgb(var(--no)/0.2)] border border-[rgb(var(--no)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[rgb(var(--no)/0.6)] hover:bg-[rgb(var(--no)/0.3)]">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-[hsl(var(--no))] transition-transform duration-300 hover:scale-105">
+                <div className="text-xl font-bold text-[rgb(var(--no))] transition-transform duration-300 hover:scale-105">
                   {noPercentage}%
                 </div>
-                <div className="text-xs text-[hsl(var(--no))] uppercase font-semibold tracking-wider">
+                <div className="text-xs text-[rgb(var(--no))] uppercase font-semibold tracking-wider">
                   {t('card.no')}
                 </div>
               </div>
-              <Triangle className="w-4 h-4 fill-current text-[hsl(var(--no))] rotate-180" />
+              <Triangle className="w-4 h-4 fill-current text-[rgb(var(--no))] rotate-180" />
             </div>
           </div>
         </div>

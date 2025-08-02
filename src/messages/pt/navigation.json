@@ -53,6 +53,16 @@
     "more": "Mais",
     "myMarkets": "Meus Mercados",
     "leaderboard": "Ranking",
-    "about": "Sobre"
+    "about": "Sobre",
+    "mobile": {
+      "home": "Início",
+      "search": "Buscar", 
+      "portfolio": "Carteira",
+      "activity": "Atividade",
+      "more": "Mais",
+      "settings": "Configurações",
+      "language": "Idioma",
+      "theme": "Tema"
+    }
   }
 }

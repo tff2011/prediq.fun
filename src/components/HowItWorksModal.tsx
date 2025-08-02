@@ -54,12 +54,16 @@ export function HowItWorksModal() {
 
   const handleClose = () => {
     setStep(0)
+    // Remove focus do botão quando modal fecha para evitar borda azul
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur()
+    }
   }
 
   return (
     <Dialog onOpenChange={(open) => !open && handleClose()}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105">
+        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer text-[hsl(var(--primary))] hover:text-[hsl(var(--primary)/0.8)]" style={{ border: 'none', outline: 'none', boxShadow: 'none' }}>
           <Info size={16} />
           {t('button')}
         </Button>

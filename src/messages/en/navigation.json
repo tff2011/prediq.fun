@@ -53,6 +53,16 @@
     "more": "More",
     "myMarkets": "My Markets",
     "leaderboard": "Leaderboard",
-    "about": "About"
+    "about": "About",
+    "mobile": {
+      "home": "Home",
+      "search": "Search", 
+      "portfolio": "$0.00",
+      "activity": "Activity",
+      "more": "More",
+      "settings": "Settings",
+      "language": "Language",
+      "theme": "Theme"
+    }
   }
 }

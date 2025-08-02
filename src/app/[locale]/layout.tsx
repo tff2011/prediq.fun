@@ -6,6 +6,7 @@ import { getMessages } from 'next-intl/server'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { MobileBottomNav } from '@/components/MobileBottomNav'
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,10 +38,11 @@ export default async function LocaleLayout({
         >
           <NextIntlClientProvider messages={messages}>
             <Navbar locale={locale} />
-            <main className="flex-1 pt-0">
+            <main className="flex-1 pt-0 pb-16 md:pb-0">
               {children}
             </main>
             <Footer locale={locale} />
+            <MobileBottomNav locale={locale} />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

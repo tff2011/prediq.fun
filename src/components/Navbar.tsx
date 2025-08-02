@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { SearchBar } from "./SearchBar"
 import { useTranslations } from "next-intl"
-import { TrendingUp, Menu, X, ChevronDown, Info } from "lucide-react"
+import { TrendingUp, ChevronDown, Menu, X } from "lucide-react"
 import { useState } from "react"
 import { HowItWorksModal } from "./HowItWorksModal"
 import {
@@ -39,7 +39,7 @@ export function Navbar({ locale }: NavbarProps) {
       {/* Top Bar - Logo, Search, Auth */}
               <div className="bg-card">
         <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
             {/* Logo */}
             <Link href={`/${locale}`} className="flex items-center gap-2 text-xl font-bold tracking-tight shrink-0">
               <div className="h-6 w-6 bg-primary rounded-sm flex items-center justify-center">
@@ -49,41 +49,33 @@ export function Navbar({ locale }: NavbarProps) {
               <span className="sm:hidden text-foreground">PredIQ</span>
             </Link>
 
-            {/* Search Bar - Center */}
-            <div className="flex-1 max-w-2xl mx-4">
+            {/* Search Bar + Como Funciona */}
+            <div className="hidden md:flex items-center gap-2 flex-1 max-w-3xl ml-3">
               <SearchBar 
                 variant="header"
                 placeholder={t('search.placeholder')}
-                className="w-full"
+                className="flex-1 max-w-2xl"
               />
+              <HowItWorksModal />
             </div>
 
             {/* Desktop Actions */}
-            <div className="hidden md:flex items-center gap-3 shrink-0">
-              <HowItWorksModal />
-              <LanguageSwitcher currentLocale={locale} />
-              <ThemeToggle />
+            <div className="hidden md:flex items-center gap-3 shrink-0 ml-auto">
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-primary hover:text-primary/80 cursor-pointer"
+                className="text-[hsl(var(--primary))] hover:text-[hsl(var(--primary)/0.8)] cursor-pointer"
                 onClick={handleLogin}
               >
                 {t('login')}
               </Button>
               <Button 
                 size="sm" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md border-0 cursor-pointer"
+                className="bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] text-[hsl(var(--primary-foreground))] font-semibold shadow-md border-0 cursor-pointer"
                 onClick={handleSignup}
               >
                 {t('signup')}
               </Button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center gap-2 shrink-0">
-              <LanguageSwitcher currentLocale={locale} />
-              <ThemeToggle />
               <Button
                 variant="ghost"
                 size="sm"
@@ -95,6 +87,25 @@ export function Navbar({ locale }: NavbarProps) {
                 ) : (
                   <Menu className="h-5 w-5" />
                 )}
+              </Button>
+            </div>
+
+            {/* Mobile Actions - Only Login/Signup */}
+            <div className="md:hidden flex items-center gap-2 shrink-0 ml-auto">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="text-[hsl(var(--primary))] hover:text-[hsl(var(--primary)/0.8)] cursor-pointer text-sm"
+                onClick={handleLogin}
+              >
+                {t('login')}
+              </Button>
+              <Button 
+                size="sm" 
+                className="bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] text-[hsl(var(--primary-foreground))] font-semibold shadow-md border-0 cursor-pointer text-sm px-3"
+                onClick={handleSignup}
+              >
+                {t('signup')}
               </Button>
             </div>
           </div>
@@ -200,80 +211,24 @@ export function Navbar({ locale }: NavbarProps) {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Desktop Settings Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-card shadow-lg">
+        <div className="hidden md:block border-t border-border bg-card shadow-lg">
           <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col gap-4">
-              <Link 
-                href={`/${locale}/trending`} 
-                className="text-sm font-medium hover:text-primary transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {t('trending')}
-              </Link>
-              <Link 
-                href={`/${locale}/new`} 
-                className="text-sm font-medium hover:text-primary transition-colors py-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {t('new')}
-              </Link>
-              <div className="border-t border-border/20 pt-4">
-                <div className="grid grid-cols-2 gap-2">
-                  <Link href={`/${locale}/category/politics`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.politics')}
-                  </Link>
-                  <Link href={`/${locale}/category/sports`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.sports')}
-                  </Link>
-                  <Link href={`/${locale}/category/crypto`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.crypto')}
-                  </Link>
-                  <Link href={`/${locale}/category/tech`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.technology')}
-                  </Link>
-                  <Link href={`/${locale}/category/culture`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.culture')}
-                  </Link>
-                  <Link href={`/${locale}/category/world`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.world')}
-                  </Link>
-                  <Link href={`/${locale}/category/economy`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
-                    {t('categories.economics')}
-                  </Link>
-                </div>
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-foreground">Idioma:</span>
+                <LanguageSwitcher currentLocale={locale} />
               </div>
-              <div className="border-t border-border/20 pt-4 flex flex-col gap-2">
-                <div onClick={() => setIsMobileMenuOpen(false)}>
-                  <HowItWorksModal />
-                </div>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  className="w-full cursor-pointer"
-                  onClick={() => {
-                    handleLogin()
-                    setIsMobileMenuOpen(false)
-                  }}
-                >
-                  {t('login')}
-                </Button>
-                <Button 
-                  size="sm" 
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-md border-0 w-full cursor-pointer"
-                  onClick={() => {
-                    handleSignup()
-                    setIsMobileMenuOpen(false)
-                  }}
-                >
-                  {t('signup')}
-                </Button>
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-foreground">Tema:</span>
+                <ThemeToggle />
               </div>
-            </nav>
+            </div>
           </div>
         </div>
       )}
+
     </header>
   )
 }

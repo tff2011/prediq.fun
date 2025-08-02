@@ -14,6 +14,18 @@ const categories = [
   { id: 'world', name: 'world' },
 ]
 
+const getCategorySelectedStyle = (categoryId: string): string => {
+  const styles: Record<string, string> = {
+    politics: "bg-blue-600 text-white border-transparent hover:bg-blue-700 hover:shadow-md",
+    crypto: "bg-orange-600 text-white border-transparent hover:bg-orange-700 hover:shadow-md",
+    sports: "bg-green-600 text-white border-transparent hover:bg-green-700 hover:shadow-md",
+    economics: "bg-purple-600 text-white border-transparent hover:bg-purple-700 hover:shadow-md",
+    technology: "bg-indigo-600 text-white border-transparent hover:bg-indigo-700 hover:shadow-md",
+    world: "bg-red-600 text-white border-transparent hover:bg-red-700 hover:shadow-md",
+  }
+  return styles[categoryId] || "bg-gray-600 text-white border-transparent hover:bg-gray-700 hover:shadow-md"
+}
+
 interface PolymarketFiltersProps {
   onSearch?: (query: string) => void
   onCategoryChange?: (category: string) => void
@@ -116,7 +128,7 @@ export function PolymarketFilters({
                   className={cn(
                     "px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out cursor-pointer border hover:scale-105",
                     selectedCategory === category.id
-                      ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white border-transparent hover:from-violet-700 hover:to-indigo-700 hover:shadow-md"
+                      ? getCategorySelectedStyle(category.id)
                       : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground hover:shadow-sm"
                   )}
                 >

@@ -17,16 +17,21 @@ export function ThemeToggle() {
     return null
   }
 
+  const isDark = theme === 'dark'
+
   return (
     <Button
       size="icon"
       variant="ghost"
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label="Alternar tema"
-      className="relative cursor-pointer"
+      className="cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
     >
-      <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      {isDark ? (
+        <Sun className="h-5 w-5" />
+      ) : (
+        <Moon className="h-5 w-5" />
+      )}
     </Button>
   )
 }

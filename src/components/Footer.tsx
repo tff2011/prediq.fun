@@ -49,7 +49,7 @@ export function Footer({ locale }: FooterProps) {
         </a>
         </div>
         <p className="text-xs">
-          PrediQ.fun © {currentYear} · <Link href={`/${locale}/privacy`} className="hover:text-foreground cursor-pointer">Privacy</Link> · <Link href={`/${locale}/terms`} className="hover:text-foreground cursor-pointer">Terms of Use</Link> · <Link href={`/${locale}/learn`} className="hover:text-foreground cursor-pointer">Learn</Link> · <Link href={`/${locale}/careers`} className="hover:text-foreground cursor-pointer">Careers</Link> · <Link href={`/${locale}/press`} className="hover:text-foreground cursor-pointer">Press</Link>
+          PrediQ.fun © {currentYear} · <Link href={`/${locale}/privacy`} className="hover:text-foreground cursor-pointer">Privacy</Link> · <Link href={`/${locale}/terms`} className="hover:text-foreground cursor-pointer">Terms of Use</Link> · <Link href={`/${locale}/learn`} className="hover:text-foreground cursor-pointer">Learn</Link> · <Link href={`/${locale}/careers`} className="hover:text-foreground cursor-pointer">Careers</Link> · <a href="mailto:press@prediq.fun" className="hover:text-foreground cursor-pointer">Press</a>
         </p>
       </div>
     </footer>

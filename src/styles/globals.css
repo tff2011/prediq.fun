@@ -15,7 +15,7 @@
   --popover-foreground: 215 20% 20%; /* #1f2937 */
   
   /* Primary brand colors */
-  --primary: 221 83% 53%; /* #2563eb blue-600 */
+  --primary: 219 100% 56%; /* #1752F0 blue */
   --primary-foreground: 0 0% 100%; /* branco */
   
   /* Secondary colors */
@@ -47,18 +47,18 @@
   --info: 199 89% 48%; /* #0ea5e9 sky-500 */
   --info-foreground: 0 0% 100%; /* #ffffff */
   
-  /* Market YES/NO colors */
-  --yes: 158 64% 35%; /* darker green */
-  --yes-foreground: 0 0% 100%; /* #ffffff */
-  --yes-hover: 158 64% 25%; /* even darker green */
-  --no: 0 72% 51%; /* #ef4444 red-500 */
-  --no-foreground: 0 0% 100%; /* #ffffff */
-  --no-hover: 0 72% 41%; /* darker red */
+  /* Market YES/NO colors - Force exact hex colors */
+  --yes: 34 139 66; /* #228B42 darker green as RGB */
+  --yes-foreground: 255 255 255; /* #ffffff */
+  --yes-hover: 28 115 54; /* darker green */
+  --no: 226 57 57; /* #E23939 red as RGB */
+  --no-foreground: 255 255 255; /* #ffffff */
+  --no-hover: 201 49 49; /* darker red */
   
   /* Chart colors */
   --chart-1: 243 75% 59%; /* indigo */
-  --chart-2: 158 64% 52%; /* green */
-  --chart-3: 0 72% 51%; /* red */
+  --chart-2: 142 63% 41%; /* green - same as --yes */
+  --chart-3: 0 76% 56%; /* red - same as --no */
   --chart-4: 43 96% 56%; /* amber */
   --chart-5: 199 89% 48%; /* sky */
   
@@ -118,8 +118,8 @@
   
   /* Chart colors */
   --chart-1: 234 89% 74%; /* indigo-400 */
-  --chart-2: 157 66% 66%; /* green-300 */
-  --chart-3: 0 86% 71%; /* red-400 */
+  --chart-2: 142 63% 61%; /* green - lighter version of --yes */
+  --chart-3: 0 76% 71%; /* red - lighter version of --no */
   --chart-4: 45 93% 64%; /* amber-400 */
   --chart-5: 199 91% 64%; /* sky-400 */
 }
