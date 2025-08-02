@@ -31,6 +31,80 @@
       "resolved": "Resolvido",
       "pending": "Pendente"
     },
+    "event": {
+      "chart": {
+        "title": "Preço ao Longo do Tempo",
+        "timeframes": {
+          "1h": "1h",
+          "24h": "24h", 
+          "7d": "7d",
+          "30d": "30d",
+          "lastHour": "Última hora",
+          "last24h": "Últimas 24h",
+          "last7d": "Últimos 7 dias",
+          "last30d": "Últimos 30 dias",
+          "now": "Agora"
+        },
+        "change": {
+          "today": "hoje"
+        }
+      },
+      "trading": {
+        "title": "Fazer Previsão",
+        "amount": "Valor da Previsão (R$)",
+        "invested": "Valor investido",
+        "potential": "Retorno potencial",
+        "shares": "Ações adquiridas",
+        "predict": "Prever",
+        "price": "R$"
+      },
+      "orderbook": {
+        "title": "Livro de Ofertas",
+        "price": "Preço",
+        "quantity": "Qtd",
+        "total": "Total",
+        "spread": "Spread"
+      },
+      "context": {
+        "title": "Contexto do Mercado",
+        "tab": "Contexto",
+        "description": "Este mercado permite que você faça previsões sobre o resultado deste evento específico. As probabilidades são determinadas pela demanda do mercado.",
+        "source": "Fonte",
+        "sourceText": "Dados oficiais e análise de mercado",
+        "resolution": "Resolução",
+        "resolutionText": "Baseada em resultados verificáveis"
+      },
+      "rules": {
+        "title": "Regras de Resolução",
+        "tab": "Regras",
+        "rule1": "O mercado será resolvido com base em fontes oficiais",
+        "rule2": "Resultados serão verificados por múltiplas fontes confiáveis",
+        "rule3": "Disputas serão analisadas pela equipe de moderação",
+        "rule4": "Pagamentos são processados automaticamente após resolução",
+        "terms": "Em caso de dúvidas, consulte nossos termos de uso completos."
+      },
+      "comments": {
+        "title": "Comentários",
+        "placeholder": "Compartilhe sua análise...",
+        "disclaimer": "Seja respeitoso e compartilhe análises construtivas",
+        "submit": "Comentar",
+        "sortBy": "Ordenar por:",
+        "recent": "Mais recentes",
+        "popular": "Mais curtidos",
+        "loadMore": "Carregar mais comentários",
+        "report": "Reportar",
+        "copyLink": "Copiar link",
+        "you": "Você",
+        "now": "agora"
+      },
+      "stats": {
+        "totalPredictions": "Total de Previsões"
+      },
+      "info": {
+        "title": "Como funciona?",
+        "description": "Compre ações de SIM ou NÃO. Se sua previsão estiver correta quando o mercado resolver, cada ação valerá R$1. Você pode vender suas ações a qualquer momento antes da resolução."
+      }
+    },
     "available": "mercados disponíveis"
   }
 }

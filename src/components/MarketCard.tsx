@@ -4,6 +4,8 @@ import { Card, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useTranslations } from 'next-intl'
 import { TrendingUp, Users, Calendar, Triangle } from 'lucide-react'
+import Link from 'next/link'
+import { generateEventUrl } from '@/lib/slug'
 
 interface Props {
   id: string
@@ -12,9 +14,10 @@ interface Props {
   endsAt: string
   category?: string
   imageUrl?: string
+  locale?: string
 }
 
-export function MarketCard({ id, question, volume, endsAt, category, imageUrl }: Props) {
+export function MarketCard({ id, question, volume, endsAt, category, imageUrl, locale = 'pt' }: Props) {
   const t = useTranslations('markets')
   
   // Use a deterministic value based on the market ID to avoid hydration issues
@@ -65,8 +68,11 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl }:
     return iconMap[cat ?? ''] ?? '❓'
   }
 
+  const eventUrl = generateEventUrl(question, locale)
+
   return (
-    <Card className="market-card-light-hover market-card-dark-hover cursor-pointer transition-all duration-200 ease-in-out border border-border/60 group bg-card text-foreground shadow-sm hover:border-border w-full h-[180px] flex flex-col">
+    <Link href={eventUrl}>
+      <Card className="market-card-light-hover market-card-dark-hover cursor-pointer transition-all duration-200 ease-in-out border border-border/60 group bg-card text-foreground shadow-sm hover:border-border w-full h-[180px] flex flex-col">
       <CardContent className="px-2 pt-3 pb-2 flex flex-col h-full justify-between">
         {/* Header with image and title */}
         <div className="flex gap-3 items-center">
@@ -146,5 +152,6 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl }:
         </div>
       </CardContent>
     </Card>
+    </Link>
   )
 }

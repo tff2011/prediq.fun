@@ -31,6 +31,80 @@
       "resolved": "Resolved",
       "pending": "Pending"
     },
+    "event": {
+      "chart": {
+        "title": "Price Over Time",
+        "timeframes": {
+          "1h": "1h",
+          "24h": "24h", 
+          "7d": "7d",
+          "30d": "30d",
+          "lastHour": "Last hour",
+          "last24h": "Last 24h",
+          "last7d": "Last 7 days",
+          "last30d": "Last 30 days",
+          "now": "Now"
+        },
+        "change": {
+          "today": "today"
+        }
+      },
+      "trading": {
+        "title": "Make Prediction",
+        "amount": "Prediction Amount ($)",
+        "invested": "Amount invested",
+        "potential": "Potential return",
+        "shares": "Shares acquired",
+        "predict": "Predict",
+        "price": "$"
+      },
+      "orderbook": {
+        "title": "Order Book",
+        "price": "Price",
+        "quantity": "Qty",
+        "total": "Total",
+        "spread": "Spread"
+      },
+      "context": {
+        "title": "Market Context",
+        "tab": "Context",
+        "description": "This market allows you to make predictions about the outcome of this specific event. Probabilities are determined by market demand.",
+        "source": "Source",
+        "sourceText": "Official data and market analysis",
+        "resolution": "Resolution",
+        "resolutionText": "Based on verifiable results"
+      },
+      "rules": {
+        "title": "Resolution Rules",
+        "tab": "Rules",
+        "rule1": "The market will be resolved based on official sources",
+        "rule2": "Results will be verified by multiple reliable sources",
+        "rule3": "Disputes will be analyzed by the moderation team",
+        "rule4": "Payments are processed automatically after resolution",
+        "terms": "If in doubt, consult our complete terms of use."
+      },
+      "comments": {
+        "title": "Comments",
+        "placeholder": "Share your analysis...",
+        "disclaimer": "Be respectful and share constructive analysis",
+        "submit": "Comment",
+        "sortBy": "Sort by:",
+        "recent": "Most recent",
+        "popular": "Most liked",
+        "loadMore": "Load more comments",
+        "report": "Report",
+        "copyLink": "Copy link",
+        "you": "You",
+        "now": "now"
+      },
+      "stats": {
+        "totalPredictions": "Total Predictions"
+      },
+      "info": {
+        "title": "How it works?",
+        "description": "Buy YES or NO shares. If your prediction is correct when the market resolves, each share will be worth $1. You can sell your shares at any time before resolution."
+      }
+    },
     "available": "markets available"
   }
 }
