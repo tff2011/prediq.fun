@@ -13,7 +13,8 @@ async function loadMessages(locale: string) {
     'footer',
     'profile',
     'howItWorks',
-    'terms'
+    'terms',
+    'privacy'
   ]
 
   const messages: Record<string, any> = {}

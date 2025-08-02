@@ -59,7 +59,7 @@ export function HowItWorksModal() {
   return (
     <Dialog onOpenChange={(open) => !open && handleClose()}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer">
+        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer transition-all duration-300 ease-in-out hover:scale-105">
           <Info size={16} />
           {t('button')}
         </Button>
@@ -101,7 +101,7 @@ export function HowItWorksModal() {
             {step < tutorialSteps.length - 1 ? (
               <Button 
                 onClick={handleNext} 
-                className="max-w-xs w-full mx-auto cursor-pointer bg-[hsl(var(--yes))] text-white hover:bg-[hsl(var(--yes)/.85)] border-none shadow-md"
+                className="max-w-xs w-full mx-auto cursor-pointer bg-[hsl(var(--yes))] text-white hover:bg-[hsl(var(--yes)/.85)] border-none shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
                 size="lg"
               >
                 {t('nextButton')}
@@ -111,7 +111,7 @@ export function HowItWorksModal() {
                 <Button 
                   onClick={handleClose} 
                   variant="default"
-                  className="max-w-xs w-full mx-auto cursor-pointer" 
+                  className="max-w-xs w-full mx-auto cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg" 
                   size="lg"
                 >
                   {t('getStartedButton')}

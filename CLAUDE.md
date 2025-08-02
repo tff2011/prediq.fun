@@ -113,6 +113,50 @@ Use `useTranslations('markets')` then access with `t('card.yes')`.
 - Always validate inputs with Zod schemas
 - Add `cursor-pointer` class to all interactive buttons and clickable elements
 
+### CSS Color System
+**CRITICAL**: Always use CSS custom properties for colors, never mix Tailwind color classes with custom CSS variables.
+
+**✅ CORRECT:**
+```tsx
+// Use only CSS custom properties
+className="bg-[hsl(var(--yes)/0.2)] text-[hsl(var(--yes))] border-[hsl(var(--yes)/0.4)]"
+```
+
+**❌ INCORRECT:**
+```tsx
+// Never mix Tailwind colors with CSS custom properties
+className="bg-green-200 dark:bg-[hsl(var(--yes)/0.25)]"
+```
+
+**Rules:**
+- All market colors use `--yes` and `--no` variables from `globals.css`
+- Use transparency modifiers like `/0.2`, `/0.4`, `/0.6` for different intensities
+- Light/dark mode handled automatically by CSS variables
+- Color changes made only in `globals.css`, never in components
+- This prevents conflicts and ensures consistent theming
+
+### UI Component Backgrounds
+**CRITICAL**: All dropdowns, modals, popovers, and overlays must use opaque backgrounds.
+
+**✅ CORRECT:**
+```tsx
+// Use opaque background variables for overlays
+className="bg-card border border-border shadow-lg z-50 backdrop-blur-sm"
+```
+
+**❌ INCORRECT:**
+```tsx
+// Never use transparent or semi-transparent backgrounds for content areas
+className="bg-popover bg-background/50 bg-transparent"
+```
+
+**Rules:**
+- Always use `bg-card` for dropdown/modal backgrounds (fully opaque)
+- Add `backdrop-blur-sm` for visual separation when needed
+- Use high z-index (`z-50`) to ensure proper layering
+- Never use `bg-popover` as it may be transparent in some themes
+- Test all overlays in both light and dark modes for readability
+
 ### Database Changes
 - Use `npm run db:push` for development
 - Use `npm run db:migrate` for production deployments

@@ -37,7 +37,7 @@
   /* Border and input */
   --border: 210 14% 89%; /* #e5e7eb gray-200 */
   --input: 210 14% 89%; /* #e5e7eb gray-200 */
-  --ring: 243 75% 59%; /* #4f46e5 indigo-600 */
+  --ring: 215 16% 47%; /* neutral gray */
   
   /* Prediction market specific */
   --success: 158 64% 52%; /* #10b981 green-500 */
@@ -48,9 +48,9 @@
   --info-foreground: 0 0% 100%; /* #ffffff */
   
   /* Market YES/NO colors */
-  --yes: 158 64% 52%; /* #10b981 green-500 */
+  --yes: 158 64% 35%; /* darker green */
   --yes-foreground: 0 0% 100%; /* #ffffff */
-  --yes-hover: 158 64% 42%; /* darker green */
+  --yes-hover: 158 64% 25%; /* even darker green */
   --no: 0 72% 51%; /* #ef4444 red-500 */
   --no-foreground: 0 0% 100%; /* #ffffff */
   --no-hover: 0 72% 41%; /* darker red */
@@ -98,7 +98,7 @@
   /* Border and input */
   --border: 215 20% 34%; /* #374151 gray-700 */
   --input: 215 20% 34%; /* #374151 gray-700 */
-  --ring: 234 89% 74%; /* #818cf8 indigo-400 */
+  --ring: 210 14% 66%; /* neutral gray */
   
   /* Prediction market specific */
   --success: 157 66% 66%; /* #6ee7b7 green-300 */
@@ -209,14 +209,18 @@ body {
 
 /* Header specific styles */
 .header-search {
-  background: hsl(var(--muted) / 0.5);
+  /* Make header search solid enough for readability while preserving brand look */
+  background: hsl(var(--card));            /* solid card color to avoid transparency over busy backgrounds */
   border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
   transition: all 0.2s ease;
 }
 
+/* On focus, slightly elevate but keep strong contrast */
 .header-search:focus-within {
-  background: hsl(var(--background));
+  background: hsl(var(--card));
   border-color: hsl(var(--ring));
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
 }
 
 /* Smooth transitions for header elements */
@@ -245,4 +249,25 @@ body {
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Navbar solid background override */
+.navbar-solid {
+  background-color: hsl(var(--card)) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Ensure proper dark mode card background */
+.dark .navbar-solid {
+  background-color: #121212 !important; /* exact dark mode card color */
+}
+
+/* Market card hover effects */
+.market-card-light-hover:hover {
+  background-color: rgba(107, 114, 128, 0.08);
+}
+
+.dark .market-card-dark-hover:hover {
+  background-color: rgba(255, 255, 255, 0.03);
 }

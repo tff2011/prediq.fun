@@ -3,7 +3,7 @@
 import { Card, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { useTranslations } from 'next-intl'
-import { TrendingUp, Users, Calendar } from 'lucide-react'
+import { TrendingUp, Users, Calendar, Triangle } from 'lucide-react'
 
 interface Props {
   id: string
@@ -11,9 +11,10 @@ interface Props {
   volume: string
   endsAt: string
   category?: string
+  imageUrl?: string
 }
 
-export function MarketCard({ id, question, volume, endsAt, category }: Props) {
+export function MarketCard({ id, question, volume, endsAt, category, imageUrl }: Props) {
   const t = useTranslations('markets')
   
   // Use a deterministic value based on the market ID to avoid hydration issues
@@ -51,63 +52,96 @@ export function MarketCard({ id, question, volume, endsAt, category }: Props) {
     return variant !== 'default' ? t(`categories.${variant}`) : cat
   }
   
+  // Get category icon
+  const getCategoryIcon = (cat?: string): string => {
+    const iconMap: Record<string, string> = {
+      'Política': '🗳️',
+      'Cripto': '₿',
+      'Esportes': '⚽',
+      'Economia': '📊',
+      'Tecnologia': '💻',
+      'Mundo': '🌍'
+    }
+    return iconMap[cat ?? ''] ?? '❓'
+  }
+
   return (
-    <Card className="cursor-pointer hover:shadow-lg transition-all duration-200 border border-border/60 group bg-card text-foreground shadow-sm hover:border-border">
-      <CardContent className="p-6">
-        {category && (
-          <div className="mt-2 mb-4">
-            <Badge variant={getCategoryVariant(category)} className="inline-block">
-              {getTranslatedCategory(category)}
-            </Badge>
+    <Card className="market-card-light-hover market-card-dark-hover cursor-pointer transition-all duration-200 ease-in-out border border-border/60 group bg-card text-foreground shadow-sm hover:border-border w-full h-[180px] flex flex-col">
+      <CardContent className="px-2 pt-3 pb-2 flex flex-col h-full justify-between">
+        {/* Header with image and title */}
+        <div className="flex gap-3 items-center">
+          <div className="w-[38px] h-[38px] flex-shrink-0">
+            {imageUrl ? (
+              <img 
+                src={imageUrl} 
+                alt="Market icon" 
+                className="w-full h-full object-cover rounded-lg"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center text-xl rounded-lg">
+                {getCategoryIcon(category)}
+              </div>
+            )}
           </div>
-        )}
-        <div className="mb-6">
-          <CardTitle className="text-lg font-semibold leading-tight line-clamp-2 group-hover:text-primary transition-colors">
+          <CardTitle className="text-[14px] font-bold leading-tight line-clamp-2 group-hover:text-primary group-hover:underline transition-all duration-300 flex-1">
             {question}
           </CardTitle>
         </div>
         
-        <div className="flex gap-3 mb-6">
-          <div className="flex-1 bg-green-50 dark:bg-[hsl(var(--yes)/0.25)] border border-green-200 dark:border-[hsl(var(--yes))] rounded-xl p-4 text-center hover:bg-green-100 dark:hover:bg-[hsl(var(--yes)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md hover:border-green-300 dark:hover:border-[hsl(var(--yes)/0.3)]">
-            <div className="text-3xl font-bold text-[hsl(var(--yes))]">
-              {yesPercentage}%
+        {/* Yes/No Buttons */}
+        <div className="flex gap-2">
+          <div className="flex-1 bg-[hsl(var(--yes)/0.2)] border border-[hsl(var(--yes)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[hsl(var(--yes)/0.6)] hover:bg-[hsl(var(--yes)/0.3)]">
+            <div className="flex items-center justify-between">
+              <div className="flex-1 text-center">
+                <div className="text-xl font-bold text-[hsl(var(--yes))] transition-transform duration-300 hover:scale-105">
+                  {yesPercentage}%
+                </div>
+                <div className="text-xs text-[hsl(var(--yes))] uppercase font-semibold tracking-wider">
+                  {t('card.yes')}
+                </div>
+              </div>
+              <Triangle className="w-4 h-4 fill-current text-[hsl(var(--yes))]" />
             </div>
-            <div className="text-xs text-[hsl(var(--yes)/0.8)] dark:text-[hsl(var(--yes))] uppercase font-semibold tracking-wider mt-1">{t('card.yes')}</div>
           </div>
-          <div className="flex-1 bg-red-50 dark:bg-[hsl(var(--no)/0.25)] border border-red-200 dark:border-[hsl(var(--no))] rounded-xl p-4 text-center hover:bg-red-100 dark:hover:bg-[hsl(var(--no)/0.32)] transition-all cursor-pointer shadow-sm hover:shadow-md hover:border-red-300 dark:hover:border-[hsl(var(--no)/0.3)]">
-            <div className="text-3xl font-bold text-[hsl(var(--no))]">
-              {noPercentage}%
+          <div className="flex-1 bg-[hsl(var(--no)/0.2)] border border-[hsl(var(--no)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[hsl(var(--no)/0.6)] hover:bg-[hsl(var(--no)/0.3)]">
+            <div className="flex items-center justify-between">
+              <div className="flex-1 text-center">
+                <div className="text-xl font-bold text-[hsl(var(--no))] transition-transform duration-300 hover:scale-105">
+                  {noPercentage}%
+                </div>
+                <div className="text-xs text-[hsl(var(--no))] uppercase font-semibold tracking-wider">
+                  {t('card.no')}
+                </div>
+              </div>
+              <Triangle className="w-4 h-4 fill-current text-[hsl(var(--no))] rotate-180" />
             </div>
-            <div className="text-xs text-[hsl(var(--no)/0.8)] dark:text-[hsl(var(--no))] uppercase font-semibold tracking-wider mt-1">{t('card.no')}</div>
           </div>
         </div>
         
-        <div className="pt-3 border-t border-border grid grid-cols-3 gap-2 text-sm">
-          <div className="flex flex-col">
-            <span className="text-muted-foreground flex items-center gap-1">
+        {/* Footer info - centered */}
+        <div className="grid grid-cols-3 gap-1 text-xs">
+          <div className="text-center">
+            <div className="text-muted-foreground flex items-center justify-center gap-1">
               <TrendingUp className="w-3 h-3" />
-              {t('card.volume')}
-            </span>
-            <span className="font-semibold text-foreground">{volume}</span>
+            </div>
+            <div className="font-semibold text-foreground truncate">{volume}</div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-muted-foreground flex items-center gap-1">
+          <div className="text-center">
+            <div className="text-muted-foreground flex items-center justify-center gap-1">
               <Users className="w-3 h-3" />
-              {t('card.traders')}
-            </span>
-            <span className="font-semibold text-foreground">{traders}</span>
+            </div>
+            <div className="font-semibold text-foreground">{traders}</div>
           </div>
-          <div className="flex flex-col">
-            <span className="text-muted-foreground flex items-center gap-1">
+          <div className="text-center">
+            <div className="text-muted-foreground flex items-center justify-center gap-1">
               <Calendar className="w-3 h-3" />
-              {t('card.closes')}
-            </span>
-            <span className="font-semibold text-foreground">
+            </div>
+            <div className="font-semibold text-foreground">
               {new Date(endsAt).toLocaleDateString('pt-BR', { 
                 day: 'numeric', 
                 month: 'short' 
               })}
-            </span>
+            </div>
           </div>
         </div>
       </CardContent>

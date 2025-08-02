@@ -36,7 +36,7 @@ export function CategoryFilter({ onCategoryChange, selectedCategory }: CategoryF
         ? "bg-indigo-600 text-white border-transparent hover:bg-indigo-700"
         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-500",
       crypto: isSelected
-        ? "bg-amber-500 text-white border-transparent hover:bg-amber-600"
+        ? "bg-amber-600 text-white border-transparent hover:bg-amber-700"
         : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-500",
       sports: isSelected
         ? "bg-emerald-600 text-white border-transparent hover:bg-emerald-700"

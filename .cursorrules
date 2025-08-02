@@ -6,6 +6,8 @@ Claro! 🎯 Aqui está uma documentação clara e objetiva em **inglês**, com b
 
 Welcome to the codebase of **prediq.fun**, a prediction market platform powered by the T3 Stack. This document provides conventions, best practices, and architectural decisions that every contributor must follow to ensure maintainability, performance, and ease of migration.
 
+- Always think about DARK and Light MODE before editing.
+
 ---
 
 ## 📚 Tech Stack

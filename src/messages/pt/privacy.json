@@ -1,0 +1,141 @@
+{
+  "privacy": {
+    "title": "POLÍTICA DE PRIVACIDADE",
+    "lastUpdated": "Última atualização",
+    "backToHome": "← Voltar para a página inicial",
+    "sections": {
+      "introduction": {
+        "title": "Introdução",
+        "paragraph0": "Entendemos que você pode ter dúvidas sobre esta Política, incluindo suas informações pessoais, como elas podem ser coletadas e como podem ser usadas. Você pode enviar um e-mail para privacy@prediq.fun com quaisquer preocupações ou perguntas relacionadas à privacidade que possa ter.",
+        "paragraph0b": "Nossos Termos de Serviço (\"Termos\") regem todo o uso de nossos Serviços e, juntamente com a Política de Privacidade, constituem seu acordo conosco (o \"Acordo\"). Se você não concordar com os termos desta Política, por favor, não acesse nosso Site.",
+        "paragraph0c": "Ao acessar ou usar nossos Serviços, você concorda com os termos desta Política. Especificamente, ao (i) usar, visitar ou acessar os Serviços, (ii) usar, acessar, estabelecer uma conta através ou comprar qualquer um dos Serviços, e/ou (iii) clicar em \"aceitar\", \"concordar\" ou \"OK\" (ou termo similar) com relação a qualquer um de nossos Termos ou políticas similares, você consente e concorda em estar legalmente vinculado por cada um dos termos e condições contidos nesta Política.",
+        "paragraph0d": "Ao operar o Site e fornecer os Serviços, podemos coletar (e/ou receber) certas informações sobre você e suas atividades. Você nos autoriza a coletar e/ou receber tais informações para operar o Site e fornecer os Serviços.",
+        "paragraph1": "Esta interface hospedada no site (esta \"Interface\") é disponibilizada pela PrediQ.fun, uma plataforma de mercados de previsão organizada e existente sob as leis do Brasil (a \"Empresa\", \"nós\" ou \"nosso\").",
+        "paragraph2": "Esta Política de Privacidade (a \"Política\") rege a maneira como disponibilizamos a Interface e como coletamos, usamos, mantemos e divulgamos informações coletadas de nossos usuários (cada um, um \"usuário\", \"você\" ou \"seu\") através dos sites da Empresa, incluindo a Interface, aplicativos web, aplicativos móveis e todos os sites associados vinculados a eles pela Interface, ou por nós ou nossas afiliadas (o \"Site\"). Esta Política se aplica ainda a todas as informações que coletamos através do nosso Site e obtemos de outra forma em conexão com produtos e Serviços, conteúdo, recursos, tecnologias, funções e todos os sites relacionados que podemos fornecer a você ou aos quais podemos fornecer acesso (coletivamente com o Site, os \"Serviços\").",
+        "paragraph3": "Por favor, leia esta Política cuidadosamente. Estamos comprometidos em proteger sua privacidade através do nosso cumprimento dos termos desta Política."
+      },
+      "applicability": {
+        "title": "Aplicabilidade",
+        "paragraph1": "Esta Política se aplica a todas as informações que coletamos de você em conexão com o Site e a oferta dos Serviços. Esta Política não se aplica a informações coletadas por nós offline ou através de quaisquer outros meios, incluindo em qualquer outro site disponibilizado por nós ou por terceiros (incluindo nossas afiliadas e subsidiárias). Ao longo desta Política, usamos o termo \"informações pessoais\" para descrever informações que podem ser associadas a uma pessoa específica e podem ser usadas para identificar essa pessoa. Não consideramos informações pessoais para incluir informações que foram agregadas e/ou anonimizadas de modo que não identifiquem um usuário específico. Informações Pessoais também podem incluir as informações pessoais de terceiros que podem estar contidas nas informações que você nos fornece através do uso do Site."
+      },
+      "informationWeCollect": {
+        "title": "Informações que Coletamos",
+        "paragraph1": "Quando você visita o Site e usa os Serviços, coletamos seu endereço IP e informações padrão de log da web, como tipo de navegador e páginas acessadas em nosso Site. Também podemos coletar certas Informações de Geolocalização (conforme definido abaixo). Se você não concordar com nossa coleta dessas informações, talvez não consiga usar os Serviços.",
+        "paragraph2": "Coletamos informações:",
+        "list": {
+          "item1": "Diretamente de você quando você as fornece;",
+          "item2": "Automaticamente enquanto você navega pelo site;",
+          "item3": "Em certas instâncias, de terceiros, como nossos parceiros de negócios, provedores terceirizados (por exemplo, MetaMask) ou outras redes onde você conectou sua conta e autorizou o Site a acessar essas informações."
+        }
+      },
+      "personalInformation": {
+        "title": "Informações Pessoais",
+        "paragraph": "Se você criar uma conta conosco, podemos coletar as seguintes informações:",
+        "list": {
+          "personal": "Informações Pessoais: Informações pelas quais você pode ser pessoalmente identificado, como seu nome, endereço postal, registro no local de residência, endereço de e-mail, número de telefone, data de nascimento e outras informações demográficas, como idade, sexo, cidade natal e interesses que você fornece voluntariamente como parte de seu registro no Site para usar nosso Serviço (coletivamente, \"Informações Pessoais\"). Não há obrigação de fornecer informações pessoais de qualquer tipo, mas sua recusa em fazê-lo pode impedi-lo de usar os Serviços.",
+          "derivative": "Informações Derivadas: Informações que nossos servidores podem coletar automaticamente quando você acessa o Site, como seu endereço IP, tipo de navegador, sistema operacional, horários de acesso e páginas que você visualizou diretamente antes e depois de acessar o Site. Isso também pode incluir outras informações sobre sua conexão com a internet e o equipamento que você usa para acessar nosso Site e detalhes de uso.",
+          "mobile": "Informações do Dispositivo Móvel: Se você acessar o Site de um dispositivo móvel, podemos obter informações automaticamente sobre você de seu dispositivo móvel, como tipo de dispositivo, número de identificação do dispositivo móvel, informações de geolocalização, fuso horário, configuração de idioma, tipo de navegador. Se você fornecer diretamente a nós, também podemos coletar seu número de telefone.",
+          "financial": "Informações Financeiras: Se aplicável ao seu uso do Site e dos Serviços, para processar pagamentos de quaisquer taxas devidas a nós em conexão com seu uso dos Serviços e do Site, você será obrigado a fornecer certas informações de login online de conta bancária, números de conta bancária e roteamento, informações de cartão de crédito (por exemplo, marca do cartão, data de expiração e números do cartão de crédito) e outros dados relacionados ao seu método de pagamento. Você autoriza nossos fornecedores de pagamento terceirizados e provedores de carteira (por exemplo, MetaMask) a coletar, processar e armazenar suas Informações Financeiras de acordo com suas respectivas políticas de privacidade.",
+          "geolocation": "Informações de Geolocalização: Coletamos informações que identificam, com especificidade razoável, sua localização usando certas coordenadas de longitude e latitude obtidas através de GPS, Wi-Fi, triangulação de torres de celular ou outros dados de localização. Podemos coletar esses dados para fins de prevenção de fraude e gerenciamento de risco, entre outras razões.",
+          "correspondence": "Correspondência e Manutenção de Registros: Manteremos registros e cópias de sua correspondência (incluindo endereços de e-mail), se você entrar em contato conosco. Manteremos todos os registros pelo período que possa ser exigido pela lei aplicável.",
+          "surveys": "Pesquisas: Se você decidir participar de pesquisas disponíveis através dos Serviços, você pode ser solicitado a fornecer certas informações que podem incluir informações pessoais. Podemos armazenar tais respostas.",
+          "additional": "Estamos comprometidos em fornecer uma experiência segura ao cliente. Como resultado, antes de permitir que você use os Serviços, podemos exigir informações adicionais de você (incluindo, por exemplo, documentos de identidade emitidos pelo governo, como número de passaporte, detalhes da carteira de motorista ou detalhes do cartão de identidade nacional) que podemos usar para verificar sua identidade, endereço ou outras informações, prevenir fraudes ou gerenciar riscos e conformidade durante todo o nosso relacionamento.",
+          "final": "Finalmente, podemos coletar informações adicionais de ou sobre você de outras maneiras não especificamente descritas aqui. Por exemplo, podemos coletar informações relacionadas ao seu contato com nossa equipe de suporte ao cliente."
+        }
+      },
+      "minors": {
+        "title": "Menores de 18 Anos",
+        "paragraph": "Nosso Site não é destinado a menores de 18 anos. Ninguém com menos de 18 anos pode fornecer informações pessoais no Site. Se descobrirmos que coletamos informações pessoais de uma pessoa menor de 18 anos, excluiremos prontamente essas informações."
+      },
+      "doNotTrack": {
+        "title": "Não Rastrear",
+        "paragraph": "Não Rastrear (\"DNT\") é uma configuração opcional do navegador que permite expressar suas preferências sobre rastreamento por anunciantes e outros terceiros. Você pode ativar ou desativar o DNT visitando a página de preferências ou configurações do seu navegador. Não respondemos a sinais DNT."
+      },
+      "cookies": {
+        "title": "Uso de Cookies",
+        "paragraph1": "Um cookie é um pequeno arquivo colocado no disco rígido do seu computador. Quando você visita nosso Site, usa nossos Serviços, nós e certos parceiros de negócios e fornecedores podemos usar cookies e outras tecnologias de rastreamento (coletivamente, \"Cookies\"). Usamos Cookies para reconhecê-lo como cliente, personalizar os Serviços, outros conteúdos e publicidade, medir a eficácia de nossas promoções, realizar uma ampla gama de análises, mitigar riscos e prevenir fraudes potenciais, e promover confiança e segurança em nossos Serviços.",
+        "paragraph2": "A maioria dos navegadores está configurada para aceitar cookies por padrão. Você pode remover ou rejeitar cookies. No entanto, certos Serviços só estão disponíveis através do uso de Cookies. Portanto, se você optar por desabilitar ou recusar Cookies, seu uso dos Serviços pode ser limitado ou não ser possível.",
+        "paragraph3": "As páginas do nosso Site podem conter pequenos arquivos eletrônicos conhecidos como web beacons (também chamados de clear gifs, pixel tags e single-pixel gifs) que nos permitem, por exemplo, contar usuários que visitaram essas páginas e para outras estatísticas relacionadas ao site (por exemplo, registrar a popularidade de determinado conteúdo do site e verificar a integridade do sistema e do servidor). Você não pode recusar web beacons. No entanto, eles podem ser tornados ineficazes recusando todos os cookies ou modificando as configurações do seu navegador para notificá-lo cada vez que um cookie for oferecido, permitindo que você aceite ou recuse cookies individualmente."
+      },
+      "howWeUse": {
+        "title": "Como Usamos Suas Informações",
+        "paragraph": "Podemos usar as informações coletadas sobre você para:",
+        "list": {
+          "item1": "Criar e gerenciar sua conta;",
+          "item2": "Fornecer os Serviços e suporte ao cliente;",
+          "item3": "Personalizar e melhorar nossos Serviços;",
+          "item4": "Detectar e prevenir fraudes;",
+          "item5": "Cumprir nossas obrigações legais;",
+          "item6": "Enviar comunicações sobre nossos Serviços;",
+          "item7": "Realizar análises para melhorar a experiência do usuário."
+        }
+      },
+      "sharingInformation": {
+        "title": "Compartilhamento de Informações",
+        "paragraph": "Podemos compartilhar suas informações com:",
+        "list": {
+          "item1": "Prestadores de serviços terceirizados que nos ajudam a fornecer os Serviços;",
+          "item2": "Autoridades legais quando exigido por lei;",
+          "item3": "Outras partes com seu consentimento ou sob sua direção."
+        }
+      },
+      "security": {
+        "title": "Segurança das Informações",
+        "paragraph": "A segurança de seus dados é importante para nós. Usamos medidas de segurança administrativas, técnicas e físicas para ajudar a proteger suas informações pessoais. No entanto, nenhum método de transmissão pela Internet ou método de armazenamento eletrônico é 100% seguro."
+      },
+      "yourRights": {
+        "title": "Seus Direitos",
+        "paragraph": "Dependendo da lei aplicável, você pode ter os seguintes direitos:",
+        "list": {
+          "access": "Direito de Acesso: Solicitar uma cópia das informações pessoais que temos sobre você.",
+          "correction": "Direito de Correção: Corrigir informações imprecisas ou incompletas.",
+          "deletion": "Direito de Exclusão: Solicitar a exclusão de suas informações pessoais.",
+          "portability": "Direito de Portabilidade: Receber suas informações em formato estruturado.",
+          "withdraw": "Direito de Retirar Consentimento: Retirar seu consentimento a qualquer momento."
+        }
+      },
+      "changes": {
+        "title": "Alterações nesta Política",
+        "paragraph": "Podemos atualizar esta Política a qualquer momento. Quando o fizermos, revisaremos a data de atualização no topo desta página. Encorajamos os usuários a verificar frequentemente esta página para quaisquer alterações."
+      },
+      "thirdPartyAnalytics": {
+        "title": "Análises e Redirecionamento de Terceiros",
+        "paragraph1": "Podemos usar análises de terceiros (como Google Analytics) para avaliar seu uso dos Serviços, compilar relatórios sobre atividades e eventos, coletar dados demográficos, analisar métricas de desempenho e coletar e avaliar outras informações relacionadas aos Serviços e uso móvel e de Internet. Esses terceiros usam cookies, pixel tags e outras tecnologias de rastreamento relacionadas para ajudar a analisar e nos fornecer os dados. Por exemplo, pixel tags (também conhecidos como web beacons e clear GIFs) podem ser usados para, entre outras coisas, rastrear as ações de usuários do Site e destinatários de e-mail, medir o sucesso de nossas campanhas de marketing e compilar estatísticas sobre o uso do Site e taxas de resposta.",
+        "paragraph2": "Ao visitar e usar os Serviços, você consente, na medida permitida pela lei aplicável, com o processamento de dados sobre você por essas análises da maneira e para os fins estabelecidos nesta Política de Privacidade.",
+        "googleInfo": "Para mais informações sobre esses terceiros, incluindo como optar por não participar de determinadas coletas de dados (se disponível por esses terceiros), visite os sites abaixo. Esteja ciente de que, se você optar por não participar de qualquer Serviço, poderá não conseguir usar toda a funcionalidade dos Serviços.",
+        "googleAnalytics": "Para o Google Analytics, visite: https://www.google.com/analytics. O Google Analytics é um serviço de análise da web oferecido pelo Google que rastreia e relata o tráfego do site. O Google usa os dados coletados para rastrear e monitorar o uso de nossos Serviços. Esses dados são compartilhados com outros serviços do Google. O Google pode usar os dados coletados para contextualizar e personalizar os anúncios de sua própria rede de publicidade. Para mais informações sobre as práticas de privacidade do Google, visite a página de Termos de Privacidade do Google: https://policies.google.com/privacy?hl=pt-BR. Também encorajamos você a revisar a política do Google para proteger seus dados: https://support.google.com/analytics/answer/6004245",
+        "retargeting": "Também podemos usar um ou mais serviços de redirecionamento de terceiros para anunciar em sites de terceiros para visitantes anteriores de nossos Serviços. Esses provedores de serviços de redirecionamento de terceiros usam cookies para veicular anúncios com base em uma visita anterior ao Site e podem utilizar cookies, pixel tags e outras tecnologias relacionadas. Quaisquer dados coletados por esses provedores de serviços de redirecionamento de terceiros serão usados de acordo com esta Política. Ao visitar e usar os Serviços, você consente, na medida permitida pela lei aplicável, com o processamento de dados sobre você por esses serviços de remarketing. Para mais informações sobre esses provedores de serviços de redirecionamento de terceiros, incluindo como optar por não participar de determinadas coletas de dados, visite os seguintes links:",
+        "googleAdWords": "Para o Google AdWords, você pode definir preferências de como o Google anuncia para você usando a página de Preferências de anúncios do Google em: https://adssettings.google.com/authenticated, e se desejar, você pode optar por não participar da publicidade baseada em interesses por configurações de cookies ou permanentemente usando um plugin de navegador."
+      },
+      "personalCommunication": {
+        "title": "Preferências de Comunicação Pessoal",
+        "paragraph1": "Na medida em que você se registrou nos Serviços, você pode acessar, revisar, fazer alterações e excluir suas informações pessoais seguindo as instruções encontradas no Site ou enviando um e-mail para nós em privacy@prediq.fun com a linha de assunto \"Política de Privacidade\". Reservamo-nos o direito de solicitar informações que verifiquem sua identidade antes de começarmos a cumprir uma solicitação para revisar, fazer alterações e excluir suas informações pessoais.",
+        "paragraph2": "Além disso, você pode gerenciar o recebimento de comunicações de marketing e não transacionais clicando no link \"Cancelar inscrição\" localizado na parte inferior de qualquer e-mail de marketing, ou enviando-nos um e-mail em privacy@prediq.fun com a linha de assunto \"Cancelar inscrição de Marketing\". Usuários registrados não podem optar por não receber e-mails transacionais ou administrativos relacionados à sua conta. Usaremos esforços comercialmente razoáveis para processar tais solicitações em tempo hábil, em conformidade com as leis aplicáveis. Você deve estar ciente, no entanto, de que nem sempre é possível remover ou modificar completamente as informações em nossos bancos de dados."
+      },
+      "transferOfData": {
+        "title": "Transferência de Dados",
+        "paragraph1": "Suas informações pessoais podem ser transferidas para - e mantidas em - computadores localizados fora de seu estado, província, país ou outra jurisdição governamental onde as leis de proteção de dados podem diferir das de sua jurisdição. Ao usar os Serviços, você consente com a transferência de suas informações para fora de seu país de residência, que pode ter regras de proteção de dados diferentes das de seu país. Em certas circunstâncias, tribunais, agências de aplicação da lei, agências reguladoras ou autoridades de segurança nesses outros países podem ter o direito de acessar suas informações pessoais.",
+        "paragraph2": "Tomaremos todas as medidas razoavelmente necessárias para garantir que seus dados sejam tratados com segurança e de acordo com esta Política e nenhuma transferência de suas informações pessoais ocorrerá para uma organização ou país, a menos que existam controles adequados em vigor, incluindo a segurança de seus dados e outras informações pessoais."
+      },
+      "yourDataProtectionRights": {
+        "title": "Seus Direitos de Proteção de Dados",
+        "paragraph1": "Dependendo da lei aplicável onde você reside, você pode afirmar certos direitos relacionados às suas informações pessoais identificadas abaixo. Se algum dos direitos listados abaixo não for fornecido por lei para sua entidade operacional ou jurisdição, temos discrição absoluta em fornecer-lhe esses direitos.",
+        "paragraph2": "Seus direitos a informações pessoais não são absolutos. Dependendo da lei aplicável, o acesso aos seus direitos sob a lei aplicável pode ser negado: (a) quando a negação de acesso é exigida ou autorizada por lei; (b) quando conceder acesso teria um impacto negativo na privacidade de outra pessoa; (c) para proteger nossos direitos e propriedades; (d) quando a solicitação é frívola ou vexatória, ou por outras razões. Observe também que podemos solicitar que você verifique sua identidade antes de responder a tais solicitações."
+      },
+      "returnDeletion": {
+        "title": "Devolução/Exclusão de Dados Pessoais",
+        "paragraph": "Mediante sua solicitação, nos esforçaremos para: (i) devolver todas as informações pessoais processadas em conexão com os Serviços para você em formato estruturado, comumente usado e legível por máquina, e excluiremos cópias e backups existentes; ou, (ii) destruir e excluir todas as informações pessoais processadas em conexão com os Serviços, incluindo materiais ou mídia contendo tais informações pessoais, e incluindo todas as cópias e backups."
+      },
+      "jurisdiction": {
+        "title": "Jurisdição",
+        "paragraph": "Os Serviços, incluindo o Site, são disponibilizados por nós do Brasil e não se destinam a nos sujeitar às leis ou jurisdição de qualquer estado, país ou território diferente do Brasil."
+      },
+      "contact": {
+        "title": "Contato",
+        "paragraph": "Se você tiver algum comentário ou pergunta sobre esta Política, entre em contato conosco por e-mail em",
+        "email": "privacy@prediq.fun",
+        "conclusion": "Se você tiver algum comentário ou pergunta sobre esta Política, entre em contato conosco por e-mail em privacy@prediq.fun."
+      }
+    }
+  }
+}

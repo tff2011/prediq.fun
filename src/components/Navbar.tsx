@@ -35,9 +35,9 @@ export function Navbar({ locale }: NavbarProps) {
   }
   
   return (
-    <header className="w-full sticky top-0 z-50 bg-background/98 backdrop-blur-md supports-[backdrop-filter]:bg-background/90 border-b border-border shadow-sm">
+    <header className="navbar-solid sticky top-0 z-[100] w-full bg-card border-b border-border shadow-sm">
       {/* Top Bar - Logo, Search, Auth */}
-      <div className="border-b border-border/50 bg-background/98">
+              <div className="bg-card">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
@@ -102,7 +102,7 @@ export function Navbar({ locale }: NavbarProps) {
       </div>
 
       {/* Secondary Navigation Bar - Categories */}
-      <div className="border-b border-border/50 bg-background/95">
+      <div className="border-b border-border bg-card">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2">
             {/* Left Navigation */}
@@ -158,7 +158,7 @@ export function Navbar({ locale }: NavbarProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-48 bg-background border border-border shadow-lg backdrop-blur-sm"
+                  className="w-48 bg-card border border-border shadow-lg z-50"
                   sideOffset={5}
                 >
                   <DropdownMenuItem asChild>
@@ -202,7 +202,7 @@ export function Navbar({ locale }: NavbarProps) {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-border/50 bg-background/98 backdrop-blur-md shadow-lg">
+        <div className="md:hidden border-t border-border bg-card shadow-lg">
           <div className="container mx-auto px-4 py-4">
             <nav className="flex flex-col gap-4">
               <Link 
@@ -219,7 +219,7 @@ export function Navbar({ locale }: NavbarProps) {
               >
                 {t('new')}
               </Link>
-              <div className="border-t border-border/50 pt-4">
+              <div className="border-t border-border/20 pt-4">
                 <div className="grid grid-cols-2 gap-2">
                   <Link href={`/${locale}/category/politics`} className="text-sm text-muted-foreground hover:text-foreground transition-colors py-2">
                     {t('categories.politics')}
@@ -244,7 +244,7 @@ export function Navbar({ locale }: NavbarProps) {
                   </Link>
                 </div>
               </div>
-              <div className="border-t border-border/50 pt-4 flex flex-col gap-2">
+              <div className="border-t border-border/20 pt-4 flex flex-col gap-2">
                 <div onClick={() => setIsMobileMenuOpen(false)}>
                   <HowItWorksModal />
                 </div>

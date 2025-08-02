@@ -108,18 +108,18 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
             <h3 className="text-lg font-semibold text-foreground">Fazer Aposta</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card 
-                className={`cursor-pointer transition-all ${
+                className={`cursor-pointer transition-all duration-300 ease-in-out ${
                   selectedOutcome === 'yes' 
-                    ? 'ring-2 ring-success bg-success/10' 
-                    : 'hover:shadow-md'
+                    ? 'ring-2 ring-success bg-success/10 shadow-lg' 
+                    : 'hover:shadow-lg hover:bg-success/10 dark:hover:bg-success/20 hover:border-success/30'
                 }`}
                 onClick={() => setSelectedOutcome('yes')}
               >
                 <CardContent className="p-6 text-center space-y-3">
-                  <h4 className="text-xl font-bold text-success">
+                  <h4 className="text-xl font-bold text-green-800 dark:text-success transition-transform duration-300 hover:scale-105">
                     {t('card.yes')}
                   </h4>
-                  <div className="text-3xl font-bold text-foreground">{data.oddsYes}x</div>
+                  <div className="text-3xl font-bold text-foreground transition-transform duration-300 hover:scale-105">{data.oddsYes}x</div>
                   <p className="text-sm text-muted-foreground">
                     Probabilidade: {(100 / data.oddsYes).toFixed(1)}%
                   </p>
@@ -127,18 +127,18 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
               </Card>
 
               <Card 
-                className={`cursor-pointer transition-all ${
+                className={`cursor-pointer transition-all duration-300 ease-in-out ${
                   selectedOutcome === 'no' 
-                    ? 'ring-2 ring-destructive bg-destructive/10' 
-                    : 'hover:shadow-md'
+                    ? 'ring-2 ring-destructive bg-destructive/10 shadow-lg' 
+                    : 'hover:shadow-lg hover:bg-destructive/10 dark:hover:bg-destructive/20 hover:border-destructive/30'
                 }`}
                 onClick={() => setSelectedOutcome('no')}
               >
                 <CardContent className="p-6 text-center space-y-3">
-                  <h4 className="text-xl font-bold text-destructive">
+                  <h4 className="text-xl font-bold text-red-700 dark:text-destructive transition-transform duration-300 hover:scale-105">
                     {t('card.no')}
                   </h4>
-                  <div className="text-3xl font-bold text-foreground">{data.oddsNo}x</div>
+                  <div className="text-3xl font-bold text-foreground transition-transform duration-300 hover:scale-105">{data.oddsNo}x</div>
                   <p className="text-sm text-muted-foreground">
                     Probabilidade: {(100 / data.oddsNo).toFixed(1)}%
                   </p>
