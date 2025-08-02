@@ -35,14 +35,14 @@ export function Navbar({ locale }: NavbarProps) {
   }
   
   return (
-    <header className="navbar-solid sticky top-0 z-[100] w-full bg-card border-b border-border shadow-sm">
+    <header className="sticky top-0 z-[100] w-full bg-card dark:bg-surface-1 border-b border-border">
       {/* Top Bar - Logo, Search, Auth */}
-              <div className="bg-card">
+              <div className="bg-card dark:bg-surface-1">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-4">
             {/* Logo */}
             <Link href={`/${locale}`} className="flex items-center gap-2 text-xl font-bold tracking-tight shrink-0">
-              <div className="h-6 w-6 bg-primary rounded-sm flex items-center justify-center">
+              <div className="h-6 w-6 bg-primary rounded-sm flex items-center justify-center elevation-low">
                 <TrendingUp className="h-4 w-4 text-primary-foreground" />
               </div>
               <span className="hidden sm:inline text-foreground">PredIQ<span className="text-primary">.fun</span></span>
@@ -64,14 +64,14 @@ export function Navbar({ locale }: NavbarProps) {
               <Button 
                 variant="ghost" 
                 size="sm" 
-                className="text-[hsl(var(--primary))] hover:text-[hsl(var(--primary)/0.8)] cursor-pointer"
+                className="text-primary hover:text-primary/80 cursor-pointer focus-ring"
                 onClick={handleLogin}
               >
                 {t('login')}
               </Button>
               <Button 
                 size="sm" 
-                className="bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] text-[hsl(var(--primary-foreground))] font-semibold shadow-md border-0 cursor-pointer"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold elevation-low hover:elevation-medium border-0 cursor-pointer focus-ring"
                 onClick={handleSignup}
               >
                 {t('signup')}
@@ -113,21 +113,21 @@ export function Navbar({ locale }: NavbarProps) {
       </div>
 
       {/* Secondary Navigation Bar - Categories */}
-      <div className="border-b border-border bg-card">
+      <div className="border-b border-border bg-surface-1 dark:bg-surface-2">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2">
             {/* Left Navigation */}
             <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide">
               <Link 
                 href={`/${locale}/trending`} 
-                className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap"
+                className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap cursor-pointer"
               >
                 <TrendingUp className="h-4 w-4" />
                 {t('trending')}
               </Link>
               <Link 
                 href={`/${locale}/new`} 
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap"
+                className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap cursor-pointer"
               >
                 {t('new')}
               </Link>
@@ -135,25 +135,25 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Center Categories */}
             <div className="hidden lg:flex items-center gap-6 overflow-x-auto scrollbar-hide">
-              <Link href={`/${locale}/category/politics`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/politics`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.politics')}
               </Link>
-              <Link href={`/${locale}/category/sports`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/sports`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.sports')}
               </Link>
-              <Link href={`/${locale}/category/crypto`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/crypto`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.crypto')}
               </Link>
-              <Link href={`/${locale}/category/tech`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/tech`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.technology')}
               </Link>
-              <Link href={`/${locale}/category/culture`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/culture`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.culture')}
               </Link>
-              <Link href={`/${locale}/category/world`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/world`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.world')}
               </Link>
-              <Link href={`/${locale}/category/economy`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+              <Link href={`/${locale}/category/economy`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.economics')}
               </Link>
             </div>
@@ -162,14 +162,14 @@ export function Navbar({ locale }: NavbarProps) {
             <div className="hidden lg:flex items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground cursor-pointer">
+                  <Button variant="ghost" size="sm" className="text-secondary hover:text-foreground cursor-pointer">
                     {t('more')}
                     <ChevronDown className="h-4 w-4 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-48 bg-card border border-border shadow-lg z-50"
+                  className="w-48 bg-card dark:bg-surface-2 border border-border elevation-high z-50 backdrop-blur-sm"
                   sideOffset={5}
                 >
                   <DropdownMenuItem asChild>
@@ -213,7 +213,7 @@ export function Navbar({ locale }: NavbarProps) {
 
       {/* Desktop Settings Menu */}
       {isMobileMenuOpen && (
-        <div className="hidden md:block border-t border-border bg-card shadow-lg">
+        <div className="hidden md:block border-t border-border bg-surface-1 dark:bg-surface-2 elevation-medium">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">

@@ -6,122 +6,152 @@
 }
 
 :root {
-  /* Base colors */
-  --background: 210 20% 98%; /* #f9fafb */
-  --foreground: 215 20% 20%; /* #1f2937 */
+  /* Base colors - Light mode */
+  --background: 0 0% 100%; /* #ffffff */
+  --foreground: 222 47% 11%; /* #0f172a slate-900 */
   --card: 0 0% 100%; /* #ffffff */
-  --card-foreground: 215 20% 20%; /* #1f2937 */
-  --popover: 0 0% 100%; /* #ffffff */
-  --popover-foreground: 215 20% 20%; /* #1f2937 */
+  --card-foreground: 222 47% 11%; /* #0f172a slate-900 */
+  --popover: 0 0% 100%; /* #ffffff - opaque background */
+  --popover-foreground: 222 47% 11%; /* #0f172a slate-900 */
+  
+  /* Surface elevation hierarchy */
+  --surface-1: 0 0% 98%; /* #fafafa */
+  --surface-2: 0 0% 96%; /* #f5f5f5 */
+  --surface-3: 0 0% 94%; /* #f0f0f0 */
+  
+  /* Text hierarchy */
+  --text-primary: 222 47% 11%; /* #0f172a slate-900 */
+  --text-secondary: 215 16% 47%; /* #64748b slate-500 */
+  --text-muted: 215 14% 66%; /* #94a3b8 slate-400 */
   
   /* Primary brand colors */
-  --primary: 219 100% 56%; /* #1752F0 blue */
-  --primary-foreground: 0 0% 100%; /* branco */
+  --primary: 217 91% 60%; /* #3b82f6 blue-500 */
+  --primary-foreground: 0 0% 100%; /* white */
+  --primary-container: 214 95% 93%; /* #dbeafe blue-100 */
   
-  /* Secondary colors */
-  --secondary: 262 83% 58%; /* #7c3aed purple-600 */
-  --secondary-foreground: 0 0% 100%; /* branco */
+  /* Semantic colors - Low saturation for professional look */
+  --positive: 142 71% 45%; /* #16a34a green-600 */
+  --positive-container: 142 78% 90%; /* #dcfce7 green-100 */
+  --positive-foreground: 142 71% 45%; /* #16a34a green-600 */
+  
+  --negative: 0 73% 53%; /* #dc2626 red-600 */
+  --negative-container: 0 73% 94%; /* #fee2e2 red-100 */
+  --negative-foreground: 0 73% 53%; /* #dc2626 red-600 */
+  
+  /* Other semantic colors */
+  --info: 199 89% 48%; /* #0ea5e9 sky-500 */
+  --info-container: 199 95% 92%; /* #e0f2fe sky-100 */
+  --warning: 45 93% 47%; /* #eab308 amber-500 */
+  --warning-container: 48 96% 89%; /* #fef3c7 amber-100 */
+  --success: 142 71% 45%; /* #16a34a green-600 */
+  --success-container: 142 78% 90%; /* #dcfce7 green-100 */
   
   /* Muted colors */
-  --muted: 210 14% 89%; /* #e5e7eb gray-200 */
-  --muted-foreground: 215 16% 47%; /* #6b7280 gray-500 */
-  
-  /* Accent colors */
-  --accent: 158 64% 52%; /* #10b981 green-500 */
-  --accent-foreground: 0 0% 100%; /* #ffffff */
+  --muted: 210 14% 96%; /* #f8fafc slate-50 */
+  --muted-foreground: 215 16% 47%; /* #64748b slate-500 */
   
   /* Destructive colors */
-  --destructive: 0 72% 51%; /* #ef4444 red-500 */
-  --destructive-foreground: 0 0% 100%; /* #ffffff */
+  --destructive: 0 73% 53%; /* #dc2626 red-600 */
+  --destructive-foreground: 0 0% 100%; /* white */
   
   /* Border and input */
-  --border: 210 14% 89%; /* #e5e7eb gray-200 */
-  --input: 210 14% 89%; /* #e5e7eb gray-200 */
-  --ring: 215 16% 47%; /* neutral gray */
+  --border: 214 32% 91%; /* #e2e8f0 slate-200 */
+  --input: 214 32% 91%; /* #e2e8f0 slate-200 */
+  --ring: 217 91% 60%; /* #3b82f6 blue-500 */
   
-  /* Prediction market specific */
-  --success: 158 64% 52%; /* #10b981 green-500 */
-  --success-foreground: 0 0% 100%; /* #ffffff */
-  --warning: 43 96% 56%; /* #f59e0b amber-500 */
-  --warning-foreground: 0 0% 100%; /* #ffffff */
-  --info: 199 89% 48%; /* #0ea5e9 sky-500 */
-  --info-foreground: 0 0% 100%; /* #ffffff */
+  /* Market YES/NO - Professional colors with low saturation */
+  --yes: 142 71% 45%; /* #16a34a green-600 */
+  --yes-foreground: 0 0% 100%; /* white */
+  --yes-container: 142 78% 90%; /* #dcfce7 green-100 */
+  --yes-hover: 142 76% 36%; /* #15803d green-700 */
   
-  /* Market YES/NO colors - Force exact hex colors */
-  --yes: 34 139 66; /* #228B42 darker green as RGB */
-  --yes-foreground: 255 255 255; /* #ffffff */
-  --yes-hover: 28 115 54; /* darker green */
-  --no: 226 57 57; /* #E23939 red as RGB */
-  --no-foreground: 255 255 255; /* #ffffff */
-  --no-hover: 201 49 49; /* darker red */
+  --no: 0 73% 53%; /* #dc2626 red-600 */
+  --no-foreground: 0 0% 100%; /* white */
+  --no-container: 0 73% 94%; /* #fee2e2 red-100 */
+  --no-hover: 0 75% 42%; /* #b91c1c red-700 */
   
   /* Chart colors */
-  --chart-1: 243 75% 59%; /* indigo */
-  --chart-2: 142 63% 41%; /* green - same as --yes */
-  --chart-3: 0 76% 56%; /* red - same as --no */
-  --chart-4: 43 96% 56%; /* amber */
-  --chart-5: 199 89% 48%; /* sky */
+  --chart-1: 217 91% 60%; /* blue-500 */
+  --chart-2: 142 71% 45%; /* green-600 */
+  --chart-3: 0 73% 53%; /* red-600 */
+  --chart-4: 45 93% 47%; /* amber-500 */
+  --chart-5: 199 89% 48%; /* sky-500 */
   
   /* Other variables */
   --radius: 0.5rem;
 }
 
 .dark {
-  /* Base colors */
-  --background: 0 0% 8%; /* #141414 */
-  --foreground: 210 14% 89%; /* #e5e7eb gray-200 */
-  --card: 0 0% 12%; /* #1e1e1e */
-  --card-foreground: 210 14% 89%; /* #e5e7eb gray-200 */
-  --popover: 0 0% 12%; /* #1e1e1e */
-  --popover-foreground: 210 14% 89%; /* #e5e7eb gray-200 */
+  /* Base colors - Professional dark mode */
+  --background: 223 39% 7%; /* #0F1115 neutral dark bg */
+  --foreground: 213 31% 91%; /* #E6EAF2 primary content */
+  --card: 221 39% 11%; /* #141821 surface-1 */
+  --card-foreground: 213 31% 91%; /* #E6EAF2 primary content */
+  --popover: 221 39% 11%; /* #141821 - opaque surface */
+  --popover-foreground: 213 31% 91%; /* #E6EAF2 primary content */
   
-  /* Primary brand colors */
-  --primary: 221 100% 71%; /* #60a5fa blue-400 */
-  --primary-foreground: 0 0% 0%; /* preto */
+  /* Surface elevation hierarchy */
+  --surface-1: 221 39% 11%; /* #141821 */
+  --surface-2: 220 35% 15%; /* #1A2030 */
+  --surface-3: 220 35% 20%; /* #222A3B elevated/hover */
   
-  /* Secondary colors */
-  --secondary: 262 100% 80%; /* #c4b5fd purple-300 */
-  --secondary-foreground: 0 0% 0%; /* preto */
+  /* Text hierarchy */
+  --text-primary: 213 31% 91%; /* #E6EAF2 primary */
+  --text-secondary: 215 20% 65%; /* #A9B2C3 secondary */
+  --text-muted: 215 25% 55%; /* #7E8AA3 muted */
+  
+  /* Primary brand colors - Less saturated for professional look */
+  --primary: 217 91% 60%; /* #3B82F6 blue accent */
+  --primary-foreground: 0 0% 100%; /* white */
+  --primary-container: 218 62% 17%; /* #12233D blue container */
+  
+  /* Semantic colors - Low saturation for dark mode */
+  --positive: 151 55% 41%; /* #1F8A4D green accent */
+  --positive-container: 150 50% 13%; /* #123726 green bg */
+  --positive-foreground: 148 63% 84%; /* #B7F3D0 green text */
+  
+  --negative: 2 61% 51%; /* #C2413B red accent */
+  --negative-container: 0 36% 17%; /* #3A1B1C red bg */
+  --negative-foreground: 5 80% 86%; /* #F3C3BE red text */
+  
+  /* Other semantic colors */
+  --info: 217 91% 60%; /* #3B82F6 blue accent */
+  --info-container: 218 62% 17%; /* #12233D blue container */
+  --warning: 40 89% 52%; /* #E19A23 amber accent */
+  --warning-container: 36 61% 14%; /* #3B2A10 amber container */
+  --success: 142 71% 45%; /* #22C55E green accent */
+  --success-container: 150 50% 13%; /* #0F2A1A green container */
   
   /* Muted colors */
-  --muted: 215 20% 34%; /* #4b5563 gray-600 */
-  --muted-foreground: 210 14% 66%; /* #9ca3af gray-400 */
-  
-  /* Accent colors */
-  --accent: 157 66% 66%; /* #6ee7b7 green-300 */
-  --accent-foreground: 0 0% 0%; /* #000000 */
+  --muted: 220 35% 20%; /* #222A3B surface-3 */
+  --muted-foreground: 215 25% 55%; /* #7E8AA3 muted text */
   
   /* Destructive colors */
-  --destructive: 0 86% 71%; /* #f87171 red-400 */
-  --destructive-foreground: 0 0% 0%; /* #000000 */
+  --destructive: 2 61% 51%; /* #C2413B red accent */
+  --destructive-foreground: 0 0% 100%; /* white */
   
   /* Border and input */
-  --border: 215 20% 34%; /* #374151 gray-700 */
-  --input: 215 20% 34%; /* #374151 gray-700 */
-  --ring: 210 14% 66%; /* neutral gray */
+  --border: 220 30% 25%; /* #2F3644 subtle border */
+  --input: 220 30% 25%; /* #2F3644 subtle border */
+  --ring: 217 91% 60%; /* #3B82F6 blue focus */
   
-  /* Prediction market specific */
-  --success: 157 66% 66%; /* #6ee7b7 green-300 */
-  --success-foreground: 0 0% 0%; /* #000000 */
-  --warning: 45 93% 64%; /* #fbbf24 amber-400 */
-  --warning-foreground: 0 0% 0%; /* #000000 */
-  --info: 199 91% 64%; /* #38bdf8 sky-400 */
-  --info-foreground: 0 0% 0%; /* #000000 */
+  /* Market YES/NO - Professional low saturation */
+  --yes: 151 55% 41%; /* #1F8A4D green accent */
+  --yes-foreground: 0 0% 100%; /* white */
+  --yes-container: 150 50% 13%; /* #123726 green container */
+  --yes-hover: 151 60% 35%; /* darker green hover */
   
-  /* Market YES/NO colors - Force exact colors in dark mode */
-  --yes: 74 222 128; /* #4ade80 green-400 as RGB */
-  --yes-foreground: 255 255 255; /* #ffffff */
-  --yes-hover: 34 197 94; /* #22c55e darker green */
-  --no: 248 113 113; /* #f87171 red-400 as RGB */
-  --no-foreground: 255 255 255; /* #ffffff */
-  --no-hover: 239 68 68; /* #ef4444 darker red */
+  --no: 2 61% 51%; /* #C2413B red accent */
+  --no-foreground: 0 0% 100%; /* white */
+  --no-container: 0 36% 17%; /* #3A1B1C red container */
+  --no-hover: 2 65% 45%; /* darker red hover */
   
   /* Chart colors */
-  --chart-1: 234 89% 74%; /* indigo-400 */
-  --chart-2: 142 63% 61%; /* green - lighter version of --yes */
-  --chart-3: 0 76% 71%; /* red - lighter version of --no */
-  --chart-4: 45 93% 64%; /* amber-400 */
-  --chart-5: 199 91% 64%; /* sky-400 */
+  --chart-1: 217 91% 60%; /* blue */
+  --chart-2: 151 55% 41%; /* green */
+  --chart-3: 2 61% 51%; /* red */
+  --chart-4: 40 89% 52%; /* amber */
+  --chart-5: 199 89% 48%; /* sky */
 }
 
 /* Melhorias para responsividade */
@@ -270,4 +300,96 @@ body {
 
 .dark .market-card-dark-hover:hover {
   background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Surface elevation utilities */
+.bg-surface-1 {
+  background-color: hsl(var(--surface-1));
+}
+
+.bg-surface-2 {
+  background-color: hsl(var(--surface-2));
+}
+
+.bg-surface-3 {
+  background-color: hsl(var(--surface-3));
+}
+
+/* Text color utilities */
+.text-primary {
+  color: hsl(var(--text-primary));
+}
+
+.text-secondary {
+  color: hsl(var(--text-secondary));
+}
+
+.text-muted {
+  color: hsl(var(--text-muted));
+}
+
+/* Container backgrounds */
+.bg-positive-container {
+  background-color: hsl(var(--positive-container));
+}
+
+.bg-negative-container {
+  background-color: hsl(var(--negative-container));
+}
+
+.bg-primary-container {
+  background-color: hsl(var(--primary-container));
+}
+
+.bg-info-container {
+  background-color: hsl(var(--info-container));
+}
+
+.bg-warning-container {
+  background-color: hsl(var(--warning-container));
+}
+
+.bg-success-container {
+  background-color: hsl(var(--success-container));
+}
+
+/* Text colors for semantic */
+.text-positive {
+  color: hsl(var(--positive));
+}
+
+.text-negative {
+  color: hsl(var(--negative));
+}
+
+.text-positive-foreground {
+  color: hsl(var(--positive-foreground));
+}
+
+.text-negative-foreground {
+  color: hsl(var(--negative-foreground));
+}
+
+/* Elevation shadows for dark mode */
+.elevation-low {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+}
+
+.elevation-medium {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+}
+
+.elevation-high {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+}
+
+/* Focus states */
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus-ring:focus-visible {
+  outline-color: hsl(var(--ring));
+  box-shadow: 0 0 0 4px hsl(var(--ring) / 0.2);
 }

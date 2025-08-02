@@ -1,7 +1,6 @@
 'use client'
 
 import { Card, CardTitle, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { useTranslations } from 'next-intl'
 import { TrendingUp, Users, Calendar, Triangle } from 'lucide-react'
 import Link from 'next/link'
@@ -48,12 +47,6 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
     return categoryMap[cat ?? ''] ?? 'default'
   }
   
-  // Get translated category name
-  const getTranslatedCategory = (cat?: string): string => {
-    if (!cat) return ''
-    const variant = getCategoryVariant(cat)
-    return variant !== 'default' ? t(`categories.${variant}`) : cat
-  }
   
   // Get category icon
   const getCategoryIcon = (cat?: string): string => {
@@ -72,7 +65,7 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
 
   return (
     <Link href={eventUrl}>
-      <Card className="market-card-light-hover market-card-dark-hover cursor-pointer transition-all duration-200 ease-in-out border border-border/60 group bg-card text-foreground shadow-sm hover:border-border w-full h-[180px] flex flex-col">
+      <Card className="cursor-pointer transition-all duration-200 ease-in-out border border-border group bg-card hover:bg-surface-2 dark:hover:bg-surface-2 w-full h-[180px] flex flex-col elevation-low hover:elevation-medium">
       <CardContent className="px-2 pt-3 pb-2 flex flex-col h-full justify-between">
         {/* Header with image and title */}
         <div className="flex gap-3 items-center">
@@ -89,37 +82,37 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
               </div>
             )}
           </div>
-          <CardTitle className="text-[15px] font-extrabold leading-tight line-clamp-2 group-hover:text-primary group-hover:underline transition-all duration-300 flex-1">
+          <CardTitle className="text-[15px] font-extrabold leading-tight line-clamp-2 text-foreground group-hover:text-primary transition-colors duration-200 flex-1">
             {question}
           </CardTitle>
         </div>
         
         {/* Yes/No Buttons */}
         <div className="flex gap-2">
-          <div className="flex-1 bg-[rgb(var(--yes)/0.2)] border border-[rgb(var(--yes)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[rgb(var(--yes)/0.6)] hover:bg-[rgb(var(--yes)/0.3)]">
+          <div className="flex-1 bg-positive-container dark:bg-positive-container border border-[hsl(var(--positive)/0.3)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--positive)/0.15)] dark:hover:bg-[hsl(var(--positive)/0.2)] group/yes">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-[rgb(var(--yes))] transition-transform duration-300 hover:scale-105">
+                <div className="text-xl font-bold text-positive dark:text-positive-foreground transition-transform duration-200 group-hover/yes:scale-105">
                   {yesPercentage}%
                 </div>
-                <div className="text-xs text-[rgb(var(--yes))] uppercase font-semibold tracking-wider">
+                <div className="text-xs text-positive dark:text-positive-foreground/80 uppercase font-semibold tracking-wider">
                   {t('card.yes')}
                 </div>
               </div>
-              <Triangle className="w-4 h-4 fill-current text-[rgb(var(--yes))]" />
+              <Triangle className="w-4 h-4 fill-current text-positive dark:text-positive-foreground" />
             </div>
           </div>
-          <div className="flex-1 bg-[rgb(var(--no)/0.2)] border border-[rgb(var(--no)/0.4)] rounded-lg py-2 px-2 h-14 transition-all duration-300 ease-in-out cursor-pointer shadow-sm hover:shadow-md hover:border-[rgb(var(--no)/0.6)] hover:bg-[rgb(var(--no)/0.3)]">
+          <div className="flex-1 bg-negative-container dark:bg-negative-container border border-[hsl(var(--negative)/0.3)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--negative)/0.15)] dark:hover:bg-[hsl(var(--negative)/0.2)] group/no">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-[rgb(var(--no))] transition-transform duration-300 hover:scale-105">
+                <div className="text-xl font-bold text-negative dark:text-negative-foreground transition-transform duration-200 group-hover/no:scale-105">
                   {noPercentage}%
                 </div>
-                <div className="text-xs text-[rgb(var(--no))] uppercase font-semibold tracking-wider">
+                <div className="text-xs text-negative dark:text-negative-foreground/80 uppercase font-semibold tracking-wider">
                   {t('card.no')}
                 </div>
               </div>
-              <Triangle className="w-4 h-4 fill-current text-[rgb(var(--no))] rotate-180" />
+              <Triangle className="w-4 h-4 fill-current text-negative dark:text-negative-foreground rotate-180" />
             </div>
           </div>
         </div>
@@ -127,19 +120,19 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
         {/* Footer info - centered */}
         <div className="grid grid-cols-3 gap-1 text-xs">
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-1">
+            <div className="text-secondary flex items-center justify-center gap-1">
               <TrendingUp className="w-3 h-3" />
             </div>
-            <div className="font-semibold text-foreground truncate">{volume}</div>
+            <div className="font-semibold text-primary truncate">{volume}</div>
           </div>
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-1">
+            <div className="text-secondary flex items-center justify-center gap-1">
               <Users className="w-3 h-3" />
             </div>
             <div className="font-semibold text-foreground">{traders}</div>
           </div>
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-1">
+            <div className="text-secondary flex items-center justify-center gap-1">
               <Calendar className="w-3 h-3" />
             </div>
             <div className="font-semibold text-foreground">

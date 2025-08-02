@@ -27,29 +27,29 @@ export function Footer({ locale }: FooterProps) {
   }, [])
   
   return (
-    <footer className={`h-10 max-h-10 border-t border-border bg-background text-xs text-muted-foreground transition-all duration-300 ${
-      isSticky ? 'fixed bottom-0 left-0 right-0 z-50 shadow-lg' : ''
+    <footer className={`h-10 max-h-10 border-t border-border bg-background text-xs text-secondary transition-all duration-200 ${
+      isSticky ? 'fixed bottom-0 left-0 right-0 z-50 elevation-medium' : ''
     }`}>
       <div className="container mx-auto px-4 h-full flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <a href="mailto:contact@prediq.fun" className="hover:text-foreground cursor-pointer transition-colors">
+          <a href="mailto:contact@prediq.fun" className="hover:text-foreground cursor-pointer transition-colors duration-200">
           <Mail className="h-4 w-4" />
         </a>
-        <a href="https://twitter.com/prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors">
+        <a href="https://twitter.com/prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors duration-200">
           <Twitter className="h-4 w-4" />
         </a>
-        <a href="https://instagram.com/prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors">
+        <a href="https://instagram.com/prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors duration-200">
           <Instagram className="h-4 w-4" />
         </a>
-        <a href="https://discord.gg/prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors">
+        <a href="https://discord.gg/prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors duration-200">
           <MessageSquare className="h-4 w-4" />
         </a>
-        <a href="https://tiktok.com/@prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors">
+        <a href="https://tiktok.com/@prediqfun" target="_blank" rel="noopener noreferrer" className="hover:text-foreground cursor-pointer transition-colors duration-200">
           <Gamepad2 className="h-4 w-4" />
         </a>
         </div>
         <p className="text-xs">
-          PrediQ.fun © {currentYear} · <Link href={`/${locale}/privacy`} className="hover:text-foreground cursor-pointer">Privacy</Link> · <Link href={`/${locale}/terms`} className="hover:text-foreground cursor-pointer">Terms of Use</Link> · <Link href={`/${locale}/learn`} className="hover:text-foreground cursor-pointer">Learn</Link> · <Link href={`/${locale}/careers`} className="hover:text-foreground cursor-pointer">Careers</Link> · <a href="mailto:press@prediq.fun" className="hover:text-foreground cursor-pointer">Press</a>
+          PrediQ.fun © {currentYear} · <Link href={`/${locale}/privacy`} className="hover:text-foreground cursor-pointer transition-colors duration-200">Privacy</Link> · <Link href={`/${locale}/terms`} className="hover:text-foreground cursor-pointer transition-colors duration-200">Terms of Use</Link> · <Link href={`/${locale}/learn`} className="hover:text-foreground cursor-pointer transition-colors duration-200">Learn</Link> · <Link href={`/${locale}/careers`} className="hover:text-foreground cursor-pointer transition-colors duration-200">Careers</Link> · <a href="mailto:press@prediq.fun" className="hover:text-foreground cursor-pointer transition-colors duration-200">Press</a>
         </p>
       </div>
     </footer>

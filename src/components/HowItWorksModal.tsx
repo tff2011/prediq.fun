@@ -63,18 +63,18 @@ export function HowItWorksModal() {
   return (
     <Dialog onOpenChange={(open) => !open && handleClose()}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer text-[hsl(var(--primary))] hover:text-[hsl(var(--primary)/0.8)]" style={{ border: 'none', outline: 'none', boxShadow: 'none' }}>
+        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer text-primary hover:text-primary/80 focus-ring">
           <Info size={16} />
           {t('button')}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] bg-[hsl(var(--card))] border border-[hsl(var(--border))] shadow-2xl sm:rounded-2xl">
+      <DialogContent className="sm:max-w-[500px] bg-card dark:bg-surface-1 border border-border elevation-high sm:rounded-2xl backdrop-blur-sm">
         <div className="space-y-6 p-2">
           <DialogHeader>
             <div className="flex justify-center items-center mb-2">
-              <span className="text-sm font-medium text-muted-foreground">{step + 1}/{tutorialSteps.length}</span>
+              <span className="text-sm font-medium text-secondary">{step + 1}/{tutorialSteps.length}</span>
             </div>
-            <DialogTitle className="text-center text-2xl font-bold text-card-foreground">
+            <DialogTitle className="text-center text-2xl font-bold text-foreground">
               {currentStep?.title}
             </DialogTitle>
           </DialogHeader>
@@ -84,19 +84,19 @@ export function HowItWorksModal() {
             {tutorialSteps.map((_, index) => (
               <div
                 key={index}
-                className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                className={`h-3 w-3 rounded-full transition-all duration-200 ${
                   index === step
-                    ? 'bg-primary scale-110'
+                    ? 'bg-primary scale-110 elevation-low'
                     : index < step
                     ? 'bg-primary/60'
-                    : 'border-2 border-muted bg-background'
+                    : 'border-2 border-border bg-surface-2'
                 }`}
               />
             ))}
           </div>
           
           <div className="flex flex-col items-center space-y-4 py-6">
-            <p className="text-center text-card-foreground text-lg leading-relaxed px-6 max-w-md font-medium">
+            <p className="text-center text-foreground text-lg leading-relaxed px-6 max-w-md font-medium">
               {currentStep?.description}
             </p>
           </div>
@@ -105,7 +105,7 @@ export function HowItWorksModal() {
             {step < tutorialSteps.length - 1 ? (
               <Button 
                 onClick={handleNext} 
-                className="max-w-xs w-full mx-auto cursor-pointer bg-[hsl(var(--yes))] text-white hover:bg-[hsl(var(--yes)/.85)] border-none shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+                className="max-w-xs w-full mx-auto cursor-pointer bg-positive text-positive-foreground hover:bg-positive/90 border-none elevation-low hover:elevation-medium transition-all duration-200 hover:scale-105 focus-ring"
                 size="lg"
               >
                 {t('nextButton')}
@@ -115,7 +115,7 @@ export function HowItWorksModal() {
                 <Button 
                   onClick={handleClose} 
                   variant="default"
-                  className="max-w-xs w-full mx-auto cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg" 
+                  className="max-w-xs w-full mx-auto cursor-pointer transition-all duration-200 hover:scale-105 elevation-low hover:elevation-medium focus-ring" 
                   size="lg"
                 >
                   {t('getStartedButton')}

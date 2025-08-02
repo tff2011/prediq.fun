@@ -25,7 +25,7 @@ export function ThemeToggle() {
       variant="ghost"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label="Alternar tema"
-      className="cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
+      className="cursor-pointer transition-all duration-200 hover:scale-105 focus-ring"
     >
       {isDark ? (
         <Sun className="h-5 w-5" />
