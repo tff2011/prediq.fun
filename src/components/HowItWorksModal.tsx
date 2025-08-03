@@ -63,59 +63,81 @@ export function HowItWorksModal() {
   return (
     <Dialog onOpenChange={(open) => !open && handleClose()}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="flex items-center gap-2 cursor-pointer text-primary hover:text-primary/80 focus-ring">
+        <Button variant="ghostTransparent" className="flex items-center gap-2 cursor-pointer focus-ring">
           <Info size={16} />
           {t('button')}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] bg-card border border-border shadow-xl sm:rounded-2xl backdrop-blur-sm">
-        <div className="space-y-6 p-2">
-          <DialogHeader>
-            <div className="flex justify-center items-center mb-2">
-              <span className="text-sm font-medium text-muted-foreground">{step + 1}/{tutorialSteps.length}</span>
-            </div>
-            <DialogTitle className="text-center text-2xl font-bold text-foreground">
-              {currentStep?.title}
-            </DialogTitle>
-          </DialogHeader>
-          
-          {/* Progress dots */}
-          <div className="flex justify-center gap-3">
+
+      {/* Dialog com visual glass moderno */}
+      <DialogContent className="sm:max-w-[600px] rounded-2xl border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.35)] backdrop-blur-md shadow-web3-2 p-0 overflow-hidden">
+        {/* Header com gradient-border sutil e espaço p/ botão de fechar */}
+        <div className="relative gradient-border rounded-t-2xl p-[1px]">
+          <div className="rounded-t-[calc(1rem-1px)] bg-[hsl(var(--card)/0.25)] pl-6 pr-12 py-4">
+            <DialogHeader>
+              <div className="flex items-center justify-between">
+                <DialogTitle className="text-xl font-semibold tracking-tight">
+                  {currentStep?.title}
+                </DialogTitle>
+                <span className="text-xs font-medium text-muted-foreground shrink-0">
+                  {step + 1}/{tutorialSteps.length}
+                </span>
+              </div>
+            </DialogHeader>
+            {/* Botão fechar reposicionado fora do fluxo do título */}
+            <DialogClose asChild>
+              <button
+                aria-label="Fechar"
+                className="absolute right-3 top-3 h-8 w-8 rounded-full flex items-center justify-center hover:bg-[hsl(var(--card)/0.5)] focus-ring"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" className="text-muted-foreground">
+                  <path fill="currentColor" d="M18 6L6 18M6 6l12 12" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </button>
+            </DialogClose>
+          </div>
+        </div>
+
+        {/* Conteúdo com respiração maior */}
+        <div className="space-y-7 px-8 py-6">
+          {/* Dots de progresso minimalistas */}
+          <div className="flex justify-center gap-2">
             {tutorialSteps.map((_, index) => (
               <div
                 key={index}
-                className={`h-3 w-3 rounded-full transition-all duration-200 ${
+                className={`h-1.5 w-7 rounded-full transition-all ease-web3 duration-200 ${
                   index === step
-                    ? 'bg-primary scale-110 shadow-sm'
-                    : index < step
-                    ? 'bg-primary/60'
-                    : 'border-2 border-border bg-muted'
+                    ? 'bg-[hsl(var(--primary))]'
+                    : 'bg-[hsl(var(--border)/0.45)]'
                 }`}
               />
             ))}
           </div>
-          
-          <div className="flex flex-col items-center space-y-4 py-6">
-            <p className="text-center text-foreground text-lg leading-relaxed px-6 max-w-md font-medium">
+
+          {/* Texto central */}
+          <div className="flex flex-col items-center space-y-4">
+            <p className="text-center text-foreground text-base leading-relaxed px-2 max-w-[38ch]">
               {currentStep?.description}
             </p>
           </div>
-          
-          <DialogFooter className="flex justify-center pt-2 !flex-row !space-x-0">
+
+          {/* CTA */}
+          <DialogFooter className="flex justify-center pt-1 !flex-row !space-x-0">
             {step < tutorialSteps.length - 1 ? (
-              <Button 
-                onClick={handleNext} 
-                className="max-w-xs w-full mx-auto cursor-pointer bg-green-600 text-white hover:bg-green-700 border-none shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 focus-ring"
+              <Button
+                onClick={handleNext}
+                variant="primaryGradient"
+                className="max-w-xs w-full mx-auto cursor-pointer"
                 size="lg"
               >
                 {t('nextButton')}
               </Button>
             ) : (
               <DialogClose asChild>
-                <Button 
-                  onClick={handleClose} 
-                  variant="default"
-                  className="max-w-xs w-full mx-auto cursor-pointer transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md focus-ring" 
+                <Button
+                  onClick={handleClose}
+                  variant="primaryGradient"
+                  className="max-w-xs w-full mx-auto cursor-pointer"
                   size="lg"
                 >
                   {t('getStartedButton')}
