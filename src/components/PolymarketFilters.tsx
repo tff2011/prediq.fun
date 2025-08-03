@@ -118,7 +118,7 @@ export function PolymarketFilters({
   }
 
   return (
-    <div className="w-full bg-card">
+    <div className="w-full">
       {/* First row - Search, Filter button, and Categories */}
       <div>
         <div className="container mx-auto px-4 py-3">
@@ -131,14 +131,14 @@ export function PolymarketFilters({
                   placeholder={t('search.placeholder')}
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full sm:w-64 pl-10 pr-4 py-2 bg-background border border-input rounded-lg text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
+                  className="w-full sm:w-64 pl-10 pr-4 py-2 bg-muted/30 border-0 rounded-lg text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring/50 focus:bg-background"
                 />
               </div>
               
               <button 
                 onClick={() => setShowFilters(!showFilters)}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-2 border rounded-lg text-sm font-medium transition-all duration-300 ease-in-out cursor-pointer hover:shadow-md hover:scale-105",
+                  "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 cursor-pointer hover:bg-accent/10",
                   showFilters 
                     ? "bg-muted text-foreground border-muted-foreground hover:bg-muted/80" 
                     : "bg-background border-input text-foreground hover:bg-accent hover:text-accent-foreground"
@@ -160,7 +160,7 @@ export function PolymarketFilters({
               <button
                 onClick={() => scrollCategories('left')}
                 className={cn(
-                  "absolute left-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm border border-border rounded-full shadow-md cursor-pointer hover:bg-accent transition-all duration-200",
+                  "absolute left-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm rounded-full shadow-sm cursor-pointer hover:bg-accent transition-colors duration-150",
                   showLeftArrow ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                 )}
                 aria-label="Scroll left"
@@ -180,10 +180,10 @@ export function PolymarketFilters({
                     key={category.id}
                     onClick={() => handleCategoryClick(category.id)}
                     className={cn(
-                      "px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out cursor-pointer border hover:scale-105",
+                      "px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors duration-150 cursor-pointer",
                       selectedCategory === category.id
                         ? getCategorySelectedStyle(category.id)
-                        : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground hover:shadow-sm"
+                        : "bg-muted/30 text-foreground hover:bg-accent hover:text-accent-foreground"
                     )}
                   >
                     {t(`categories.${category.name}`)}
@@ -195,7 +195,7 @@ export function PolymarketFilters({
               <button
                 onClick={() => scrollCategories('right')}
                 className={cn(
-                  "absolute right-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm border border-border rounded-full shadow-md cursor-pointer hover:bg-accent transition-all duration-200",
+                  "absolute right-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm rounded-full shadow-sm cursor-pointer hover:bg-accent transition-colors duration-150",
                   showRightArrow ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                 )}
                 aria-label="Scroll right"
@@ -209,7 +209,7 @@ export function PolymarketFilters({
 
       {/* Second row - Sort options and toggles */}
       {showFilters && (
-        <div className="bg-card/50 animate-in slide-in-from-top-4 duration-300">
+        <div className="bg-muted/10 animate-in slide-in-from-top-4 duration-300">
           <div className="container mx-auto px-4 py-3">
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               {/* Sort by dropdown */}
@@ -217,13 +217,13 @@ export function PolymarketFilters({
                 <span className="text-sm text-muted-foreground">Sort by:</span>
                 <button
                   onClick={() => setShowSortDropdown(!showSortDropdown)}
-                  className="flex items-center gap-1 px-2 py-1 text-foreground hover:bg-accent hover:text-accent-foreground rounded font-medium cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
+                  className="flex items-center gap-1 px-2 py-1 text-foreground hover:bg-accent hover:text-accent-foreground rounded-md font-medium cursor-pointer transition-colors duration-150"
                 >
                   {sortBy}
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 {showSortDropdown && (
-                  <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 min-w-32 backdrop-blur-sm">
+                  <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-lg z-50 min-w-32 backdrop-blur-sm">
                     {['24hr Volume', 'Volume', 'Activity', 'Newest', 'Ending Soon'].map((option) => (
                       <button
                         key={option}
@@ -232,7 +232,7 @@ export function PolymarketFilters({
                           onSortChange?.(option)
                           setShowSortDropdown(false)
                         }}
-                        className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm transition-all duration-200 hover:scale-[1.02]"
+                        className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm transition-colors duration-150"
                       >
                         {option}
                       </button>
@@ -246,13 +246,13 @@ export function PolymarketFilters({
                 <span className="text-sm text-muted-foreground">Frequency:</span>
                 <button
                   onClick={() => setShowFrequencyDropdown(!showFrequencyDropdown)}
-                  className="flex items-center gap-1 px-2 py-1 text-foreground hover:bg-accent hover:text-accent-foreground rounded font-medium cursor-pointer transition-all duration-300 ease-in-out hover:scale-105"
+                  className="flex items-center gap-1 px-2 py-1 text-foreground hover:bg-accent hover:text-accent-foreground rounded-md font-medium cursor-pointer transition-colors duration-150"
                 >
                   {frequency}
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 {showFrequencyDropdown && (
-                  <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 min-w-24 backdrop-blur-sm">
+                  <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-lg z-50 min-w-24 backdrop-blur-sm">
                     {['All', 'Daily', 'Weekly', 'Monthly'].map((option) => (
                       <button
                         key={option}
@@ -261,7 +261,7 @@ export function PolymarketFilters({
                           onFrequencyChange?.(option)
                           setShowFrequencyDropdown(false)
                         }}
-                        className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm transition-all duration-200 hover:scale-[1.02]"
+                        className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm transition-colors duration-150"
                       >
                         {option}
                       </button>

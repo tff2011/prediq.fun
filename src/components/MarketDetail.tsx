@@ -1,6 +1,5 @@
 'use client'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -55,15 +54,15 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Header Card */}
-      <Card>
-        <CardHeader>
+      {/* Header */}
+      <div className="bg-muted/5 rounded-lg p-6">
+        <div>
           <div className="flex items-start justify-between">
             <div className="space-y-2">
               <Badge variant={getCategoryVariant(data.category)}>
                 {data.category}
               </Badge>
-              <CardTitle className="text-2xl md:text-3xl">{data.title || data.question}</CardTitle>
+              <h1 className="text-2xl md:text-3xl font-semibold">{data.title || data.question}</h1>
               {data.description && (
                 <p className="text-muted-foreground mt-2">{data.description}</p>
               )}
@@ -72,8 +71,8 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
               {t(`status.${data.status}`)}
             </Badge>
           </div>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div className="mt-6">
           {/* Market Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="space-y-1">
@@ -111,82 +110,78 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
               </p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Chart and Trading */}
         <div className="lg:col-span-2 space-y-6">
           {/* Chart Section */}
-          <Card>
-            <CardHeader className="pb-3">
+          <div className="bg-muted/5 rounded-lg p-6">
+            <div className="pb-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ChartLine className="w-5 h-5" />
-                  <CardTitle className="text-lg">{t('event.chart.title')}</CardTitle>
+                  <h3 className="text-lg font-semibold">{t('event.chart.title')}</h3>
                 </div>
                 <div className="flex items-center gap-4 text-sm">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[rgb(var(--yes))]" />
+                    <div className="w-3 h-3 rounded-full bg-[hsl(var(--yes))]" />
                     <span>SIM {data.oddsYes}%</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[rgb(var(--no))]" />
-                    <span>NÃO {data.oddsNo}%</span>
+                    <div className="w-3 h-3 rounded-full bg-[hsl(var(--no))]" />
+                    <span>NAO {data.oddsNo}%</span>
                   </div>
                 </div>
               </div>
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <PriceChart data={data} />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Trading Interface */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">{t('event.trading.title')}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
+          <div className="bg-muted/5 rounded-lg p-6">
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold">{t('event.trading.title')}</h3>
+            </div>
+            <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <Card 
-                  className={`cursor-pointer transition-all duration-300 ease-in-out ${
+                <div 
+                  className={`cursor-pointer transition-all duration-300 ease-in-out rounded-md p-4 text-center space-y-2 ${
                     selectedOutcome === 'yes' 
-                      ? 'ring-2 ring-[rgb(var(--yes))] bg-[rgb(var(--yes)/0.1)] shadow-lg' 
-                      : 'hover:shadow-lg hover:bg-[rgb(var(--yes)/0.05)] hover:border-[rgb(var(--yes)/0.3)]'
+                      ? 'ring-2 ring-[hsl(var(--yes))] bg-[hsl(var(--yes)/0.1)]' 
+                      : 'hover:bg-[hsl(var(--yes)/0.05)] bg-muted/20'
                   }`}
                   onClick={() => setSelectedOutcome('yes')}
                 >
-                  <CardContent className="p-4 text-center space-y-2">
-                    <h4 className="text-lg font-bold text-[rgb(var(--yes))]">
-                      {t('card.yes')}
-                    </h4>
-                    <div className="text-2xl font-bold text-foreground">{data.oddsYes}%</div>
-                    <p className="text-xs text-muted-foreground">
-                      R$ 0,{data.oddsYes.toString().padStart(2, '0')}
-                    </p>
-                  </CardContent>
-                </Card>
+                  <h4 className="text-lg font-bold text-[hsl(var(--yes))]">
+                    {t('card.yes')}
+                  </h4>
+                  <div className="text-2xl font-bold text-foreground">{data.oddsYes}%</div>
+                  <p className="text-xs text-muted-foreground">
+                    R$ 0,{data.oddsYes.toString().padStart(2, '0')}
+                  </p>
+                </div>
 
-                <Card 
-                  className={`cursor-pointer transition-all duration-300 ease-in-out ${
+                <div 
+                  className={`cursor-pointer transition-all duration-300 ease-in-out rounded-md p-4 text-center space-y-2 ${
                     selectedOutcome === 'no' 
-                      ? 'ring-2 ring-[rgb(var(--no))] bg-[rgb(var(--no)/0.1)] shadow-lg' 
-                      : 'hover:shadow-lg hover:bg-[rgb(var(--no)/0.05)] hover:border-[rgb(var(--no)/0.3)]'
+                      ? 'ring-2 ring-[hsl(var(--no))] bg-[hsl(var(--no)/0.1)]' 
+                      : 'hover:bg-[hsl(var(--no)/0.05)] bg-muted/20'
                   }`}
                   onClick={() => setSelectedOutcome('no')}
                 >
-                  <CardContent className="p-4 text-center space-y-2">
-                    <h4 className="text-lg font-bold text-[rgb(var(--no))]">
-                      {t('card.no')}
-                    </h4>
-                    <div className="text-2xl font-bold text-foreground">{data.oddsNo}%</div>
-                    <p className="text-xs text-muted-foreground">
-                      R$ 0,{data.oddsNo.toString().padStart(2, '0')}
-                    </p>
-                  </CardContent>
-                </Card>
+                  <h4 className="text-lg font-bold text-[hsl(var(--no))]">
+                    {t('card.no')}
+                  </h4>
+                  <div className="text-2xl font-bold text-foreground">{data.oddsNo}%</div>
+                  <p className="text-xs text-muted-foreground">
+                    R$ 0,{data.oddsNo.toString().padStart(2, '0')}
+                  </p>
+                </div>
               </div>
 
               {selectedOutcome && (
@@ -211,7 +206,7 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">{t('event.trading.potential')}:</span>
-                        <span className="font-semibold text-[rgb(var(--yes))]">
+                        <span className="font-semibold text-[hsl(var(--yes))]">
                           R$ {calculatePayout(selectedOutcome)}
                         </span>
                       </div>
@@ -232,28 +227,28 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                   </Button>
                 </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Right Column - Order Book and Context */}
         <div className="space-y-6">
           {/* Order Book */}
-          <Card>
-            <CardHeader className="pb-3">
+          <div className="bg-muted/5 rounded-lg p-6">
+            <div className="pb-3">
               <div className="flex items-center gap-2">
                 <ArrowUpDown className="w-5 h-5" />
-                <CardTitle className="text-lg">{t('event.orderbook.title')}</CardTitle>
+                <h3 className="text-lg font-semibold">{t('event.orderbook.title')}</h3>
               </div>
-            </CardHeader>
-            <CardContent>
+            </div>
+            <div>
               <OrderBook data={data} />
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
           {/* Market Context & Rules */}
-          <Card>
-            <CardContent className="p-0">
+          <div className="bg-muted/5 rounded-lg">
+            <div className="p-0">
               <Tabs defaultValue="context" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="context" className="flex items-center gap-2">
@@ -294,23 +289,23 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                   </p>
                 </TabsContent>
               </Tabs>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Comments Section - Full Width */}
-      <Card>
-        <CardHeader className="pb-3">
+      <div className="bg-muted/5 rounded-lg p-6">
+        <div className="pb-3">
           <div className="flex items-center gap-2">
             <MessageSquare className="w-5 h-5" />
-            <CardTitle className="text-lg">{t('event.comments.title')}</CardTitle>
+            <h3 className="text-lg font-semibold">{t('event.comments.title')}</h3>
           </div>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div>
           <CommentsSection marketId={data.id} />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Info Alert */}
       <div className="flex items-start gap-3 p-4 bg-info/10 border border-info/20 rounded-lg">
@@ -333,13 +328,13 @@ export function MarketDetail({ market, locale }: { market: any, locale: string }
 
 function MarketDetailSkeleton() {
   return (
-    <Card className="max-w-4xl mx-auto">
-      <CardHeader>
+    <div className="max-w-4xl mx-auto bg-muted/5 rounded-lg p-6">
+      <div className="mb-6">
         <Skeleton className="h-6 w-20 mb-2" />
         <Skeleton className="h-8 w-3/4" />
         <Skeleton className="h-4 w-full mt-2" />
-      </CardHeader>
-      <CardContent className="space-y-6">
+      </div>
+      <div className="space-y-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="space-y-2">
@@ -352,7 +347,7 @@ function MarketDetailSkeleton() {
           <Skeleton className="h-40 w-full" />
           <Skeleton className="h-40 w-full" />
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

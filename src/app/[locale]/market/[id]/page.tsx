@@ -15,7 +15,7 @@ const getMarketById = async (id: string) => {
       oddsNo: 2.35,
       totalBets: 3429,
       liquidity: 'R$ 89.300',
-      status: 'active'
+      status: 'active' as const
     },
     'bitcoin': {
       id: 'bitcoin',
@@ -28,7 +28,7 @@ const getMarketById = async (id: string) => {
       oddsNo: 1.90,
       totalBets: 5832,
       liquidity: 'R$ 234.100',
-      status: 'active'
+      status: 'active' as const
     }
   }
   

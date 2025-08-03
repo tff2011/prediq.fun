@@ -1,6 +1,5 @@
 'use client'
 
-import { Card, CardTitle, CardContent } from "@/components/ui/card"
 import { useTranslations } from 'next-intl'
 import { TrendingUp, Users, Calendar, Triangle } from 'lucide-react'
 import Link from 'next/link'
@@ -65,8 +64,8 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
 
   return (
     <Link href={eventUrl}>
-      <Card className="cursor-pointer transition-all duration-200 ease-in-out border border-border group bg-card hover:bg-muted/20 w-full h-[180px] flex flex-col shadow-sm hover:shadow-md">
-      <CardContent className="px-2 pt-3 pb-2 flex flex-col h-full justify-between">
+      <div className="cursor-pointer transition-all duration-300 group hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-black/25 hover:-translate-y-1 w-full h-[200px] bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-xl shadow-lg shadow-black/5 dark:shadow-black/20">
+        <div className="flex flex-col h-full justify-between p-4">
         {/* Header with image and title */}
         <div className="flex gap-3 items-center">
           <div className="w-[38px] h-[38px] flex-shrink-0">
@@ -74,41 +73,41 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
               <img 
                 src={imageUrl} 
                 alt="Market icon" 
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-md"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-xl rounded-lg">
+              <div className="w-full h-full flex items-center justify-center text-xl rounded-md">
                 {getCategoryIcon(category)}
               </div>
             )}
           </div>
-          <CardTitle className="text-[15px] font-extrabold leading-tight line-clamp-2 text-foreground group-hover:text-primary transition-colors duration-200 flex-1">
+          <h3 className="text-[15px] font-semibold leading-tight line-clamp-2 text-foreground flex-1">
             {question}
-          </CardTitle>
+          </h3>
         </div>
         
         {/* Yes/No Buttons */}
         <div className="flex gap-2">
-          <div className="flex-1 bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.3)] border border-[hsl(var(--yes-container))] dark:border-[hsl(var(--yes)/0.6)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--yes-container)/0.8)] dark:hover:bg-[hsl(var(--yes)/0.5)] group/yes">
+          <div className="flex-1 bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.3)] border-0 rounded-md py-3 px-3 h-16 transition-colors duration-150 cursor-pointer hover:bg-[hsl(var(--yes-container)/0.7)] dark:hover:bg-[hsl(var(--yes)/0.4)] group/yes">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground))] transition-transform duration-200 group-hover/yes:scale-105">
+                <div className="text-2xl font-semibold text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground))] tracking-tight">
                   {yesPercentage}%
                 </div>
-                <div className="text-xs text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground)/0.8)] uppercase font-semibold tracking-wider">
+                <div className="text-xs text-[hsl(var(--yes-foreground)/0.8)] dark:text-[hsl(var(--yes-foreground)/0.7)] uppercase font-medium tracking-wide">
                   {t('card.yes')}
                 </div>
               </div>
               <Triangle className="w-4 h-4 fill-current text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground))]" />
             </div>
           </div>
-          <div className="flex-1 bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.3)] border border-[hsl(var(--no-container))] dark:border-[hsl(var(--no)/0.6)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--no-container)/0.8)] dark:hover:bg-[hsl(var(--no)/0.5)] group/no">
+          <div className="flex-1 bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.3)] border-0 rounded-md py-3 px-3 h-16 transition-colors duration-150 cursor-pointer hover:bg-[hsl(var(--no-container)/0.7)] dark:hover:bg-[hsl(var(--no)/0.4)] group/no">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-[hsl(var(--no-foreground))] dark:text-[hsl(var(--no-foreground))] transition-transform duration-200 group-hover/no:scale-105">
+                <div className="text-2xl font-semibold text-[hsl(var(--no-foreground))] dark:text-[hsl(var(--no-foreground))] tracking-tight">
                   {noPercentage}%
                 </div>
-                <div className="text-xs text-[hsl(var(--no-foreground))] dark:text-[hsl(var(--no-foreground)/0.8)] uppercase font-semibold tracking-wider">
+                <div className="text-xs text-[hsl(var(--no-foreground)/0.8)] dark:text-[hsl(var(--no-foreground)/0.7)] uppercase font-medium tracking-wide">
                   {t('card.no')}
                 </div>
               </div>
@@ -117,25 +116,25 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
           </div>
         </div>
         
-        {/* Footer info - centered */}
-        <div className="grid grid-cols-3 gap-1 text-xs">
+        {/* Footer info - professional layout */}
+        <div className="grid grid-cols-3 gap-2 text-xs pt-2">
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-1">
+            <div className="text-muted-foreground flex items-center justify-center gap-1 mb-0.5">
               <TrendingUp className="w-3 h-3" />
             </div>
-            <div className="font-semibold text-primary truncate">{volume}</div>
+            <div className="font-medium text-foreground truncate text-[11px]">{volume}</div>
           </div>
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-1">
+            <div className="text-muted-foreground flex items-center justify-center gap-1 mb-0.5">
               <Users className="w-3 h-3" />
             </div>
-            <div className="font-semibold text-foreground">{traders}</div>
+            <div className="font-medium text-foreground text-[11px]">{traders}</div>
           </div>
           <div className="text-center">
-            <div className="text-muted-foreground flex items-center justify-center gap-1">
+            <div className="text-muted-foreground flex items-center justify-center gap-1 mb-0.5">
               <Calendar className="w-3 h-3" />
             </div>
-            <div className="font-semibold text-foreground">
+            <div className="font-medium text-foreground text-[11px]">
               {new Date(endsAt).toLocaleDateString('pt-BR', { 
                 day: 'numeric', 
                 month: 'short' 
@@ -143,8 +142,8 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
             </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        </div>
+      </div>
     </Link>
   )
 }
