@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { TrendingUp, Users, Calendar, Triangle } from 'lucide-react'
 import Link from 'next/link'
 import { generateEventUrl } from '@/lib/slug'
+import { cn } from '@/lib/utils'
 
 interface Props {
   id: string
@@ -13,9 +14,10 @@ interface Props {
   category?: string
   imageUrl?: string
   locale?: string
+  className?: string
 }
 
-export function MarketCard({ id, question, volume, endsAt, category, imageUrl, locale = 'pt' }: Props) {
+export function MarketCard({ id, question, volume, endsAt, category, imageUrl, locale = 'pt', className }: Props) {
   const t = useTranslations('markets')
   
   // Use a deterministic value based on the market ID to avoid hydration issues
@@ -34,8 +36,6 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
   const noPercentage = 100 - yesPercentage
   const traders = 100 + (marketHash % 900) // Range: 100-999
   
-  
-  
   // Get category icon
   const getCategoryIcon = (cat?: string): string => {
     const iconMap: Record<string, string> = {
@@ -53,7 +53,13 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
 
   return (
     <Link href={eventUrl}>
-      <div className="cursor-pointer transition-all duration-300 group hover:shadow-xl hover:shadow-black/10 dark:hover:shadow-black/25 hover:-translate-y-1 w-full h-[200px] bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 rounded-xl shadow-lg shadow-black/5 dark:shadow-black/20">
+      <div
+        className={cn(
+          "cursor-pointer transition-all ease-web3 duration-200 group hover:shadow-web3-2 hover:-translate-y-0.5",
+          "w-full h-[200px] frosted border border-[hsl(var(--border)/0.6)] rounded-xl shadow-web3-1",
+          className
+        )}
+      >
         <div className="flex flex-col h-full justify-between p-4">
         {/* Header with image and title */}
         <div className="flex gap-3 items-center">

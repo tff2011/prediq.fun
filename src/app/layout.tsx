@@ -1,4 +1,5 @@
 import { type Metadata } from "next";
+import { ThemeProvider } from "@/components/theme-provider";
 
 import { TRPCReactProvider } from "~/trpc/react";
 
@@ -12,6 +13,17 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <TRPCReactProvider>{children}</TRPCReactProvider>
+    <html suppressHydrationWarning>
+      <body className="bg-web3-layers antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

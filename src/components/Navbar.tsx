@@ -36,14 +36,17 @@ export function Navbar({ locale }: NavbarProps) {
   }
   
   return (
-    <header className={cn("sticky top-0 z-[100] w-full bg-background border-b border-border")}>
+    <header className={cn(
+      "sticky top-0 z-[100] w-full supports-[backdrop-filter]:bg-[hsl(var(--card)/0.6)] bg-background/90",
+      "backdrop-blur-md border-b border-[hsl(var(--border)/0.6)]"
+    )}>
       {/* Top Bar - Logo, Search, Auth */}
-      <div className="bg-background">
+      <div className="supports-[backdrop-filter]:bg-transparent bg-background/50">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-4">
             {/* Logo */}
-            <Link href={`/${locale}`} className="flex items-center gap-2 text-xl font-bold tracking-tight shrink-0">
-              <div className="h-6 w-6 bg-primary rounded-sm flex items-center justify-center elevation-low">
+            <Link href={`/${locale}`} className="flex items-center gap-2 text-xl font-bold tracking-tight shrink-0 hover:opacity-90 transition-opacity ease-web3 duration-200">
+              <div className="h-6 w-6 rounded-sm flex items-center justify-center glow gradient-border">
                 <TrendingUp className="h-4 w-4 text-primary-foreground" />
               </div>
               <span className="hidden sm:inline text-foreground">PredIQ<span className="text-primary">.fun</span></span>
@@ -52,33 +55,34 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Search Bar + Como Funciona */}
             <div className="hidden md:flex items-center gap-2 flex-1 max-w-3xl ml-3">
-              <SearchBar 
+              <SearchBar
                 variant="header"
                 placeholder={t('search.placeholder')}
-                className="flex-1 max-w-2xl"
+                className="flex-1 max-w-2xl frosted"
               />
               <HowItWorksModal />
             </div>
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3 shrink-0 ml-auto">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-primary hover:text-primary/80 cursor-pointer focus-ring"
+              <Button
+                variant="ghostTransparent"
+                size="sm"
+                className="cursor-pointer focus-ring"
                 onClick={handleLogin}
               >
                 {t('login')}
               </Button>
-              <Button 
-                size="sm" 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold elevation-low hover:elevation-medium border-0 cursor-pointer focus-ring"
+              <Button
+                size="sm"
+                variant="primaryGradient"
+                className="font-semibold cursor-pointer"
                 onClick={handleSignup}
               >
                 {t('signup')}
               </Button>
               <Button
-                variant="ghost"
+                variant="ghostTransparent"
                 size="sm"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="p-2 cursor-pointer"
@@ -93,17 +97,18 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Mobile Actions - Only Login/Signup */}
             <div className="md:hidden flex items-center gap-2 shrink-0 ml-auto">
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-[hsl(var(--primary))] hover:text-[hsl(var(--primary)/0.8)] cursor-pointer text-sm"
+              <Button
+                variant="ghostTransparent"
+                size="sm"
+                className="text-sm"
                 onClick={handleLogin}
               >
                 {t('login')}
               </Button>
-              <Button 
-                size="sm" 
-                className="bg-[hsl(var(--primary))] hover:bg-[hsl(var(--primary)/0.9)] text-[hsl(var(--primary-foreground))] font-semibold shadow-md border-0 cursor-pointer text-sm px-3"
+              <Button
+                size="sm"
+                variant="primaryGradient"
+                className="text-sm px-3"
                 onClick={handleSignup}
               >
                 {t('signup')}
@@ -114,20 +119,20 @@ export function Navbar({ locale }: NavbarProps) {
       </div>
 
       {/* Secondary Navigation Bar - Categories */}
-      <div className="border-b border-border bg-muted/50">
+      <div className="border-b border-[hsl(var(--border)/0.6)] supports-[backdrop-filter]:bg-[hsl(var(--card)/0.45)] bg-muted/50 backdrop-blur-md">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2">
             {/* Left Navigation */}
             <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide">
-              <Link 
-                href={`/${locale}/trending`} 
+              <Link
+                href={`/${locale}/trending`}
                 className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap cursor-pointer"
               >
                 <TrendingUp className="h-4 w-4" />
                 {t('trending')}
               </Link>
-              <Link 
-                href={`/${locale}/new`} 
+              <Link
+                href={`/${locale}/new`}
                 className="text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap cursor-pointer"
               >
                 {t('new')}
@@ -163,43 +168,43 @@ export function Navbar({ locale }: NavbarProps) {
             <div className="hidden lg:flex items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground cursor-pointer">
+                  <Button variant="ghostTransparent" size="sm" className="text-muted-foreground hover:text-foreground cursor-pointer">
                     {t('more')}
                     <ChevronDown className="h-4 w-4 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent 
-                  align="end" 
-                  className="w-48 bg-card border border-border shadow-lg z-50 backdrop-blur-sm"
+                <DropdownMenuContent
+                  align="end"
+                  className="w-48 bg-card border border-border shadow-lg z-50 backdrop-blur-sm frosted"
                   sideOffset={5}
                 >
                   <DropdownMenuItem asChild>
-                    <Link 
-                      href={`/${locale}/create-market`} 
+                    <Link
+                      href={`/${locale}/create-market`}
                       className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
                       {t('createMarket')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link 
-                      href={`/${locale}/my-markets`} 
+                    <Link
+                      href={`/${locale}/my-markets`}
                       className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
                       {t('myMarkets')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link 
-                      href={`/${locale}/leaderboard`} 
+                    <Link
+                      href={`/${locale}/leaderboard`}
                       className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
                       {t('leaderboard')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link 
-                      href={`/${locale}/about`} 
+                    <Link
+                      href={`/${locale}/about`}
                       className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                     >
                       {t('about')}
@@ -214,7 +219,7 @@ export function Navbar({ locale }: NavbarProps) {
 
       {/* Desktop Settings Menu */}
       {isMobileMenuOpen && (
-        <div className="hidden md:block border-t border-border bg-background shadow-lg">
+        <div className="hidden md:block border-t border-[hsl(var(--border)/0.6)] supports-[backdrop-filter]:bg-[hsl(var(--card)/0.6)] bg-background/80 shadow-web3-1 backdrop-blur-md">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">

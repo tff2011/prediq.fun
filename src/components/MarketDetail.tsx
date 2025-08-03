@@ -54,61 +54,60 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
 
   return (
     <div className="max-w-7xl mx-auto space-y-6">
-      {/* Header */}
-      <div className="bg-muted/5 rounded-lg p-6">
-        <div>
-          <div className="flex items-start justify-between">
-            <div className="space-y-2">
-              <Badge variant={getCategoryVariant(data.category)}>
-                {data.category}
-              </Badge>
-              <h1 className="text-2xl md:text-3xl font-semibold">{data.title ?? data.question}</h1>
-              {data.description && (
-                <p className="text-muted-foreground mt-2">{data.description}</p>
-              )}
-            </div>
-            <Badge variant={data.status === 'active' ? 'default' : 'secondary'}>
-              {t(`status.${data.status}`)}
+      {/* Header (glass + hairline, sem tarja pesada) */}
+      <div className="rounded-xl border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.35)] backdrop-blur-md p-6">
+        <div className="flex items-start justify-between">
+          <div className="space-y-2">
+            <Badge variant={getCategoryVariant(data.category)}>
+              {data.category}
             </Badge>
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              {data.title ?? data.question}
+            </h1>
+            {data.description && (
+              <p className="text-muted-foreground mt-2">{data.description}</p>
+            )}
           </div>
+          <Badge variant={data.status === 'active' ? 'default' : 'secondary'}>
+            {t(`status.${data.status}`)}
+          </Badge>
         </div>
-        <div className="mt-6">
-          {/* Market Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <TrendingUp className="w-4 h-4" />
-                <span>{t('card.volume')}</span>
-              </div>
-              <p className="text-xl font-semibold text-foreground">{data.volume}</p>
+
+        {/* Market Stats - hairline grid */}
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <TrendingUp className="w-4 h-4" />
+              <span>{t('card.volume')}</span>
             </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Users className="w-4 h-4" />
-                <span>{t('event.stats.totalPredictions')}</span>
-              </div>
-              <p className="text-xl font-semibold text-foreground">{data.totalBets.toLocaleString('pt-BR')}</p>
+            <p className="text-xl font-semibold text-foreground">{data.volume}</p>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Users className="w-4 h-4" />
+              <span>{t('event.stats.totalPredictions')}</span>
             </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Droplets className="w-4 h-4" />
-                <span>{t('card.liquidity')}</span>
-              </div>
-              <p className="text-xl font-semibold text-foreground">{data.liquidity}</p>
+            <p className="text-xl font-semibold text-foreground">{data.totalBets.toLocaleString('pt-BR')}</p>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Droplets className="w-4 h-4" />
+              <span>{t('card.liquidity')}</span>
             </div>
-            <div className="space-y-1">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Calendar className="w-4 h-4" />
-                <span>{t('card.closes')}</span>
-              </div>
-              <p className="text-xl font-semibold text-foreground">
-                {new Date(data.endsAt).toLocaleDateString('pt-BR', { 
-                  day: 'numeric', 
-                  month: 'short',
-                  year: 'numeric'
-                })}
-              </p>
+            <p className="text-xl font-semibold text-foreground">{data.liquidity}</p>
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Calendar className="w-4 h-4" />
+              <span>{t('card.closes')}</span>
             </div>
+            <p className="text-xl font-semibold text-foreground">
+              {new Date(data.endsAt).toLocaleDateString('pt-BR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+              })}
+            </p>
           </div>
         </div>
       </div>
@@ -117,9 +116,9 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Chart and Trading */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Chart Section */}
-          <div className="bg-muted/5 rounded-lg p-6">
-            <div className="pb-6">
+          {/* Chart Section - glass leve */}
+          <div className="rounded-xl border border-[hsl(var(--border)/0.3)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md p-6">
+            <div className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ChartLine className="w-5 h-5" />
@@ -132,28 +131,26 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-[hsl(var(--no))]" />
-                    <span>NAO {data.oddsNo}%</span>
+                    <span>NÃO {data.oddsNo}%</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div>
-              <PriceChart data={data} />
-            </div>
+            <PriceChart data={data} />
           </div>
 
-          {/* Trading Interface */}
-          <div className="bg-muted/5 rounded-lg p-6">
+          {/* Trading Interface - botões pill YES/NO com tokens */}
+          <div className="rounded-xl border border-[hsl(var(--border)/0.3)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md p-6">
             <div className="mb-6">
               <h3 className="text-lg font-semibold">{t('event.trading.title')}</h3>
             </div>
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div 
-                  className={`cursor-pointer transition-all duration-300 ease-in-out rounded-md p-4 text-center space-y-2 ${
-                    selectedOutcome === 'yes' 
-                      ? 'ring-2 ring-[hsl(var(--yes))] bg-[hsl(var(--yes)/0.1)]' 
-                      : 'hover:bg-[hsl(var(--yes)/0.05)] bg-muted/20'
+                <div
+                  className={`cursor-pointer transition-all ease-web3 duration-200 rounded-md p-4 text-center space-y-2 ${
+                    selectedOutcome === 'yes'
+                      ? 'ring-2 ring-[hsl(var(--yes))] bg-[hsl(var(--yes)/0.10)]'
+                      : 'hover:bg-[hsl(var(--yes)/0.06)] bg-[hsl(var(--yes)/0.05)]/40'
                   }`}
                   onClick={() => setSelectedOutcome('yes')}
                 >
@@ -166,11 +163,11 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                   </p>
                 </div>
 
-                <div 
-                  className={`cursor-pointer transition-all duration-300 ease-in-out rounded-md p-4 text-center space-y-2 ${
-                    selectedOutcome === 'no' 
-                      ? 'ring-2 ring-[hsl(var(--no))] bg-[hsl(var(--no)/0.1)]' 
-                      : 'hover:bg-[hsl(var(--no)/0.05)] bg-muted/20'
+                <div
+                  className={`cursor-pointer transition-all ease-web3 duration-200 rounded-md p-4 text-center space-y-2 ${
+                    selectedOutcome === 'no'
+                      ? 'ring-2 ring-[hsl(var(--no))] bg-[hsl(var(--no)/0.10)]'
+                      : 'hover:bg-[hsl(var(--no)/0.06)] bg-[hsl(var(--no)/0.05)]/40'
                   }`}
                   onClick={() => setSelectedOutcome('no')}
                 >
@@ -185,21 +182,21 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
               </div>
 
               {selectedOutcome && (
-                <div className="space-y-4 pt-4 border-t border-border">
+                <div className="space-y-4 pt-4 border-t border-[hsl(var(--border)/0.35)]">
                   <div>
                     <label className="text-sm font-medium text-foreground">{t('event.trading.amount')}</label>
                     <input
                       type="number"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      className="mt-1 w-full p-3 border border-input rounded-md bg-background text-foreground placeholder:text-muted-foreground"
+                      className="mt-1 w-full p-3 rounded-md bg-[hsl(var(--card)/0.25)] border border-[hsl(var(--border)/0.35)] placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary)/0.35)]"
                       placeholder="0.00"
                       min="0"
                       step="0.01"
                     />
                   </div>
                   {amount && parseFloat(amount) > 0 && (
-                    <div className="p-4 bg-muted rounded-md space-y-2">
+                    <div className="p-4 rounded-md bg-[hsl(var(--card)/0.25)] border border-[hsl(var(--border)/0.35)] space-y-2">
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">{t('event.trading.invested')}:</span>
                         <span className="text-foreground">R$ {parseFloat(amount).toFixed(2)}</span>
@@ -218,8 +215,9 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                       </div>
                     </div>
                   )}
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
+                    variant="primaryGradient"
                     size="lg"
                     disabled={!amount || (parseFloat(amount) ?? 0) <= 0}
                   >
@@ -234,20 +232,18 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
         {/* Right Column - Order Book and Context */}
         <div className="space-y-6">
           {/* Order Book */}
-          <div className="bg-muted/5 rounded-lg p-6">
+          <div className="rounded-xl border border-[hsl(var(--border)/0.3)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md p-6">
             <div className="pb-3">
               <div className="flex items-center gap-2">
                 <ArrowUpDown className="w-5 h-5" />
                 <h3 className="text-lg font-semibold">{t('event.orderbook.title')}</h3>
               </div>
             </div>
-            <div>
-              <OrderBook data={data} />
-            </div>
+            <OrderBook data={data} />
           </div>
 
           {/* Market Context & Rules */}
-          <div className="bg-muted/5 rounded-lg">
+          <div className="rounded-xl border border-[hsl(var(--border)/0.3)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md">
             <div className="p-0">
               <Tabs defaultValue="context" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
@@ -295,21 +291,19 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
       </div>
 
       {/* Comments Section - Full Width */}
-      <div className="bg-muted/5 rounded-lg p-6">
+      <div className="rounded-xl border border-[hsl(var(--border)/0.3)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md p-6">
         <div className="pb-3">
           <div className="flex items-center gap-2">
             <MessageSquare className="w-5 h-5" />
             <h3 className="text-lg font-semibold">{t('event.comments.title')}</h3>
           </div>
         </div>
-        <div>
-          <CommentsSection marketId={data.id} />
-        </div>
+        <CommentsSection marketId={data.id} />
       </div>
 
       {/* Info Alert */}
-      <div className="flex items-start gap-3 p-4 bg-info/10 border border-info/20 rounded-lg">
-        <Info className="w-5 h-5 text-info mt-0.5" />
+      <div className="flex items-start gap-3 p-4 rounded-lg border border-[hsl(var(--info)/0.35)] bg-[hsl(var(--info)/0.08)]">
+        <Info className="w-5 h-5 text-[hsl(var(--info))] mt-0.5" />
         <div className="text-sm text-foreground">
           <p className="font-semibold mb-1">{t('event.info.title')}</p>
           <p className="text-muted-foreground">

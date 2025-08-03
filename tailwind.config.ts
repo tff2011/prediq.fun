@@ -100,6 +100,39 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
+      boxShadow: {
+        'web3-1': "var(--shadow-1)",
+        'web3-2': "var(--shadow-2)",
+        'web3-glow': "var(--glow-primary)",
+      },
+      backdropBlur: {
+        xs: "6px",
+        md: "12px",
+        xl: "24px",
+      },
+      borderWidth: {
+        hairline: "0.5px",
+      },
+      transitionTimingFunction: {
+        'web3': "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
+      transitionDuration: {
+        200: "200ms",
+      },
+      keyframes: {
+        'delta-flash-green': {
+          '0%': { backgroundColor: "hsl(var(--success) / 0.28)" },
+          '100%': { backgroundColor: "transparent" },
+        },
+        'delta-flash-red': {
+          '0%': { backgroundColor: "hsl(var(--destructive) / 0.28)" },
+          '100%': { backgroundColor: "transparent" },
+        },
+      },
+      animation: {
+        'delta-green': "delta-flash-green 400ms ease-out",
+        'delta-red': "delta-flash-red 400ms ease-out",
+      },
     },
   },
   plugins: [],

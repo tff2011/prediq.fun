@@ -146,25 +146,41 @@ export default function HomePage() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      <PolymarketFilters
-        onSearch={handleSearch}
-        onCategoryChange={handleCategoryChange}
-        onSortChange={handleSortChange}
-        onToggleSports={handleToggleSports}
-        onToggleCrypto={handleToggleCrypto}
-      />
-      
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold">{t('markets.title')}</h2>
-          <span className="text-sm text-muted-foreground">
-            {filteredMarkets.length} {t('markets.available')}
-          </span>
+    <main className="min-h-screen">
+      {/* Hero / Intro band */}
+      <section className="container mx-auto px-4 pt-6">
+        {/* Tarja sutil: borda hairline + glass leve, sem glow/gradiente forte */}
+        <div className="rounded-xl border border-[hsl(var(--border)/0.35)]">
+          <div className="rounded-xl bg-[hsl(var(--card)/0.35)] backdrop-blur-md px-4 py-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">
+                {t('markets.title')}
+              </h2>
+              <span className="text-xs sm:text-sm text-muted-foreground">
+                {filteredMarkets.length} {t('markets.available')}
+              </span>
+            </div>
+          </div>
         </div>
-        
-        <MarketList markets={filteredMarkets} />
-      </div>
+      </section>
+
+      {/* Filters */}
+      <section className="mt-4">
+        <PolymarketFilters
+          onSearch={handleSearch}
+          onCategoryChange={handleCategoryChange}
+          onSortChange={handleSortChange}
+          onToggleSports={handleToggleSports}
+          onToggleCrypto={handleToggleCrypto}
+        />
+      </section>
+      
+      {/* Grid */}
+      <section className="container mx-auto px-4 py-6">
+        <div className="rounded-xl p-4 border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md">
+          <MarketList markets={filteredMarkets} />
+        </div>
+      </section>
     </main>
   )
 }

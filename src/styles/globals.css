@@ -154,11 +154,84 @@
   --chart-5: 199 89% 48%; /* sky */
 }
 
-/* Ensure header has solid background */
+/* Web3 Modern Utilities: glass, gradients, glow, focus, motion-safe */
+:root {
+  --surface-60: var(--card) / 0.6;
+  --surface-40: var(--card) / 0.4;
+  --primary-h: 217;
+  --primary-s: 91%;
+  --primary-l: 60%;
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(var(--primary) / 1),
+    hsl(198 93% 60% / 1)
+  );
+  --gradient-bg: radial-gradient(1200px 600px at 10% -10%, hsl(var(--primary) / 0.08), transparent),
+                 radial-gradient(1000px 600px at 100% 0%, hsl(198 93% 60% / 0.06), transparent);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --shadow-1: 0 4px 12px hsl(240 10% 3% / 0.24);
+  --shadow-2: 0 8px 24px hsl(240 10% 3% / 0.32);
+  --glow-primary: 0 8px 24px hsl(var(--primary) / 0.25);
+}
+
+/* Background layers (apply on body or layout wrapper) */
+.bg-web3-layers {
+  background-image: var(--gradient-bg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Glass surface */
+.frosted {
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  background: hsl(var(--card) / 0.6);
+  border: 1px solid hsl(var(--border) / 0.5);
+  box-shadow: inset 0 1px hsla(0,0%,100%,.06), var(--shadow-1);
+  border-radius: var(--radius-lg);
+}
+
+/* Gradient border container */
+.gradient-border {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(hsl(var(--card) / 0.4), hsl(var(--card) / 0.4)) padding-box,
+    var(--gradient-primary) border-box;
+  border-radius: var(--radius-lg);
+}
+
+/* Hairline divider */
+.hairline {
+  border-top: 0.5px solid hsl(var(--foreground) / 0.08);
+}
+
+/* Glow utility */
+.glow {
+  box-shadow: var(--glow-primary);
+}
+
+/* Focus ring elevated */
+.focus-ring {
+  outline: none;
+  box-shadow:
+    0 0 0 2px hsl(var(--background) / 0.12),
+    0 0 0 4px hsl(var(--primary) / 0.35);
+}
+
+/* Motion-safe transitions */
+.motion-safe {
+  transition: all 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Header: switch to glass navbar baseline */
 header {
-  background-color: hsl(var(--background)) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-color: hsl(var(--card) / 0.6) !important;
+  backdrop-filter: blur(12px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.1) !important;
+  border-bottom: 0.5px solid hsl(var(--border) / 0.6);
 }
 
 /* Professional typography improvements */
