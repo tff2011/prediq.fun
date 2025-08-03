@@ -65,7 +65,7 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
 
   return (
     <Link href={eventUrl}>
-      <Card className="cursor-pointer transition-all duration-200 ease-in-out border border-border group bg-card hover:bg-surface-2 dark:hover:bg-surface-2 w-full h-[180px] flex flex-col elevation-low hover:elevation-medium">
+      <Card className="cursor-pointer transition-all duration-200 ease-in-out border border-border group bg-card hover:bg-muted/20 w-full h-[180px] flex flex-col shadow-sm hover:shadow-md">
       <CardContent className="px-2 pt-3 pb-2 flex flex-col h-full justify-between">
         {/* Header with image and title */}
         <div className="flex gap-3 items-center">
@@ -89,30 +89,30 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
         
         {/* Yes/No Buttons */}
         <div className="flex gap-2">
-          <div className="flex-1 bg-positive-container dark:bg-positive-container border border-[hsl(var(--positive)/0.3)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--positive)/0.15)] dark:hover:bg-[hsl(var(--positive)/0.2)] group/yes">
+          <div className="flex-1 bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.3)] border border-[hsl(var(--yes-container))] dark:border-[hsl(var(--yes)/0.6)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--yes-container)/0.8)] dark:hover:bg-[hsl(var(--yes)/0.5)] group/yes">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-positive dark:text-positive-foreground transition-transform duration-200 group-hover/yes:scale-105">
+                <div className="text-xl font-bold text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground))] transition-transform duration-200 group-hover/yes:scale-105">
                   {yesPercentage}%
                 </div>
-                <div className="text-xs text-positive dark:text-positive-foreground/80 uppercase font-semibold tracking-wider">
+                <div className="text-xs text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground)/0.8)] uppercase font-semibold tracking-wider">
                   {t('card.yes')}
                 </div>
               </div>
-              <Triangle className="w-4 h-4 fill-current text-positive dark:text-positive-foreground" />
+              <Triangle className="w-4 h-4 fill-current text-[hsl(var(--yes-foreground))] dark:text-[hsl(var(--yes-foreground))]" />
             </div>
           </div>
-          <div className="flex-1 bg-negative-container dark:bg-negative-container border border-[hsl(var(--negative)/0.3)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--negative)/0.15)] dark:hover:bg-[hsl(var(--negative)/0.2)] group/no">
+          <div className="flex-1 bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.3)] border border-[hsl(var(--no-container))] dark:border-[hsl(var(--no)/0.6)] rounded-lg py-2 px-2 h-14 transition-all duration-200 cursor-pointer hover:bg-[hsl(var(--no-container)/0.8)] dark:hover:bg-[hsl(var(--no)/0.5)] group/no">
             <div className="flex items-center justify-between">
               <div className="flex-1 text-center">
-                <div className="text-xl font-bold text-negative dark:text-negative-foreground transition-transform duration-200 group-hover/no:scale-105">
+                <div className="text-xl font-bold text-[hsl(var(--no-foreground))] dark:text-[hsl(var(--no-foreground))] transition-transform duration-200 group-hover/no:scale-105">
                   {noPercentage}%
                 </div>
-                <div className="text-xs text-negative dark:text-negative-foreground/80 uppercase font-semibold tracking-wider">
+                <div className="text-xs text-[hsl(var(--no-foreground))] dark:text-[hsl(var(--no-foreground)/0.8)] uppercase font-semibold tracking-wider">
                   {t('card.no')}
                 </div>
               </div>
-              <Triangle className="w-4 h-4 fill-current text-negative dark:text-negative-foreground rotate-180" />
+              <Triangle className="w-4 h-4 fill-current text-[hsl(var(--no-foreground))] dark:text-[hsl(var(--no-foreground))] rotate-180" />
             </div>
           </div>
         </div>
@@ -120,19 +120,19 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
         {/* Footer info - centered */}
         <div className="grid grid-cols-3 gap-1 text-xs">
           <div className="text-center">
-            <div className="text-secondary flex items-center justify-center gap-1">
+            <div className="text-muted-foreground flex items-center justify-center gap-1">
               <TrendingUp className="w-3 h-3" />
             </div>
             <div className="font-semibold text-primary truncate">{volume}</div>
           </div>
           <div className="text-center">
-            <div className="text-secondary flex items-center justify-center gap-1">
+            <div className="text-muted-foreground flex items-center justify-center gap-1">
               <Users className="w-3 h-3" />
             </div>
             <div className="font-semibold text-foreground">{traders}</div>
           </div>
           <div className="text-center">
-            <div className="text-secondary flex items-center justify-center gap-1">
+            <div className="text-muted-foreground flex items-center justify-center gap-1">
               <Calendar className="w-3 h-3" />
             </div>
             <div className="font-semibold text-foreground">

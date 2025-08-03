@@ -105,6 +105,7 @@
         "description": "Compre ações de SIM ou NÃO. Se sua previsão estiver correta quando o mercado resolver, cada ação valerá R$1. Você pode vender suas ações a qualquer momento antes da resolução."
       }
     },
-    "available": "mercados disponíveis"
+    "available": "mercados disponíveis",
+    "noMarketsFound": "Nenhum mercado encontrado."
   }
 }

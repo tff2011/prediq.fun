@@ -105,6 +105,7 @@
         "description": "Buy YES or NO shares. If your prediction is correct when the market resolves, each share will be worth $1. You can sell your shares at any time before resolution."
       }
     },
-    "available": "markets available"
+    "available": "markets available",
+    "noMarketsFound": "No markets found."
   }
 }

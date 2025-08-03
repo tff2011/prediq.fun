@@ -1,4 +1,5 @@
 import { MarketCard } from './MarketCard'
+import { useTranslations } from 'next-intl'
 
 interface Market {
   id: string
@@ -14,10 +15,12 @@ interface MarketListProps {
 }
 
 export function MarketList({ markets, className = "" }: MarketListProps) {
+  const t = useTranslations('markets')
+  
   if (markets.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">Nenhum mercado encontrado.</p>
+        <p className="text-muted-foreground">{t('noMarketsFound')}</p>
       </div>
     )
   }

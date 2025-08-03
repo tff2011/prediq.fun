@@ -29,21 +29,21 @@
   --primary-foreground: 0 0% 100%; /* white */
   --primary-container: 214 95% 93%; /* #dbeafe blue-100 */
   
-  /* Semantic colors - Low saturation for professional look */
-  --positive: 142 71% 45%; /* #16a34a green-600 */
-  --positive-container: 142 78% 90%; /* #dcfce7 green-100 */
-  --positive-foreground: 142 71% 45%; /* #16a34a green-600 */
+  /* Semantic colors - Strong colors for better visibility */
+  --positive: 142 84% 28%; /* #14532d green-800 */
+  --positive-container: 142 93% 73%; /* #86efac green-300 */
+  --positive-foreground: 142 84% 28%; /* #14532d green-800 */
   
-  --negative: 0 73% 53%; /* #dc2626 red-600 */
-  --negative-container: 0 73% 94%; /* #fee2e2 red-100 */
-  --negative-foreground: 0 73% 53%; /* #dc2626 red-600 */
+  --negative: 0 82% 33%; /* #991b1b red-800 */
+  --negative-container: 0 73% 73%; /* #fca5a5 red-300 */
+  --negative-foreground: 0 82% 33%; /* #991b1b red-800 */
   
   /* Other semantic colors */
   --info: 199 89% 48%; /* #0ea5e9 sky-500 */
   --info-container: 199 95% 92%; /* #e0f2fe sky-100 */
   --warning: 45 93% 47%; /* #eab308 amber-500 */
   --warning-container: 48 96% 89%; /* #fef3c7 amber-100 */
-  --success: 142 71% 45%; /* #16a34a green-600 */
+  --success: 142 84% 28%; /* #14532d green-800 */
   --success-container: 142 78% 90%; /* #dcfce7 green-100 */
   
   /* Muted colors */
@@ -51,7 +51,7 @@
   --muted-foreground: 215 16% 47%; /* #64748b slate-500 */
   
   /* Destructive colors */
-  --destructive: 0 73% 53%; /* #dc2626 red-600 */
+  --destructive: 0 82% 33%; /* #991b1b red-800 */
   --destructive-foreground: 0 0% 100%; /* white */
   
   /* Border and input */
@@ -59,16 +59,16 @@
   --input: 214 32% 91%; /* #e2e8f0 slate-200 */
   --ring: 217 91% 60%; /* #3b82f6 blue-500 */
   
-  /* Market YES/NO - Professional colors with low saturation */
-  --yes: 142 71% 45%; /* #16a34a green-600 */
-  --yes-foreground: 0 0% 100%; /* white */
-  --yes-container: 142 78% 90%; /* #dcfce7 green-100 */
-  --yes-hover: 142 76% 36%; /* #15803d green-700 */
+  /* Market YES/NO - Strong colors for better visibility */
+  --yes: 142 84% 28%; /* #14532d green-800 - very dark green */
+  --yes-foreground: 142 84% 28%; /* #14532d green-800 - dark text for light backgrounds */
+  --yes-container: 142 93% 73%; /* #86efac green-300 - stronger green background */
+  --yes-hover: 142 86% 20%; /* #052e16 green-900 */
   
-  --no: 0 73% 53%; /* #dc2626 red-600 */
-  --no-foreground: 0 0% 100%; /* white */
-  --no-container: 0 73% 94%; /* #fee2e2 red-100 */
-  --no-hover: 0 75% 42%; /* #b91c1c red-700 */
+  --no: 0 82% 33%; /* #991b1b red-800 - very dark red */
+  --no-foreground: 0 82% 33%; /* #991b1b red-800 - dark text for light backgrounds */
+  --no-container: 0 73% 73%; /* #fca5a5 red-300 - stronger red background */
+  --no-hover: 0 85% 25%; /* #7f1d1d red-900 */
   
   /* Chart colors */
   --chart-1: 217 91% 60%; /* blue-500 */
@@ -154,242 +154,9 @@
   --chart-5: 199 89% 48%; /* sky */
 }
 
-/* Melhorias para responsividade */
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: var(--font-sans);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Container responsivo */
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-    padding-left: 3rem;
-    padding-right: 3rem;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-    padding-left: 4rem;
-    padding-right: 4rem;
-  }
-}
-
-/* Melhorias para mobile */
-@media (max-width: 768px) {
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-
-/* Scrollbar utilities */
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Safari and Chrome */
-}
-
-/* Header specific styles */
-.header-search {
-  /* Make header search solid enough for readability while preserving brand look */
-  background: hsl(var(--card));            /* solid card color to avoid transparency over busy backgrounds */
-  border: 1px solid hsl(var(--border));
-  color: hsl(var(--foreground));
-  transition: all 0.2s ease;
-}
-
-/* On focus, slightly elevate but keep strong contrast */
-.header-search:focus-within {
-  background: hsl(var(--card));
-  border-color: hsl(var(--ring));
-  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
-}
-
-/* Smooth transitions for header elements */
-.header-nav-link {
-  transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-/* Mobile menu animations */
-.mobile-menu-enter {
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.mobile-menu-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.mobile-menu-exit {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.mobile-menu-exit-active {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-/* Navbar solid background override */
-.navbar-solid {
-  background-color: hsl(var(--card)) !important;
+/* Ensure header has solid background */
+header {
+  background-color: hsl(var(--background)) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-}
-
-/* Ensure proper dark mode card background */
-.dark .navbar-solid {
-  background-color: #121212 !important; /* exact dark mode card color */
-}
-
-/* Market card hover effects */
-.market-card-light-hover:hover {
-  background-color: rgba(107, 114, 128, 0.08);
-}
-
-.dark .market-card-dark-hover:hover {
-  background-color: rgba(255, 255, 255, 0.03);
-}
-
-/* Surface elevation utilities */
-.bg-surface-1 {
-  background-color: hsl(var(--surface-1));
-}
-
-.bg-surface-2 {
-  background-color: hsl(var(--surface-2));
-}
-
-.bg-surface-3 {
-  background-color: hsl(var(--surface-3));
-}
-
-/* Text color utilities */
-.text-primary {
-  color: hsl(var(--text-primary));
-}
-
-.text-secondary {
-  color: hsl(var(--text-secondary));
-}
-
-.text-muted {
-  color: hsl(var(--text-muted));
-}
-
-/* Container backgrounds */
-.bg-positive-container {
-  background-color: hsl(var(--positive-container));
-}
-
-.bg-negative-container {
-  background-color: hsl(var(--negative-container));
-}
-
-.bg-primary-container {
-  background-color: hsl(var(--primary-container));
-}
-
-.bg-info-container {
-  background-color: hsl(var(--info-container));
-}
-
-.bg-warning-container {
-  background-color: hsl(var(--warning-container));
-}
-
-.bg-success-container {
-  background-color: hsl(var(--success-container));
-}
-
-/* Text colors for semantic */
-.text-positive {
-  color: hsl(var(--positive));
-}
-
-.text-negative {
-  color: hsl(var(--negative));
-}
-
-.text-positive-foreground {
-  color: hsl(var(--positive-foreground));
-}
-
-.text-negative-foreground {
-  color: hsl(var(--negative-foreground));
-}
-
-/* Elevation shadows for dark mode */
-.elevation-low {
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-}
-
-.elevation-medium {
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-}
-
-.elevation-high {
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.4);
-}
-
-/* Focus states */
-.focus-ring {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-}
-
-.focus-ring:focus-visible {
-  outline-color: hsl(var(--ring));
-  box-shadow: 0 0 0 4px hsl(var(--ring) / 0.2);
 }

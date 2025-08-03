@@ -68,11 +68,11 @@ export function HowItWorksModal() {
           {t('button')}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] bg-card dark:bg-surface-1 border border-border elevation-high sm:rounded-2xl backdrop-blur-sm">
+      <DialogContent className="sm:max-w-[500px] bg-card border border-border shadow-xl sm:rounded-2xl backdrop-blur-sm">
         <div className="space-y-6 p-2">
           <DialogHeader>
             <div className="flex justify-center items-center mb-2">
-              <span className="text-sm font-medium text-secondary">{step + 1}/{tutorialSteps.length}</span>
+              <span className="text-sm font-medium text-muted-foreground">{step + 1}/{tutorialSteps.length}</span>
             </div>
             <DialogTitle className="text-center text-2xl font-bold text-foreground">
               {currentStep?.title}
@@ -86,10 +86,10 @@ export function HowItWorksModal() {
                 key={index}
                 className={`h-3 w-3 rounded-full transition-all duration-200 ${
                   index === step
-                    ? 'bg-primary scale-110 elevation-low'
+                    ? 'bg-primary scale-110 shadow-sm'
                     : index < step
                     ? 'bg-primary/60'
-                    : 'border-2 border-border bg-surface-2'
+                    : 'border-2 border-border bg-muted'
                 }`}
               />
             ))}
@@ -105,7 +105,7 @@ export function HowItWorksModal() {
             {step < tutorialSteps.length - 1 ? (
               <Button 
                 onClick={handleNext} 
-                className="max-w-xs w-full mx-auto cursor-pointer bg-positive text-positive-foreground hover:bg-positive/90 border-none elevation-low hover:elevation-medium transition-all duration-200 hover:scale-105 focus-ring"
+                className="max-w-xs w-full mx-auto cursor-pointer bg-green-600 text-white hover:bg-green-700 border-none shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 focus-ring"
                 size="lg"
               >
                 {t('nextButton')}
@@ -115,7 +115,7 @@ export function HowItWorksModal() {
                 <Button 
                   onClick={handleClose} 
                   variant="default"
-                  className="max-w-xs w-full mx-auto cursor-pointer transition-all duration-200 hover:scale-105 elevation-low hover:elevation-medium focus-ring" 
+                  className="max-w-xs w-full mx-auto cursor-pointer transition-all duration-200 hover:scale-105 shadow-sm hover:shadow-md focus-ring" 
                   size="lg"
                 >
                   {t('getStartedButton')}

@@ -27,8 +27,8 @@ export function Footer({ locale }: FooterProps) {
   }, [])
   
   return (
-    <footer className={`h-10 max-h-10 border-t border-border bg-background text-xs text-secondary transition-all duration-200 ${
-      isSticky ? 'fixed bottom-0 left-0 right-0 z-50 elevation-medium' : ''
+    <footer className={`h-10 max-h-10 border-t border-border bg-background text-xs text-muted-foreground transition-all duration-200 ${
+      isSticky ? 'fixed bottom-0 left-0 right-0 z-50 shadow-lg' : ''
     }`}>
       <div className="container mx-auto px-4 h-full flex items-center justify-between">
         <div className="flex items-center gap-4">

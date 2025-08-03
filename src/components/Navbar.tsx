@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 interface NavbarProps {
   locale: string
@@ -35,9 +36,9 @@ export function Navbar({ locale }: NavbarProps) {
   }
   
   return (
-    <header className="sticky top-0 z-[100] w-full bg-card dark:bg-surface-1 border-b border-border">
+    <header className={cn("sticky top-0 z-[100] w-full bg-background border-b border-border")}>
       {/* Top Bar - Logo, Search, Auth */}
-              <div className="bg-card dark:bg-surface-1">
+      <div className="bg-background">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center gap-4">
             {/* Logo */}
@@ -113,7 +114,7 @@ export function Navbar({ locale }: NavbarProps) {
       </div>
 
       {/* Secondary Navigation Bar - Categories */}
-      <div className="border-b border-border bg-surface-1 dark:bg-surface-2">
+      <div className="border-b border-border bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2">
             {/* Left Navigation */}
@@ -135,25 +136,25 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Center Categories */}
             <div className="hidden lg:flex items-center gap-6 overflow-x-auto scrollbar-hide">
-              <Link href={`/${locale}/category/politics`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/politics`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.politics')}
               </Link>
-              <Link href={`/${locale}/category/sports`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/sports`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.sports')}
               </Link>
-              <Link href={`/${locale}/category/crypto`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/crypto`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.crypto')}
               </Link>
-              <Link href={`/${locale}/category/tech`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/tech`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.technology')}
               </Link>
-              <Link href={`/${locale}/category/culture`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/culture`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.culture')}
               </Link>
-              <Link href={`/${locale}/category/world`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/world`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.world')}
               </Link>
-              <Link href={`/${locale}/category/economy`} className="text-sm text-secondary hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
+              <Link href={`/${locale}/category/economy`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
                 {t('categories.economics')}
               </Link>
             </div>
@@ -162,14 +163,14 @@ export function Navbar({ locale }: NavbarProps) {
             <div className="hidden lg:flex items-center">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-secondary hover:text-foreground cursor-pointer">
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground cursor-pointer">
                     {t('more')}
                     <ChevronDown className="h-4 w-4 ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
                   align="end" 
-                  className="w-48 bg-card dark:bg-surface-2 border border-border elevation-high z-50 backdrop-blur-sm"
+                  className="w-48 bg-card border border-border shadow-lg z-50 backdrop-blur-sm"
                   sideOffset={5}
                 >
                   <DropdownMenuItem asChild>
@@ -213,7 +214,7 @@ export function Navbar({ locale }: NavbarProps) {
 
       {/* Desktop Settings Menu */}
       {isMobileMenuOpen && (
-        <div className="hidden md:block border-t border-border bg-surface-1 dark:bg-surface-2 elevation-medium">
+        <div className="hidden md:block border-t border-border bg-background shadow-lg">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">

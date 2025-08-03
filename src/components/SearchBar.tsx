@@ -129,7 +129,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
       <div ref={searchRef} className={`relative ${className}`}>
         <form onSubmit={handleSearch} className="relative z-50">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               type="text"
               value={query}
@@ -143,7 +143,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
               }}
               onFocus={handleInputFocus}
               placeholder={placeholder ?? t('search.placeholder')}
-              className="pl-10 pr-8 bg-surface-2 dark:bg-surface-2 border-border focus:ring-2 focus:ring-ring focus:border-primary transition-all duration-200"
+              className="pl-10 pr-8 bg-card border-border focus:ring-2 focus:ring-ring focus:border-primary transition-all duration-200"
               disabled={isSearching}
             />
             {query && (
@@ -152,7 +152,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                 variant="ghost"
                 size="sm"
                 onClick={clearSearch}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-surface-3 transition-all duration-200 hover:scale-110 cursor-pointer"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0 hover:bg-muted transition-all duration-200 hover:scale-110 cursor-pointer"
               >
                 <X className="h-3 w-3" />
               </Button>
@@ -166,7 +166,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
             className="absolute top-full left-0 right-0 mt-2 z-[60]"
           >
             {/* Card-style container following MarketCard pattern for solid, opaque background */}
-            <div className="rounded-lg border border-border bg-card dark:bg-surface-1 text-foreground elevation-high backdrop-blur-sm">
+            <div className="rounded-lg border border-border bg-card text-foreground shadow-lg backdrop-blur-sm">
               <div className="p-6">
                 {/* Topics Section */}
                 <div className="mb-6">
@@ -180,8 +180,8 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                         size="sm"
                         onClick={() => handleTopicClick(topic.id)}
                         className={cn(
-                          "text-xs cursor-pointer transition-all duration-200 hover:elevation-low",
-                          selectedTopic === topic.id ? "bg-primary text-primary-foreground border-primary hover:bg-primary/90" : "hover:bg-surface-2 dark:hover:bg-surface-3"
+                          "text-xs cursor-pointer transition-all duration-200 hover:shadow-sm",
+                          selectedTopic === topic.id ? "bg-primary text-primary-foreground border-primary hover:bg-primary/90" : "hover:bg-muted/30"
                         )}
                       >
                         {t(`categories.${topic.name}`)}
@@ -197,7 +197,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                     variant={selectedFilter === 'active' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setSelectedFilter('active')}
-                    className="text-xs cursor-pointer transition-all duration-200 hover:bg-surface-2 dark:hover:bg-surface-3"
+                    className="text-xs cursor-pointer transition-all duration-200 hover:bg-muted/30"
                   >
                     {t('search.active')}
                   </Button>
@@ -206,7 +206,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                     variant={selectedFilter === 'ended' ? 'default' : 'ghost'}
                     size="sm"
                     onClick={() => setSelectedFilter('ended')}
-                    className="text-xs cursor-pointer transition-all duration-200 hover:bg-surface-2 dark:hover:bg-surface-3"
+                    className="text-xs cursor-pointer transition-all duration-200 hover:bg-muted/30"
                   >
                     {t('search.ended')}
                   </Button>
@@ -233,14 +233,14 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                     filteredResults.slice(0, 6).map((result) => (
                       <div
                         key={result.id}
-                        className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-primary/30 cursor-pointer transition-all duration-200 group bg-surface-1 hover:bg-surface-2 dark:bg-surface-2 dark:hover:bg-surface-3 hover:elevation-low"
+                        className="flex items-center justify-between p-4 rounded-lg border border-border hover:border-primary/30 cursor-pointer transition-all duration-200 group bg-muted/20 hover:bg-muted/40 hover:shadow-sm"
                         onClick={() => {
                           router.push(`/pt/market/${result.id}`)
                           setIsExpanded(false)
                         }}
                       >
                         <div className="flex items-center gap-3 flex-1">
-                          <div className="w-10 h-10 rounded-lg bg-surface-2 dark:bg-surface-3 border border-border flex items-center justify-center text-lg group-hover:scale-110 transition-transform duration-200">
+                          <div className="w-10 h-10 rounded-lg bg-muted border border-border flex items-center justify-center text-lg group-hover:scale-110 transition-transform duration-200">
                             {result.icon}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -251,7 +251,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                               <Badge variant="outline" className="text-xs border-border/60">
                                 {result.category}
                               </Badge>
-                              <span className="text-xs text-secondary flex items-center gap-1">
+                              <span className="text-xs text-muted-foreground flex items-center gap-1">
                                 <Calendar className="w-3 h-3" />
                                 {new Date(result.endDate).toLocaleDateString('pt-BR', { 
                                   day: 'numeric', 
@@ -265,14 +265,14 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
                           <div className="text-lg font-bold text-foreground">
                             {result.probability}%
                           </div>
-                          <div className="text-xs text-secondary uppercase tracking-wider">
+                          <div className="text-xs text-muted-foreground uppercase tracking-wider">
                             SIM
                           </div>
                         </div>
                       </div>
                     ))
                   ) : (
-                    <div className="text-center py-8 text-secondary">
+                    <div className="text-center py-8 text-muted-foreground">
                       <Search className="w-8 h-8 mx-auto mb-2 opacity-50" />
                       <p className="text-sm">{t('search.noResults')}</p>
                     </div>
@@ -295,7 +295,7 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={placeholder ?? t('search.placeholder')}
-          className="pl-10 pr-24 bg-card dark:bg-surface-2 border-border focus:ring-2 focus:ring-ring focus:border-primary transition-all duration-200"
+          className="pl-10 pr-24 bg-card border-border focus:ring-2 focus:ring-ring focus:border-primary transition-all duration-200"
           disabled={isSearching}
         />
         {query && (
