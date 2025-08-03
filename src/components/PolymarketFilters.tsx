@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { Search, Filter, ChevronDown, ChevronUp } from 'lucide-react'
+import { Search, Filter, ChevronDown, ChevronUp, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const categories = [
   { id: 'politics', name: 'politics' },
@@ -55,6 +55,18 @@ export function PolymarketFilters({
   const [showFilters, setShowFilters] = useState(false)
   const sortDropdownRef = useRef<HTMLDivElement>(null)
   const frequencyDropdownRef = useRef<HTMLDivElement>(null)
+  const categoriesRef = useRef<HTMLDivElement>(null)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [showRightArrow, setShowRightArrow] = useState(false)
+
+  // Check if we need to show arrows
+  const checkArrows = () => {
+    if (categoriesRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = categoriesRef.current
+      setShowLeftArrow(scrollLeft > 0)
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1)
+    }
+  }
 
   // Handle clicks outside to close dropdowns
   useEffect(() => {
@@ -71,6 +83,13 @@ export function PolymarketFilters({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
+  // Check arrows on mount and resize
+  useEffect(() => {
+    checkArrows()
+    window.addEventListener('resize', checkArrows)
+    return () => window.removeEventListener('resize', checkArrows)
+  }, [])
+
   const handleSearch = (value: string) => {
     setSearchQuery(value)
     onSearch?.(value)
@@ -82,12 +101,28 @@ export function PolymarketFilters({
     onCategoryChange?.(newCategory)
   }
 
+  const scrollCategories = (direction: 'left' | 'right') => {
+    if (categoriesRef.current) {
+      const scrollAmount = 200
+      const newScrollLeft = direction === 'left' 
+        ? categoriesRef.current.scrollLeft - scrollAmount
+        : categoriesRef.current.scrollLeft + scrollAmount
+      
+      categoriesRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      })
+      
+      setTimeout(checkArrows, 300)
+    }
+  }
+
   return (
     <div className="w-full bg-card">
       {/* First row - Search, Filter button, and Categories */}
       <div>
         <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -96,7 +131,7 @@ export function PolymarketFilters({
                   placeholder={t('search.placeholder')}
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-64 pl-10 pr-4 py-2 bg-background border border-input rounded-lg text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
+                  className="w-full sm:w-64 pl-10 pr-4 py-2 bg-background border border-input rounded-lg text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring"
                 />
               </div>
               
@@ -119,22 +154,54 @@ export function PolymarketFilters({
               </button>
             </div>
 
-            {/* Category pills */}
-            <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryClick(category.id)}
-                  className={cn(
-                    "px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out cursor-pointer border hover:scale-105",
-                    selectedCategory === category.id
-                      ? getCategorySelectedStyle(category.id)
-                      : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground hover:shadow-sm"
-                  )}
-                >
-                  {t(`categories.${category.name}`)}
-                </button>
-              ))}
+            {/* Category pills with arrow navigation */}
+            <div className="relative flex items-center w-full lg:w-auto">
+              {/* Left Arrow */}
+              <button
+                onClick={() => scrollCategories('left')}
+                className={cn(
+                  "absolute left-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm border border-border rounded-full shadow-md cursor-pointer hover:bg-accent transition-all duration-200",
+                  showLeftArrow ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+                )}
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              {/* Categories container */}
+              <div 
+                ref={categoriesRef}
+                onScroll={checkArrows}
+                className="flex items-center gap-2 overflow-x-auto scrollbar-hide scroll-smooth w-full px-12"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {categories.map((category) => (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryClick(category.id)}
+                    className={cn(
+                      "px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-300 ease-in-out cursor-pointer border hover:scale-105",
+                      selectedCategory === category.id
+                        ? getCategorySelectedStyle(category.id)
+                        : "bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground hover:shadow-sm"
+                    )}
+                  >
+                    {t(`categories.${category.name}`)}
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Arrow */}
+              <button
+                onClick={() => scrollCategories('right')}
+                className={cn(
+                  "absolute right-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm border border-border rounded-full shadow-md cursor-pointer hover:bg-accent transition-all duration-200",
+                  showRightArrow ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+                )}
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
             </div>
           </div>
         </div>
@@ -144,7 +211,7 @@ export function PolymarketFilters({
       {showFilters && (
         <div className="bg-card/50 animate-in slide-in-from-top-4 duration-300">
           <div className="container mx-auto px-4 py-3">
-            <div className="flex items-center gap-6">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               {/* Sort by dropdown */}
               <div ref={sortDropdownRef} className="flex items-center gap-2 relative">
                 <span className="text-sm text-muted-foreground">Sort by:</span>
