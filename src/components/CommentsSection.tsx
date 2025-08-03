@@ -222,7 +222,7 @@ export function CommentsSection({ marketId }: CommentsSectionProps) {
                       <span className="text-white text-xs">✓</span>
                     </div>
                   )}
-                  {getPositionBadge(comment.position)}
+                  {getPositionBadge(comment.position ?? null)}
                   <span className="text-xs text-muted-foreground">{comment.timestamp}</span>
                   
                   <DropdownMenu>
