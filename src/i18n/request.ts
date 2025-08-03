@@ -17,15 +17,15 @@ async function loadMessages(locale: string) {
     'privacy'
   ]
 
-  const messages: Record<string, any> = {}
+  const messages: Record<string, unknown> = {}
 
   for (const file of messageFiles) {
     try {
-      const module = await import(`../messages/${locale}/${file}.json`)
-      const fileMessages = module.default || module
+      const moduleImport = await import(`../messages/${locale}/${file}.json`) as { default?: Record<string, unknown> }
+      const fileMessages = moduleImport.default ?? moduleImport
       
       // Mesclar as mensagens do arquivo no objeto principal
-      Object.assign(messages, fileMessages)
+      Object.assign(messages, fileMessages as Record<string, unknown>)
     } catch (error) {
       console.warn(`Failed to load messages for ${locale}/${file}.json:`, error)
     }

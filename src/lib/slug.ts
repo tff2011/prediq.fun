@@ -24,7 +24,7 @@ export function extractMarketId(slug: string): string {
 /**
  * Gera uma URL completa para um evento
  */
-export function generateEventUrl(title: string, locale: string = 'pt'): string {
+export function generateEventUrl(title: string, locale = 'pt'): string {
   const slug = generateSlug(title)
   const basePath = locale === 'pt' ? '' : '/en'
   

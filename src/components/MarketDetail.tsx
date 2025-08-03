@@ -36,19 +36,19 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
 
   if (!data) return <MarketDetailSkeleton />
 
-  const getCategoryVariant = (cat: string): any => {
-    const categoryMap: Record<string, any> = {
+  const getCategoryVariant = (cat: string): "default" | "secondary" | "destructive" | "outline" | "politics" | "crypto" | "sports" | "economics" => {
+    const categoryMap: Record<string, "default" | "secondary" | "destructive" | "outline" | "politics" | "crypto" | "sports" | "economics"> = {
       'Política': 'politics',
       'Cripto': 'crypto',
       'Esportes': 'sports',
       'Economia': 'economics'
     }
-    return categoryMap[cat] || 'default'
+    return categoryMap[cat] ?? 'default'
   }
 
   const calculatePayout = (outcome: 'yes' | 'no') => {
     const odds = outcome === 'yes' ? data.oddsYes : data.oddsNo
-    const betAmount = parseFloat(amount) || 0
+    const betAmount = parseFloat(amount) ?? 0
     return (betAmount / odds * 100).toFixed(2)
   }
 
@@ -62,7 +62,7 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
               <Badge variant={getCategoryVariant(data.category)}>
                 {data.category}
               </Badge>
-              <h1 className="text-2xl md:text-3xl font-semibold">{data.title || data.question}</h1>
+              <h1 className="text-2xl md:text-3xl font-semibold">{data.title ?? data.question}</h1>
               {data.description && (
                 <p className="text-muted-foreground mt-2">{data.description}</p>
               )}
@@ -221,7 +221,7 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                   <Button 
                     className="w-full" 
                     size="lg"
-                    disabled={!amount || parseFloat(amount) <= 0}
+                    disabled={!amount || (parseFloat(amount) ?? 0) <= 0}
                   >
                     {t('event.trading.predict')} {selectedOutcome === 'yes' ? t('card.yes') : t('card.no')}
                   </Button>
@@ -263,7 +263,7 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                 <TabsContent value="context" className="p-4 space-y-3">
                   <h4 className="font-semibold text-foreground">{t('event.context.title')}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {data.description || t('event.context.description')}
+                    {data.description ?? t('event.context.description')}
                   </p>
                   <Separator />
                   <div className="space-y-2">
@@ -322,7 +322,12 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
 }
 
 // Wrapper for new event pages
-export function MarketDetail({ market, locale }: { market: any, locale: string }) {
+interface MarketDetailProps {
+  market: MarketData
+  locale: string
+}
+
+export function MarketDetail({ market }: MarketDetailProps) {
   return <MarketDetailComponent data={market} />
 }
 

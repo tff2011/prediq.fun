@@ -17,7 +17,7 @@ interface GraphOddsTimelineProps {
 }
 
 // Mock data generator - replace with actual data fetching
-const generateMockOddsHistory = (days: number = 30): OddsData[] => {
+const generateMockOddsHistory = (days = 30): OddsData[] => {
   const data: OddsData[] = []
   const now = new Date()
   
@@ -68,12 +68,22 @@ export function GraphOddsTimeline({ marketId }: GraphOddsTimelineProps) {
     text: theme === 'dark' ? '#9ca3af' : '#6b7280'
   }
 
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
+  interface TooltipProps {
+    active?: boolean
+    payload?: Array<{
+      name: string
+      value: number
+      color: string
+    }>
+    label?: string
+  }
+
+  const CustomTooltip = ({ active, payload, label }: TooltipProps) => {
+    if (active && payload?.length) {
       return (
         <div className="bg-background border rounded-lg p-3 shadow-lg">
           <p className="text-sm font-medium">{label}</p>
-          {payload.map((entry: any, index: number) => (
+          {payload.map((entry, index: number) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
               {entry.name}: {entry.value}x
             </p>

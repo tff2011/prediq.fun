@@ -23,7 +23,7 @@ const getCategorySelectedStyle = (categoryId: string): string => {
     technology: "bg-indigo-600 text-white border-transparent hover:bg-indigo-700 hover:shadow-md",
     world: "bg-red-600 text-white border-transparent hover:bg-red-700 hover:shadow-md",
   }
-  return styles[categoryId] || "bg-gray-600 text-white border-transparent hover:bg-gray-700 hover:shadow-md"
+  return styles[categoryId] ?? "bg-gray-600 text-white border-transparent hover:bg-gray-700 hover:shadow-md"
 }
 
 interface PolymarketFiltersProps {

@@ -32,7 +32,7 @@ interface CommentsSectionProps {
   marketId: string
 }
 
-export function CommentsSection({ marketId }: CommentsSectionProps) {
+export function CommentsSection({ marketId: _marketId }: CommentsSectionProps) {
   const t = useTranslations('markets')
   const [newComment, setNewComment] = useState('')
   const [sortBy, setSortBy] = useState<'recent' | 'popular'>('recent')

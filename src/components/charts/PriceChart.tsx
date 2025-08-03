@@ -67,7 +67,7 @@ export function PriceChart({ data }: PriceChartProps) {
   const minValue = 0
   
   // Generate SVG path for line chart
-  const generatePath = (values: number[], color: 'yes' | 'no'): string => {
+  const generatePath = (values: number[], _color: 'yes' | 'no'): string => {
     if (values.length === 0) return ''
     
     const stepX = chartWidth / (values.length - 1)

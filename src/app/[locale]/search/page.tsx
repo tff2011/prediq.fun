@@ -99,7 +99,7 @@ export default function SearchPage() {
   const [results, setResults] = useState(mockSearchResults)
 
   useEffect(() => {
-    const searchQuery = searchParams.get('q') || ''
+    const searchQuery = searchParams.get('q') ?? ''
     setQuery(searchQuery)
     
     // Filter results based on query

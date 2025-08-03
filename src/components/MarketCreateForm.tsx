@@ -36,11 +36,10 @@ export function MarketCreateForm() {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    watch
+    setValue
   } = useForm<MarketFormData>()
 
-  const watchedCategory = watch('category')
+  // const watchedCategory = watch('category') // TODO: Use for dynamic UI updates if needed
 
   const onSubmit = async (data: MarketFormData) => {
     setIsSubmitting(true)

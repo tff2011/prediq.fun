@@ -48,7 +48,7 @@ export default function TermsPage() {
               {t('sections.eligibility.restrictedJurisdictions.warningTitle')} {t('sections.eligibility.restrictedJurisdictions.warningText')}
             </p>
             <ul className="list-disc pl-6 text-foreground">
-              {t.raw('sections.eligibility.restrictedJurisdictions.countries').map((country: string, index: number) => (
+              {(t.raw('sections.eligibility.restrictedJurisdictions.countries') as string[]).map((country: string, index: number) => (
                 <li key={index}>{country}</li>
               ))}
             </ul>
@@ -60,7 +60,7 @@ export default function TermsPage() {
           <h3 className="text-xl font-medium mb-3 text-foreground">{t('sections.eligibility.userRepresentations.title')}</h3>
           <p className="mb-4 text-foreground">{t('sections.eligibility.userRepresentations.intro')}</p>
           <ul className="list-disc pl-6 mb-4 text-foreground">
-            {t.raw('sections.eligibility.userRepresentations.items').map((item: string, index: number) => (
+            {(t.raw('sections.eligibility.userRepresentations.items') as string[]).map((item: string, index: number) => (
               <li key={index}>{item}</li>
             ))}
           </ul>
@@ -71,7 +71,7 @@ export default function TermsPage() {
           <div className="bg-muted border border-border rounded-lg p-4 mb-4">
             <p className="font-semibold text-foreground mb-2">{t('sections.risks.riskWarning.title')}</p>
             <ul className="list-disc pl-6 text-foreground">
-              {t.raw('sections.risks.riskWarning.items').map((item: string, index: number) => (
+              {(t.raw('sections.risks.riskWarning.items') as string[]).map((item: string, index: number) => (
                 <li key={index}>{item}</li>
               ))}
             </ul>
@@ -85,7 +85,7 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold mb-4 text-foreground">{t('sections.conduct.title')}</h2>
           <p className="mb-4 text-foreground">{t('sections.conduct.intro')}</p>
           <ul className="list-disc pl-6 mb-4 text-foreground">
-            {t.raw('sections.conduct.items').map((item: string, index: number) => (
+            {(t.raw('sections.conduct.items') as string[]).map((item: string, index: number) => (
               <li key={index}>{item}</li>
             ))}
           </ul>

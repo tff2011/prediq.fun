@@ -34,17 +34,6 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
   const noPercentage = 100 - yesPercentage
   const traders = 100 + (marketHash % 900) // Range: 100-999
   
-  type CategoryVariant = 'default' | 'politics' | 'crypto' | 'sports' | 'economics'
-  
-  const getCategoryVariant = (cat?: string): CategoryVariant => {
-    const categoryMap: Record<string, CategoryVariant> = {
-      'Política': 'politics',
-      'Cripto': 'crypto',
-      'Esportes': 'sports',
-      'Economia': 'economics'
-    }
-    return categoryMap[cat ?? ''] ?? 'default'
-  }
   
   
   // Get category icon

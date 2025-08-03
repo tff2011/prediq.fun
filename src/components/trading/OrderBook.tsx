@@ -190,13 +190,13 @@ export function OrderBook({ data }: OrderBookProps) {
           <div className="space-y-1">
             <div className="text-muted-foreground">{t('event.orderbook.spread')} {t('card.yes')}</div>
             <div className="font-medium text-foreground">
-              R$ {((sellOrdersYes[0]?.price - buyOrdersYes[0]?.price) * 100).toFixed(1)}
+              R$ {(((sellOrdersYes[0]?.price ?? 0) - (buyOrdersYes[0]?.price ?? 0)) * 100).toFixed(1)}
             </div>
           </div>
           <div className="space-y-1">
             <div className="text-muted-foreground">{t('event.orderbook.spread')} {t('card.no')}</div>
             <div className="font-medium text-foreground">
-              R$ {((sellOrdersNo[0]?.price - buyOrdersNo[0]?.price) * 100).toFixed(1)}
+              R$ {(((sellOrdersNo[0]?.price ?? 0) - (buyOrdersNo[0]?.price ?? 0)) * 100).toFixed(1)}
             </div>
           </div>
         </div>

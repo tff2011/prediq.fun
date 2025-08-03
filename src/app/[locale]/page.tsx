@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { MarketList } from '@/components/MarketList'
 import { PolymarketFilters } from '@/components/PolymarketFilters'
@@ -70,10 +70,11 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
   const [sortBy, setSortBy] = useState('24hr Volume')
+  // TODO: Implement sorting functionality using sortBy
   const [hideSports, setHideSports] = useState(false)
   const [hideCrypto, setHideCrypto] = useState(false)
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...markets]
 
     // Apply search filter
@@ -111,12 +112,12 @@ export default function HomePage() {
     }
 
     setFilteredMarkets(filtered)
-  }
+  }, [searchQuery, selectedCategory, hideSports, hideCrypto])
 
   // Apply filters whenever dependencies change
   useEffect(() => {
     applyFilters()
-  }, [searchQuery, selectedCategory, sortBy, hideSports, hideCrypto])
+  }, [applyFilters])
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
