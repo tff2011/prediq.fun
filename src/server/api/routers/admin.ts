@@ -28,7 +28,7 @@ const adminEventUpdateSchema = adminEventCreateSchema.partial().extend({
 
 // Admin procedure that checks for valid JWT token
 const adminProcedure = publicProcedure.use(async ({ ctx, next }) => {
-  const authHeader = ctx.headers?.get?.("authorization") || ctx.headers?.["authorization"];
+  const authHeader = ctx.headers?.get("authorization");
   const token = authHeader?.replace("Bearer ", "");
   
   if (!token) {
@@ -221,25 +221,24 @@ export const adminRouter = createTRPCRouter({
       // Create market with initial outcomes
       const market = await ctx.db.market.create({
         data: {
-          eventId: input.eventId,
-          question: input.question,
+          title: input.question,
           description: input.description,
+          category: "Outros",
           closesAt: input.closesAt,
-          resolvesAt: input.resolvesAt,
+          slug: input.question.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-').substring(0, 50),
           status: "ACTIVE",
           volume: new Decimal(0),
           liquidity: new Decimal(1000), // Initial liquidity
+          createdById: ctx.admin.id,
           outcomes: {
             create: [
               {
                 name: "YES",
                 probability: new Decimal(input.initialYesPrice),
-                shares: new Decimal(0),
               },
               {
                 name: "NO",
                 probability: new Decimal(1 - input.initialYesPrice),
-                shares: new Decimal(0),
               },
             ],
           },

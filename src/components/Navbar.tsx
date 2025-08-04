@@ -56,7 +56,7 @@ export function Navbar({ locale }: NavbarProps) {
             {/* Search Bar + Como Funciona */}
             <div className="hidden md:flex items-center gap-2 flex-1 max-w-3xl ml-3">
               <SearchBar
-                variant="header"
+                variant="minimal"
                 placeholder={t('search.placeholder')}
                 className="flex-1 max-w-2xl frosted"
               />

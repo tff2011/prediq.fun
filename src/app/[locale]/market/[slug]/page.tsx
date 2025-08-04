@@ -12,15 +12,8 @@ export default async function MarketDetailBySlugPage({
 
   // 1) Try to find market by current slug (raw where to avoid type mismatch pre-migration)
   const market = await db.market.findFirst({
-    // Use AND with raw filter; after migration & prisma generate, where: { slug } will be typed
-    where: {
-      AND: [
-        // @ts-expect-error: 'slug' will exist after prisma generate
-        { slug }
-      ]
-    },
+    where: { slug } as any,
     include: {
-      // @ts-expect-error: _count include typed after prisma generate
       _count: { select: { bets: true } }
     }
   })
@@ -55,7 +48,6 @@ export default async function MarketDetailBySlugPage({
     // Temporary odds placeholders until pricing engine exists
     oddsYes: 50,
     oddsNo: 50,
-    // @ts-expect-error: _count is present when included; types updated after prisma generate
     totalBets: (market as any)._count?.bets ?? 0,
     liquidity: `R$ ${Number(market.liquidity ?? 0).toLocaleString('pt-BR')}`,
     status: (market.status?.toLowerCase?.() ?? 'active') as 'active' | 'closed' | 'resolved'

@@ -45,7 +45,7 @@ const sports = [
   { value: 'other', label: 'Other' },
 ];
 
-export default function EditEventPage({ params }: { params: { id: string } }) {
+export default function EditEventPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -62,7 +62,25 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
     status: 'UPCOMING' as EventStatus,
   });
 
-  const { data: event, isLoading } = api.event.getById.useQuery(params.id);
+  // Next.js App Router can pass params as a Promise in RSC context; unwrap safely for the client component.
+  const [routeId, setRouteId] = useState<string | null>(null)
+  useEffect(() => {
+    ;(async () => {
+      try {
+        // @ts-ignore - supports both object and Promise inputs
+        const p = await params
+        setRouteId(p?.id ?? null)
+      } catch {
+        // fallback for direct object
+        // @ts-ignore
+        setRouteId((params as any)?.id ?? null)
+      }
+    })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  const { data: event, isLoading } = api.event.getById.useQuery(routeId ?? "", {
+    enabled: !!routeId,
+  });
 
   useEffect(() => {
     if (event) {
@@ -96,7 +114,7 @@ export default function EditEventPage({ params }: { params: { id: string } }) {
     setError('');
 
     const data = {
-      id: params.id,
+      id: routeId as string,
       ...formData,
       startsAt: new Date(formData.startsAt),
       endsAt: formData.endsAt ? new Date(formData.endsAt) : undefined,

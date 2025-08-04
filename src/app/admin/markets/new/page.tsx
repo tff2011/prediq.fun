@@ -170,7 +170,7 @@ export default function NewMarketPage() {
                   max={99}
                   step={1}
                   value={[initialYesPrice * 100]}
-                  onValueChange={(value) => setInitialYesPrice(value[0] / 100)}
+                  onValueChange={(value) => setInitialYesPrice((value[0] ?? 50) / 100)}
                   disabled={createMutation.isPending}
                   className="w-full"
                 />

@@ -33,7 +33,8 @@ import {
   TrendingUp,
   CheckCircle,
   XCircle,
-  Clock
+  Clock,
+  AlertCircle
 } from 'lucide-react';
 
 const statusColors = {
@@ -67,7 +68,7 @@ export default function AdminMarketsPage() {
     page,
     search: search || undefined,
     eventId,
-    status,
+    status: status as "ACTIVE" | "RESOLVED" | "CANCELLED" | "PAUSED" | undefined,
   });
 
   const deleteMutation = api.admin.deleteMarket.useMutation({

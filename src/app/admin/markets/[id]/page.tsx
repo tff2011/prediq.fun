@@ -36,15 +36,21 @@ export default function EditMarketPage() {
   const [showResolveDialog, setShowResolveDialog] = useState(false);
   const [winningOutcome, setWinningOutcome] = useState<'YES' | 'NO'>('YES');
 
-  const { data: market, isLoading } = api.market.getById.useQuery(marketId);
+  // getById expects an object with select/include; guard enable until id exists
+  const { data: market, isLoading } = api.market.getById.useQuery(
+    { id: marketId },
+    { enabled: !!marketId }
+  );
 
   useEffect(() => {
     if (market) {
-      setQuestion(market.question);
-      setDescription(market.description || '');
-      setClosesAt(format(new Date(market.closesAt), "yyyy-MM-dd'T'HH:mm"));
-      setResolvesAt(market.resolvesAt ? format(new Date(market.resolvesAt), "yyyy-MM-dd'T'HH:mm") : '');
-      setStatus(market.status);
+      // Align with current Market type fields
+      setQuestion((market as any).title ?? (market as any).question ?? '');
+      setDescription((market as any).description ?? '');
+      setClosesAt(format(new Date((market as any).closesAt ?? (market as any).closesAt), "yyyy-MM-dd'T'HH:mm"));
+      const resolvedAt = (market as any).resolvedAt ?? (market as any).resolvesAt ?? null;
+      setResolvesAt(resolvedAt ? format(new Date(resolvedAt), "yyyy-MM-dd'T'HH:mm") : '');
+      setStatus((market as any).status ?? '');
     }
   }, [market]);
 
@@ -158,7 +164,7 @@ export default function EditMarketPage() {
             </Badge>
           </div>
           <CardDescription>
-            Event: {market.event.title}
+            Event: {(market as any).event?.title ?? '—'}
           </CardDescription>
         </CardHeader>
         <CardContent>

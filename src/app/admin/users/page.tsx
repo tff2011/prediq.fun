@@ -51,7 +51,7 @@ export default function AdminUsersPage() {
   const { data, isLoading, refetch } = api.admin.getAllUsers.useQuery({
     page,
     search: search || undefined,
-    status,
+    status: status as "active" | "suspended" | undefined,
   });
 
   const suspendMutation = api.admin.suspendUser.useMutation({
@@ -200,7 +200,7 @@ export default function AdminUsersPage() {
                           <TableCell>
                             <div className="flex items-center gap-1">
                               <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                              ${Number(user.totalWagered).toLocaleString()}
+                              ${Number(user.totalInvested).toLocaleString()}
                             </div>
                           </TableCell>
                           <TableCell>
@@ -214,11 +214,11 @@ export default function AdminUsersPage() {
                           <TableCell>
                             <div className="flex items-center gap-1 text-sm">
                               <Calendar className="h-3 w-3 text-muted-foreground" />
-                              {format(new Date(user.createdAt), 'MMM d, yyyy')}
+                              {user.emailVerified ? format(new Date(user.emailVerified), 'MMM d, yyyy') : 'N/A'}
                             </div>
                           </TableCell>
                           <TableCell>
-                            {user.suspended ? (
+                            {false ? (
                               <Badge variant="destructive">
                                 <Ban className="h-3 w-3 mr-1" />
                                 Suspended
@@ -251,7 +251,7 @@ export default function AdminUsersPage() {
                                   <DollarSign className="h-4 w-4 mr-2" />
                                   Add Balance
                                 </DropdownMenuItem>
-                                {user.suspended ? (
+                                {false ? (
                                   <DropdownMenuItem 
                                     onClick={() => handleActivate(user.id)}
                                     className="cursor-pointer text-green-600"
