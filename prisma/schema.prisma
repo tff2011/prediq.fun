@@ -1,314 +1,345 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+ // This is your Prisma schema file,
+ // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator client {
-    provider = "prisma-client-js"
-}
+ generator client {
+     provider = "prisma-client-js"
+ }
 
-datasource db {
-    provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
-}
+ datasource db {
+     provider = "postgresql"
+     // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
+     // Further reading:
+     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
+     // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
+     url      = env("DATABASE_URL")
+ }
 
-// ==================== MARKETS ====================
-model Market {
-    id          String   @id @default(cuid())
-    title       String
-    description String?
-    category    String
-    imageUrl    String?
-    
-    // Market timing
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    closesAt    DateTime
-    resolvedAt  DateTime?
-    
-    // Market state
-    status      MarketStatus @default(ACTIVE)
-    resolution  MarketResolution?
-    
-    // Market data
-    volume      Decimal  @default(0) @db.Decimal(20, 2)
-    liquidity   Decimal  @default(0) @db.Decimal(20, 2)
-    
-    // Blockchain data (when integrated)
-    contractAddress String?
-    txHash          String?
-    
-    // Relations
-    createdBy   User     @relation(fields: [createdById], references: [id])
-    createdById String
-    event       Event?   @relation(fields: [eventId], references: [id])
-    eventId     String?
-    outcomes    Outcome[]
-    bets        Bet[]
-    positions   Position[]
-    
-    @@index([status, closesAt])
-    @@index([category])
-    @@index([createdById])
-    @@index([eventId])
-}
+ // ==================== MARKETS ====================
+ model Market {
+     id          String   @id @default(cuid())
+     title       String
+     description String?
+     category    String
+     imageUrl    String?
+     // SEO-friendly unique slug
+     slug        String   @unique
 
-enum MarketStatus {
-    ACTIVE
-    CLOSED
-    RESOLVED
-    DISPUTED
-    CANCELLED
-}
+     // Market timing
+     createdAt   DateTime @default(now())
+     updatedAt   DateTime @updatedAt
+     closesAt    DateTime
+     resolvedAt  DateTime?
+     resolvesAt  DateTime? // Expected resolution date
 
-enum MarketResolution {
-    YES
-    NO
-    INVALID
-}
+     // Question field for admin
+     question    String?  @default("")
 
-// ==================== OUTCOMES ====================
-model Outcome {
-    id          String   @id @default(cuid())
-    marketId    String
-    name        String
-    probability Decimal  @db.Decimal(5, 4) // 0.0000 to 1.0000
-    
-    market      Market   @relation(fields: [marketId], references: [id], onDelete: Cascade)
-    bets        Bet[]
-    positions   Position[]
-    
-    @@unique([marketId, name])
-    @@index([marketId])
-}
+     // Market state
+     status      MarketStatus @default(ACTIVE)
+     resolution  MarketResolution?
+     winningOutcome String?
 
-// ==================== BETS ====================
-model Bet {
-    id          String   @id @default(cuid())
-    createdAt   DateTime @default(now())
-    
-    // Bet details
-    type        BetType
-    amount      Decimal  @db.Decimal(20, 6)
-    shares      Decimal  @db.Decimal(20, 6)
-    price       Decimal  @db.Decimal(5, 4) // Price per share
-    
-    // Relations
-    userId      String
-    marketId    String
-    outcomeId   String
-    
-    user        User     @relation(fields: [userId], references: [id])
-    market      Market   @relation(fields: [marketId], references: [id])
-    outcome     Outcome  @relation(fields: [outcomeId], references: [id])
-    
-    @@index([userId])
-    @@index([marketId])
-    @@index([createdAt])
-}
+     // Market data
+     volume      Decimal  @default(0) @db.Decimal(20, 2)
+     liquidity   Decimal  @default(0) @db.Decimal(20, 2)
 
-enum BetType {
-    BUY
-    SELL
-}
+     // Blockchain data (when integrated)
+     contractAddress String?
+     txHash          String?
 
-// ==================== POSITIONS ====================
-model Position {
-    id          String   @id @default(cuid())
-    
-    // Position data
-    shares      Decimal  @db.Decimal(20, 6)
-    avgPrice    Decimal  @db.Decimal(5, 4)
-    invested    Decimal  @db.Decimal(20, 6)
-    
-    // Relations
-    userId      String
-    marketId    String
-    outcomeId   String
-    
-    user        User     @relation(fields: [userId], references: [id])
-    market      Market   @relation(fields: [marketId], references: [id])
-    outcome     Outcome  @relation(fields: [outcomeId], references: [id])
-    
-    @@unique([userId, marketId, outcomeId])
-    @@index([userId])
-    @@index([marketId])
-}
+     // Relations
+     createdBy   User     @relation(fields: [createdById], references: [id])
+     createdById String
+     event       Event?   @relation(fields: [eventId], references: [id])
+     eventId     String?
+     outcomes    Outcome[]
+     bets        Bet[]
+     positions   Position[]
 
-// ==================== TRANSACTIONS ====================
-model Transaction {
-    id          String   @id @default(cuid())
-    createdAt   DateTime @default(now())
-    
-    type        TransactionType
-    amount      Decimal  @db.Decimal(20, 6)
-    currency    String   @default("USD")
-    status      TransactionStatus @default(PENDING)
-    
-    // Blockchain data (optional)
-    txHash      String?
-    blockNumber Int?
-    
-    // Relations
-    userId      String
-    user        User     @relation(fields: [userId], references: [id])
-    
-    @@index([userId])
-    @@index([status])
-}
+     @@index([status, closesAt])
+     @@index([category])
+     @@index([createdById])
+     @@index([eventId])
+ }
 
-enum TransactionType {
-    DEPOSIT
-    WITHDRAWAL
-    BET_PLACED
-    BET_SOLD
-    WINNINGS
-    REFUND
-}
+ enum MarketStatus {
+     ACTIVE
+     CLOSED
+     RESOLVED
+     DISPUTED
+     CANCELLED
+ }
 
-enum TransactionStatus {
-    PENDING
-    COMPLETED
-    FAILED
-    CANCELLED
-}
+ enum MarketResolution {
+     YES
+     NO
+     INVALID
+ }
 
-// ==================== EVENTS ====================
-model Event {
-    id          String   @id @default(cuid())
-    title       String
-    subtitle    String?
-    description String?
-    category    String
-    sport       String?
-    
-    // Event timing
-    startsAt    DateTime
-    endsAt      DateTime?
-    
-    // Event details
-    imageUrl    String?
-    venue       String?
-    status      EventStatus @default(UPCOMING)
-    featured    Boolean  @default(false)
-    
-    // Metadata
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-    
-    // Relations
-    createdBy   Admin    @relation(fields: [createdById], references: [id])
-    createdById String
-    markets     Market[]
-    
-    @@index([status, startsAt])
-    @@index([category])
-    @@index([featured])
-}
+ // ==================== OUTCOMES ====================
+ model Outcome {
+     id          String   @id @default(cuid())
+     marketId    String
+     name        String
+     probability Decimal  @db.Decimal(5, 4) // 0.0000 to 1.0000
+     shares      Decimal  @default(0) @db.Decimal(20, 6)
 
-enum EventStatus {
-    UPCOMING
-    LIVE
-    ENDED
-    CANCELLED
-}
+     market      Market   @relation(fields: [marketId], references: [id], onDelete: Cascade)
+     bets        Bet[]
+     positions   Position[]
 
-// ==================== ADMIN ====================
-model Admin {
-    id            String   @id @default(cuid())
-    username      String   @unique
-    passwordHash  String
-    name          String
-    email         String   @unique
-    role          AdminRole @default(MODERATOR)
-    active        Boolean  @default(true)
-    
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt
-    lastLoginAt   DateTime?
-    
-    // Relations
-    events        Event[]
-    
-    @@index([username])
-    @@index([email])
-}
+     @@unique([marketId, name])
+     @@index([marketId])
+ }
 
-enum AdminRole {
-    SUPER_ADMIN
-    ADMIN
-    MODERATOR
-}
+ // ==================== BETS ====================
+ model Bet {
+     id          String   @id @default(cuid())
+     createdAt   DateTime @default(now())
 
-// ==================== OLD POST MODEL (TO BE REMOVED) ====================
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+     // Bet details
+     type        BetType
+     amount      Decimal  @db.Decimal(20, 6)
+     shares      Decimal  @db.Decimal(20, 6)
+     price       Decimal  @db.Decimal(5, 4) // Price per share
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+     // Relations
+     userId      String
+     marketId    String
+     outcomeId   String
 
-    @@index([name])
-}
+     user        User     @relation(fields: [userId], references: [id])
+     market      Market   @relation(fields: [marketId], references: [id])
+     outcome     Outcome  @relation(fields: [outcomeId], references: [id])
 
-// Necessary for Next auth
-model Account {
-    id                       String  @id @default(cuid())
-    userId                   String
-    type                     String
-    provider                 String
-    providerAccountId        String
-    refresh_token            String?
-    access_token             String?
-    expires_at               Int?
-    token_type               String?
-    scope                    String?
-    id_token                 String?
-    session_state            String?
-    user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-    refresh_token_expires_in Int?
+     @@index([userId])
+     @@index([marketId])
+     @@index([createdAt])
+ }
 
-    @@unique([provider, providerAccountId])
-}
+ enum BetType {
+     BUY
+     SELL
+ }
 
-model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+ // ==================== POSITIONS ====================
+ model Position {
+     id          String   @id @default(cuid())
 
-model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    
-    // User stats
-    balance       Decimal   @default(0) @db.Decimal(20, 6)
-    totalInvested Decimal   @default(0) @db.Decimal(20, 6)
-    totalWinnings Decimal   @default(0) @db.Decimal(20, 6)
-    
-    // Relations
-    accounts      Account[]
-    sessions      Session[]
-    posts         Post[]
-    markets       Market[]
-    bets          Bet[]
-    positions     Position[]
-    transactions  Transaction[]
-}
+     // Position data
+     shares      Decimal  @db.Decimal(20, 6)
+     avgPrice    Decimal  @db.Decimal(5, 4)
+     invested    Decimal  @db.Decimal(20, 6)
 
-model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+     // Relations
+     userId      String
+     marketId    String
+     outcomeId   String
 
-    @@unique([identifier, token])
-}
+     user        User     @relation(fields: [userId], references: [id])
+     market      Market   @relation(fields: [marketId], references: [id])
+     outcome     Outcome  @relation(fields: [outcomeId], references: [id])
+
+     @@unique([userId, marketId, outcomeId])
+     @@index([userId])
+     @@index([marketId])
+ }
+
+ // ==================== TRANSACTIONS ====================
+ model Transaction {
+     id          String   @id @default(cuid())
+     createdAt   DateTime @default(now())
+
+     type        TransactionType
+     amount      Decimal  @db.Decimal(20, 6)
+     currency    String   @default("USD")
+     status      TransactionStatus @default(PENDING)
+
+     // Blockchain data (optional)
+     txHash      String?
+     blockNumber Int?
+
+     // Relations
+     userId      String
+     user        User     @relation(fields: [userId], references: [id])
+
+     @@index([userId])
+     @@index([status])
+ }
+
+ enum TransactionType {
+     DEPOSIT
+     WITHDRAWAL
+     BET_PLACED
+     BET_SOLD
+     WINNINGS
+     REFUND
+     MARKET_PAYOUT
+     ADMIN_ADJUSTMENT
+ }
+
+ enum TransactionStatus {
+     PENDING
+     COMPLETED
+     FAILED
+     CANCELLED
+ }
+
+ // ==================== EVENTS ====================
+ model Event {
+     id          String   @id @default(cuid())
+     title       String
+     subtitle    String?
+     description String?
+     category    String
+     sport       String?
+
+     // Event timing
+     startsAt    DateTime
+     endsAt      DateTime?
+
+     // Event details
+     imageUrl    String?
+     venue       String?
+     status      EventStatus @default(UPCOMING)
+     featured    Boolean  @default(false)
+
+     // Metadata
+     createdAt   DateTime @default(now())
+     updatedAt   DateTime @updatedAt
+
+     // Relations
+     createdBy   Admin    @relation(fields: [createdById], references: [id])
+     createdById String
+     markets     Market[]
+
+     @@index([status, startsAt])
+     @@index([category])
+     @@index([featured])
+ }
+
+ enum EventStatus {
+     UPCOMING
+     LIVE
+     ENDED
+     CANCELLED
+ }
+
+ // ==================== ADMIN ====================
+ model Admin {
+     id            String   @id @default(cuid())
+     username      String   @unique
+     passwordHash  String
+     name          String
+     email         String   @unique
+     role          AdminRole @default(MODERATOR)
+     active        Boolean  @default(true)
+
+     createdAt     DateTime @default(now())
+     updatedAt     DateTime @updatedAt
+     lastLoginAt   DateTime?
+
+     // Relations
+     events        Event[]
+
+     @@index([username])
+     @@index([email])
+ }
+
+ enum AdminRole {
+     SUPER_ADMIN
+     ADMIN
+     MODERATOR
+ }
+
+ // ==================== OLD POST MODEL (TO BE REMOVED) ====================
+ model Post {
+     id        Int      @id @default(autoincrement())
+     name      String
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     createdBy   User   @relation(fields: [createdById], references: [id])
+     createdById String
+
+     @@index([name])
+ }
+
+ // ==================== SEO SLUG REDIRECTS ====================
+ model MarketSlugRedirect {
+   id        String   @id @default(cuid())
+   createdAt DateTime @default(now())
+   // from -> to mapping for 301 redirects
+   fromSlug  String   @unique
+   toSlug    String
+
+   // Optional relation to market for traceability
+   market    Market?  @relation(fields: [marketId], references: [id])
+   marketId  String?
+
+   @@index([toSlug])
+ }
+
+ // Necessary for Next auth
+ model Account {
+     id                       String  @id @default(cuid())
+     userId                   String
+     type                     String
+     provider                 String
+     providerAccountId        String
+     refresh_token            String?
+     access_token             String?
+     expires_at               Int?
+     token_type               String?
+     scope                    String?
+     id_token                 String?
+     session_state            String?
+     user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+     refresh_token_expires_in Int?
+
+     @@unique([provider, providerAccountId])
+ }
+
+ model Session {
+     id           String   @id @default(cuid())
+     sessionToken String   @unique
+     userId       String
+     expires      DateTime
+     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ }
+
+ model User {
+     id            String    @id @default(cuid())
+     name          String?
+     email         String?   @unique
+     emailVerified DateTime?
+     image         String?
+
+     // User stats
+     balance       Decimal   @default(0) @db.Decimal(20, 6)
+     totalInvested Decimal   @default(0) @db.Decimal(20, 6)
+     totalWinnings Decimal   @default(0) @db.Decimal(20, 6)
+     totalWagered  Decimal   @default(0) @db.Decimal(20, 6)
+
+     // Account status
+     suspended     Boolean   @default(false)
+     createdAt     DateTime  @default(now())
+     updatedAt     DateTime  @default(now()) @updatedAt
+
+     // Relations
+     accounts      Account[]
+     sessions      Session[]
+     posts         Post[]
+     markets       Market[]
+     bets          Bet[]
+     positions     Position[]
+     transactions  Transaction[]
+ }
+
+ model VerificationToken {
+     identifier String
+     token      String   @unique
+     expires    DateTime
+
+     @@unique([identifier, token])
+ }

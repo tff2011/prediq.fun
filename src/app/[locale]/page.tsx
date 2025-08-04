@@ -15,18 +15,28 @@ export default function HomePage() {
   const [hideSports, setHideSports] = useState(false)
   const [hideCrypto, setHideCrypto] = useState(false)
   
-  // Fetch events from database
-  const { data: eventsData, isLoading } = api.event.getAll.useQuery({
-    featured: true,
-    limit: 50,
-  })
+  // Infinite list: fetch all events paginated (no featured filter)
+  const {
+    data: eventsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = api.event.getAll.useInfiniteQuery(
+    {
+      limit: 12
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined
+    }
+  )
 
-  // Transform events to market format
+  // Transform events to market format across pages
   const markets = useMemo(() => {
-    if (!eventsData?.events) return []
-    
-    return eventsData.events.flatMap((event: any) => 
-      event.markets.map((market: any) => ({
+    const pages = eventsData?.pages ?? []
+    const allEvents = pages.flatMap((p: any) => p.events ?? [])
+    return allEvents.flatMap((event: any) =>
+      (event.markets ?? []).map((market: any) => ({
         id: market.id,
         question: market.title,
         endsAt: new Date(market.closesAt).toISOString().split('T')[0],
@@ -98,19 +108,41 @@ export default function HomePage() {
   }
 
   // Update event status periodically
-  const updateStatusMutation = api.event.updateStatus.useMutation()
+  const updateStatusMutation = api.event.updateStatus.useMutation({
+    onError: (error) => {
+      // Ignore abort errors as they're expected during navigation
+      if (error.message.includes('aborted')) {
+        return
+      }
+      console.error('Error updating event status:', error)
+    }
+  })
   
   useEffect(() => {
-    // Update status on mount and every minute
-    updateStatusMutation.mutate()
+    let mounted = true
+    
+    // Small delay to ensure mutation is ready
+    const timeoutId = setTimeout(() => {
+      if (mounted) {
+        updateStatusMutation.mutate()
+      }
+    }, 100)
+    
+    // Update status every minute
     const interval = setInterval(() => {
-      updateStatusMutation.mutate()
+      if (mounted) {
+        updateStatusMutation.mutate()
+      }
     }, 60000)
     
-    return () => clearInterval(interval)
+    return () => {
+      mounted = false
+      clearTimeout(timeoutId)
+      clearInterval(interval)
+    }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (isLoading) {
+  if (isLoading && !eventsData) {
     return (
       <main className="min-h-screen">
         <section className="container mx-auto px-4 pt-6">
@@ -162,10 +194,23 @@ export default function HomePage() {
         />
       </section>
       
-      {/* Grid */}
+      {/* Grid with infinite scroll */}
       <section className="container mx-auto px-4 py-6">
         <div className="rounded-xl p-4 border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.3)] backdrop-blur-md">
           <MarketList markets={filteredMarkets} />
+          <div className="mt-6 flex justify-center">
+            {hasNextPage ? (
+              <button
+                onClick={() => fetchNextPage()}
+                disabled={isFetchingNextPage}
+                className="px-4 py-2 rounded-md border border-[hsl(var(--border)/0.35)] bg-background hover:bg-accent cursor-pointer text-sm"
+              >
+                {isFetchingNextPage ? 'Carregando...' : 'Carregar mais'}
+              </button>
+            ) : (
+              <span className="text-xs text-muted-foreground">Fim da lista</span>
+            )}
+          </div>
         </div>
       </section>
     </main>

@@ -14,19 +14,35 @@ export function generateSlug(title: string): string {
 }
 
 /**
- * Extrai o ID do mercado de um slug
+ * Garante unicidade do slug tentando com sufixos -2, -3, etc
+ * Recebe um checador assíncrono (exists) para verificar existência.
+ */
+export async function ensureUniqueSlug(
+  baseTitle: string,
+  exists: (slug: string) => Promise<boolean>
+): Promise<string> {
+  const base = generateSlug(baseTitle) || 'mercado'
+  let candidate = base
+  let counter = 2
+  while (await exists(candidate)) {
+    candidate = `${base}-${counter}`
+    counter++
+  }
+  return candidate
+}
+
+/**
+ * Mantido por compatibilidade: utilidades antigas não são mais usadas para rotas
  */
 export function extractMarketId(slug: string): string {
-  // Usa o slug como base para o ID
   return slug.replace(/-/g, '').substring(0, 10)
 }
 
 /**
- * Gera uma URL completa para um evento
+ * Mantido por compatibilidade: URLs antigas de evento não são usadas para Market
  */
 export function generateEventUrl(title: string, locale = 'pt'): string {
   const slug = generateSlug(title)
   const basePath = locale === 'pt' ? '' : '/en'
-  
   return `${basePath}/event/${slug}`
 }

@@ -1,55 +1,48 @@
 import { MarketDetailComponent } from '@/components/MarketDetail'
 import { notFound } from 'next/navigation'
+import { api } from '~/trpc/server'
 
-// Mock data - replace with actual data fetching
-const getMarketById = async (id: string) => {
-  const markets = {
-    'eleicao2026': {
-      id: 'eleicao2026',
-      question: 'Lula será reeleito em 2026?',
-      description: 'Este mercado resolve como "SIM" se Luiz Inácio Lula da Silva for eleito presidente do Brasil nas eleições de 2026.',
-      endsAt: '2026-10-02',
-      volume: 'R$ 124.850',
-      category: 'Política',
-      oddsYes: 1.65,
-      oddsNo: 2.35,
-      totalBets: 3429,
-      liquidity: 'R$ 89.300',
-      status: 'active' as const
-    },
-    'bitcoin': {
-      id: 'bitcoin',
-      question: 'Bitcoin ultrapassa R$500k até Dez/2025?',
-      description: 'Este mercado resolve como "SIM" se o Bitcoin atingir ou ultrapassar R$500.000 em qualquer momento até 31 de dezembro de 2025.',
-      endsAt: '2025-12-31',
-      volume: 'R$ 342.700',
-      category: 'Cripto',
-      oddsYes: 2.10,
-      oddsNo: 1.90,
-      totalBets: 5832,
-      liquidity: 'R$ 234.100',
-      status: 'active' as const
-    }
-  }
-  
-  return markets[id as keyof typeof markets] || null
-}
-
-export default async function MarketDetailPage({ 
-  params 
-}: { 
-  params: Promise<{ id: string, locale: string }> 
+export default async function MarketDetailPage({
+  params
+}: {
+  params: Promise<{ id: string, locale: string }>
 }) {
   const { id } = await params
-  const market = await getMarketById(id)
-  
+
+  // Fetch market from PostgreSQL via tRPC server caller
+  // Using server-side call to avoid client waterfall and ensure 404 on missing
+  const trpc = api
+  let market: any = null
+
+  try {
+    market = await trpc.market.getById({ id })
+  } catch {
+    // fallthrough to notFound
+  }
+
   if (!market) {
     notFound()
   }
-  
+
+  // Adapt DB market to component shape quickly
+  const data = {
+    id: market.id,
+    title: market.title,
+    description: market.description ?? '',
+    endsAt: market.closesAt?.toISOString?.() ?? new Date(market.closesAt).toISOString(),
+    volume: `R$ ${Number(market.volume ?? 0).toLocaleString('pt-BR')}`,
+    category: market.category ?? 'Outros',
+    // Temporary odds placeholders until pricing engine exists
+    oddsYes: 50,
+    oddsNo: 50,
+    totalBets: market._count?.bets ?? 0,
+    liquidity: `R$ ${Number(market.liquidity ?? 0).toLocaleString('pt-BR')}`,
+    status: (market.status?.toLowerCase?.() ?? 'active') as 'active' | 'closed' | 'resolved'
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <MarketDetailComponent data={market} />
+      <MarketDetailComponent data={data} />
     </div>
   )
 }

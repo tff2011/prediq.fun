@@ -128,12 +128,12 @@ export default function AdminEventsPage() {
                 </SelectContent>
               </Select>
               
-              <Select value={status} onValueChange={(value) => setStatus(value as EventStatus)}>
+              <Select value={status || "all"} onValueChange={(value) => setStatus(value === "all" ? undefined : value as EventStatus)}>
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="All Status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Status</SelectItem>
+                  <SelectItem value="all">All Status</SelectItem>
                   <SelectItem value="UPCOMING">Upcoming</SelectItem>
                   <SelectItem value="LIVE">Live</SelectItem>
                   <SelectItem value="ENDED">Ended</SelectItem>

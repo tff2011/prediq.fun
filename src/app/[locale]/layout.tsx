@@ -1,5 +1,4 @@
 import { i18nConfig } from '@/i18n/config'
-import '@/styles/globals.css'
 import { getMessages } from 'next-intl/server'
 import { LocaleProvider } from '@/components/LocaleProvider'
 

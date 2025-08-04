@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl'
 import { TrendingUp, Users, Calendar, Triangle } from 'lucide-react'
 import Link from 'next/link'
-import { generateEventUrl } from '@/lib/slug'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -49,8 +48,9 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
     return iconMap[cat ?? ''] ?? '❓'
   }
 
-  const eventUrl = generateEventUrl(question, locale)
-
+  // Home cards should deep-link to market by id since markets come from DB
+  const eventUrl = `/${locale}/market/${id}`
+  
   return (
     <Link href={eventUrl}>
       <div
