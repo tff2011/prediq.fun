@@ -112,7 +112,10 @@ async function main() {
 
     for (const marketData of markets) {
       const market = await prisma.market.create({
-        data: marketData,
+        data: {
+          ...marketData,
+          slug: marketData.title.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-').substring(0, 50),
+        },
       })
 
       // Create YES/NO outcomes

@@ -39,6 +39,7 @@ export const marketRouter = createTRPCRouter({
           liquidity: input.initialLiquidity,
           imageUrl: input.imageUrl,
           createdById: ctx.session.user.id,
+          slug: input.title.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, '-').substring(0, 50),
           outcomes: {
             create: [
               { name: "YES", probability: 0.5 },
@@ -332,8 +333,19 @@ export const marketRouter = createTRPCRouter({
           { volume: "desc" },
           { createdAt: "desc" },
         ],
-        include: {
-          outcomes: true,
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          category: true,
+          closesAt: true,
+          outcomes: {
+            select: {
+              id: true,
+              name: true,
+              probability: true,
+            },
+          },
           _count: {
             select: {
               bets: true,

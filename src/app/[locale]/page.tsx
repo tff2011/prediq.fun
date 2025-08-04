@@ -27,7 +27,9 @@ export default function HomePage() {
       limit: 12
     },
     {
-      getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined
+      getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
+      staleTime: 2 * 60 * 1000, // 2 minutes - cache data as fresh
+      gcTime: 10 * 60 * 1000, // 10 minutes - keep in cache
     }
   )
 
@@ -128,12 +130,12 @@ export default function HomePage() {
       }
     }, 100)
     
-    // Update status every minute
+    // Update status every 5 minutes (reduced from 1 min for better performance)
     const interval = setInterval(() => {
       if (mounted) {
         updateStatusMutation.mutate()
       }
-    }, 60000)
+    }, 300000)
     
     return () => {
       mounted = false

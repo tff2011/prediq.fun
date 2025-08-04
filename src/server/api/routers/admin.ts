@@ -156,7 +156,7 @@ export const adminRouter = createTRPCRouter({
         limit: z.number().min(1).max(100).default(20),
         search: z.string().optional(),
         eventId: z.string().cuid().optional(),
-        status: z.enum(["ACTIVE", "PAUSED", "RESOLVED", "CANCELLED"]).optional(),
+        status: z.enum(["ACTIVE", "CLOSED", "RESOLVED", "DISPUTED", "CANCELLED"]).optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -259,7 +259,7 @@ export const adminRouter = createTRPCRouter({
         description: z.string().optional(),
         closesAt: z.date().optional(),
         resolvesAt: z.date().optional(),
-        status: z.enum(["ACTIVE", "PAUSED", "RESOLVED", "CANCELLED"]).optional(),
+        status: z.enum(["ACTIVE", "CLOSED", "RESOLVED", "DISPUTED", "CANCELLED"]).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -345,7 +345,7 @@ export const adminRouter = createTRPCRouter({
 
       // Process payouts for all positions
       for (const position of market.positions) {
-        if (position.outcome === input.winningOutcome && position.shares.greaterThan(0)) {
+        if (position.outcomeId === input.winningOutcome && position.shares.greaterThan(0)) {
           // Winner gets 1 token per share
           const payout = position.shares;
           
@@ -364,8 +364,8 @@ export const adminRouter = createTRPCRouter({
               userId: position.userId,
               type: "MARKET_PAYOUT",
               amount: payout,
-              description: `Payout for market: ${market.question}`,
-              marketId: market.id,
+              // description: `Payout for market: ${market.question}`, // Field doesn't exist in Transaction model
+              // marketId: market.id, // Field doesn't exist in Transaction model
             },
           });
         }
@@ -598,7 +598,7 @@ export const adminRouter = createTRPCRouter({
           userId: input.userId,
           type: "ADMIN_ADJUSTMENT",
           amount: new Decimal(input.amount),
-          description: `Admin ${input.operation} balance adjustment`,
+          // description: `Admin ${input.operation} balance adjustment`, // Field doesn't exist
         },
       });
 
@@ -714,7 +714,7 @@ export const adminRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       // Get current admin from context
-      const adminId = ctx.adminId;
+      const adminId = ctx.admin.id;
       const admin = await ctx.db.admin.findUnique({
         where: { id: adminId },
       });

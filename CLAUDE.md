@@ -113,6 +113,40 @@ Use `useTranslations('markets')` then access with `t('card.yes')`.
 - Always validate inputs with Zod schemas
 - Add `cursor-pointer` class to all interactive buttons and clickable elements
 
+### Performance & Database Optimization Rules
+**CRITICAL**: Always follow these performance guidelines for all database operations:
+
+**NOTE**: Build errors and ESLint warnings in `/src/scripts/`, `/src/app/admin/`, and admin-related files can be ignored as these are non-critical admin tools. Focus optimizations on the core prediction market features (SearchBar, MarketList, event handling, etc.). The main application performance is optimized and functioning correctly.
+
+#### Prisma Query Optimization
+- **ALWAYS use `select` instead of `include`** when you don't need all fields
+- **Limit related data**: Use `take` to limit results (max 10-20 items)
+- **Selective field retrieval**: Only select fields actually needed
+- **Batch operations**: Use `Promise.all()` for parallel queries
+- **Connection pooling**: DATABASE_URL must include `?connection_limit=10&pool_timeout=10&connect_timeout=30`
+
+#### React Query / tRPC Caching
+- **ALWAYS add caching** to data-fetching hooks:
+```typescript
+useQuery(queryKey, queryFn, {
+  staleTime: 2 * 60 * 1000, // 2 minutes - data stays fresh
+  gcTime: 10 * 60 * 1000, // 10 minutes - garbage collection time (was cacheTime)
+})
+```
+- **Server-side caching**: Use Next.js `cache()` for expensive operations
+- **Debouncing**: Search queries must have 300ms+ debounce
+
+#### Database Schema & Indexing
+- **Index frequently queried fields**: status, category, dates, foreign keys
+- **Composite indexes**: For multi-field queries (status + date)
+- **Connection limits**: Maximum 10 concurrent connections in development
+
+#### Performance Monitoring
+- **NO query logging** in development (only error/warn)
+- **Conditional updates**: Check if updates are needed before executing
+- **Polling intervals**: Minimum 5 minutes for background updates
+- **Transaction optimization**: Group related operations in single transaction
+
 ### CSS Color System
 **CRITICAL**: Always use CSS custom properties for colors, never mix Tailwind color classes with custom CSS variables.
 

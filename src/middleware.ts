@@ -5,8 +5,7 @@ export default createMiddleware({
   locales: i18nConfig.locales,
   defaultLocale: i18nConfig.defaultLocale,
   localePrefix: 'as-needed',  
-  localeDetection: false,
-  timeZone: i18nConfig.timeZone
+  localeDetection: false
 })
 
 export const config = {

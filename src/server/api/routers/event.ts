@@ -49,9 +49,26 @@ export const eventRouter = createTRPCRouter({
         ],
         include: {
           markets: {
-            include: {
-              outcomes: true,
+            select: {
+              id: true,
+              title: true,
+              description: true,
+              category: true,
+              slug: true,
+              closesAt: true,
+              status: true,
+              volume: true,
+              liquidity: true,
+              outcomes: {
+                select: {
+                  id: true,
+                  name: true,
+                  probability: true,
+                },
+              },
             },
+            orderBy: { volume: "desc" },
+            take: 10, // Limit markets per event for better performance
           },
           _count: {
             select: { markets: true },
@@ -151,32 +168,64 @@ export const eventRouter = createTRPCRouter({
   updateStatus: publicProcedure.mutation(async ({ ctx }) => {
     const now = new Date();
     
-    // Update UPCOMING events to LIVE
-    await ctx.db.event.updateMany({
-      where: {
-        status: "UPCOMING",
-        startsAt: {
-          lte: now,
+    // Only update if there are actually events to update (more efficient)
+    const [upcomingCount, liveCount] = await Promise.all([
+      ctx.db.event.count({
+        where: {
+          status: "UPCOMING",
+          startsAt: { lte: now },
         },
-      },
-      data: {
-        status: "LIVE",
-      },
-    });
-    
-    // Update LIVE events to ENDED
-    await ctx.db.event.updateMany({
-      where: {
-        status: "LIVE",
-        endsAt: {
-          lte: now,
+      }),
+      ctx.db.event.count({
+        where: {
+          status: "LIVE",
+          endsAt: { lte: now },
         },
-      },
-      data: {
-        status: "ENDED",
-      },
-    });
+      }),
+    ]);
+
+    const updates = [];
     
-    return { success: true };
+    // Update UPCOMING events to LIVE only if there are any
+    if (upcomingCount > 0) {
+      updates.push(
+        ctx.db.event.updateMany({
+          where: {
+            status: "UPCOMING",
+            startsAt: { lte: now },
+          },
+          data: {
+            status: "LIVE",
+            updatedAt: now,
+          },
+        })
+      );
+    }
+    
+    // Update LIVE events to ENDED only if there are any
+    if (liveCount > 0) {
+      updates.push(
+        ctx.db.event.updateMany({
+          where: {
+            status: "LIVE",
+            endsAt: { lte: now },
+          },
+          data: {
+            status: "ENDED",
+            updatedAt: now,
+          },
+        })
+      );
+    }
+    
+    // Execute updates in parallel if any exist
+    if (updates.length > 0) {
+      await Promise.all(updates);
+    }
+    
+    return { 
+      success: true, 
+      updated: { upcoming: upcomingCount, live: liveCount }
+    };
   }),
 });

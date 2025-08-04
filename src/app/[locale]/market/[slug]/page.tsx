@@ -12,7 +12,8 @@ export default async function MarketDetailBySlugPage({
 
   // 1) Try to find market by current slug (raw where to avoid type mismatch pre-migration)
   const market = await db.market.findFirst({
-    where: { slug } as any,
+    // @ts-ignore - slug field exists after schema update
+    where: { slug },
     include: {
       _count: { select: { bets: true } }
     }

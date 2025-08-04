@@ -68,7 +68,7 @@ export default function AdminMarketsPage() {
     page,
     search: search || undefined,
     eventId,
-    status: status as "ACTIVE" | "RESOLVED" | "CANCELLED" | "PAUSED" | undefined,
+    status: status as "ACTIVE" | "CLOSED" | "RESOLVED" | "DISPUTED" | "CANCELLED" | undefined,
   });
 
   const deleteMutation = api.admin.deleteMarket.useMutation({
