@@ -2,129 +2,95 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Search, Calendar, TrendingUp, Users } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { api } from '~/trpc/react'
 
-// Mock data - same as SearchBar
-const mockSearchResults = [
-  {
-    id: '1',
-    question: 'Lula será reeleito em 2026?',
-    category: 'Política',
-    probability: 72,
-    endDate: '2026-10-02',
-    icon: '🗳️',
-    volume: 'R$ 124.850',
-    traders: 342
-  },
-  {
-    id: '2',
-    question: 'Bitcoin ultrapassa R$500k até Dez/2025?',
-    category: 'Cripto',
-    probability: 38,
-    endDate: '2025-12-31',
-    icon: '₿',
-    volume: 'R$ 342.700',
-    traders: 128
-  },
-  {
-    id: '3',
-    question: 'Brasil vence a Copa do Mundo 2026?',
-    category: 'Esportes',
-    probability: 15,
-    endDate: '2026-07-19',
-    icon: '⚽',
-    volume: 'R$ 587.300',
-    traders: 856
-  },
-  {
-    id: '4',
-    question: 'Taxa Selic abaixo de 10% em 2025?',
-    category: 'Economia',
-    probability: 65,
-    endDate: '2025-12-31',
-    icon: '📊',
-    volume: 'R$ 95.800',
-    traders: 234
-  },
-  {
-    id: '5',
-    question: 'Trump será eleito presidente dos EUA em 2028?',
-    category: 'Política',
-    probability: 45,
-    endDate: '2028-11-05',
-    icon: '🇺🇸',
-    volume: 'R$ 234.100',
-    traders: 567
-  },
-  {
-    id: '6',
-    question: 'Ethereum ultrapassa Bitcoin em capitalização até 2027?',
-    category: 'Cripto',
-    probability: 22,
-    endDate: '2027-01-01',
-    icon: '⟠',
-    volume: 'R$ 178.900',
-    traders: 445
-  },
-  {
-    id: '7',
-    question: 'Inflação brasileira abaixo de 4% em 2025?',
-    category: 'Economia',
-    probability: 58,
-    endDate: '2025-12-31',
-    icon: '📈',
-    volume: 'R$ 67.200',
-    traders: 189
-  },
-  {
-    id: '8',
-    question: 'Brasil top 10 no quadro de medalhas Paris 2024?',
-    category: 'Esportes',
-    probability: 78,
-    endDate: '2024-08-11',
-    icon: '🏅',
-    volume: 'R$ 412.500',
-    traders: 923
-  },
+// Category filtering options
+const categories = [
+  { value: '', label: 'Todas' },
+  { value: 'politics', label: 'Política' },
+  { value: 'crypto', label: 'Cripto' },
+  { value: 'sports', label: 'Esportes' },
+  { value: 'economics', label: 'Economia' },
 ]
 
 export default function SearchPage() {
   const t = useTranslations()
   const searchParams = useSearchParams()
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState(mockSearchResults)
-
+  const [selectedCategory, setSelectedCategory] = useState('')
+  
+  // Get initial query from URL params
   useEffect(() => {
     const searchQuery = searchParams.get('q') ?? ''
+    const categoryParam = searchParams.get('category') ?? ''
     setQuery(searchQuery)
-    
-    // Filter results based on query
-    if (searchQuery) {
-      const filteredResults = mockSearchResults.filter(result =>
-        result.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        result.category.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-      setResults(filteredResults)
-    } else {
-      setResults(mockSearchResults)
-    }
+    setSelectedCategory(categoryParam)
   }, [searchParams])
+
+  // Search API call - only when query is provided
+  const { data: searchResults = [], isLoading } = api.market.search.useQuery(
+    { 
+      query: query.trim(), 
+      category: selectedCategory || undefined, 
+      limit: 20 
+    },
+    { 
+      enabled: query.trim().length >= 2,
+      staleTime: 30 * 1000, // 30 seconds cache
+      gcTime: 5 * 60 * 1000, // 5 minutes in cache
+    }
+  )
+
+  // Get category icon
+  const getCategoryIcon = (category?: string): string => {
+    const iconMap: Record<string, string> = {
+      'politics': '🗳️',
+      'crypto': '₿', 
+      'sports': '⚽',
+      'economics': '📊',
+      'technology': '💻',
+      'world': '🌍'
+    }
+    return iconMap[category?.toLowerCase() ?? ''] ?? '❓'
+  }
+
+  // Use deterministic hash like MarketCard to avoid hydration issues
+  const hashCode = (str: string) => {
+    let hash = 0
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i)
+      hash = ((hash << 5) - hash) + char
+      hash = hash & hash // Convert to 32bit integer
+    }
+    return Math.abs(hash)
+  }
+
+  // Transform search results to display format
+  const displayResults = useMemo(() => {
+    return searchResults.map(market => {
+      const marketHash = hashCode(market.id)
+      return {
+        id: market.id,
+        slug: market.slug,
+        question: market.title,
+        category: market.category,
+        probability: 20 + (marketHash % 60), // Range: 20-79, deterministic
+        endDate: market.closesAt,
+        icon: getCategoryIcon(market.category?.toLowerCase()),
+        volume: `R$ ${Number(market.volume).toLocaleString('pt-BR')}`,
+        traders: 100 + (marketHash % 900) // Range: 100-999, deterministic
+      }
+    })
+  }, [searchResults])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (query.trim()) {
-      const filteredResults = mockSearchResults.filter(result =>
-        result.question.toLowerCase().includes(query.toLowerCase()) ||
-        result.category.toLowerCase().includes(query.toLowerCase())
-      )
-      setResults(filteredResults)
-    } else {
-      setResults(mockSearchResults)
-    }
+    // Query is handled by the API call automatically
   }
 
   return (
@@ -153,19 +119,24 @@ export default function SearchPage() {
               {query ? `${t('navigation.search.resultsFor')} "${query}"` : t('navigation.search.allMarkets')}
             </h1>
             <span className="text-muted-foreground">
-              {results.length} {results.length === 1 ? t('navigation.search.resultFound') : t('navigation.search.resultsFound')}
+              {displayResults.length} {displayResults.length === 1 ? t('navigation.search.resultFound') : t('navigation.search.resultsFound')}
             </span>
           </div>
         </div>
 
         {/* Results List */}
         <div className="space-y-3">
-          {results.length > 0 ? (
-            results.map((result) => (
+          {isLoading && query.trim().length >= 2 ? (
+            <div className="text-center py-16">
+              <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+              <p className="text-muted-foreground">Buscando mercados...</p>
+            </div>
+          ) : displayResults.length > 0 ? (
+            displayResults.map((result) => (
               <div
                 key={result.id}
                 className="bg-card border border-border rounded-lg p-4 hover:shadow-lg hover:border-primary/20 hover:bg-accent/5 transition-all duration-200 cursor-pointer group"
-                onClick={() => window.open(`/pt/market/${result.id}`, '_self')}
+                onClick={() => window.open(`/pt/market/${result.slug || result.id}`, '_self')}
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -206,12 +177,20 @@ export default function SearchPage() {
                 </div>
               </div>
             ))
-          ) : (
+          ) : query.trim().length >= 2 ? (
             <div className="text-center py-16">
               <Search className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
               <h3 className="text-xl font-semibold mb-2">{t('navigation.search.noResultsTitle')}</h3>
               <p className="text-muted-foreground">
                 {t('navigation.search.noResultsDesc')}
+              </p>
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <Search className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
+              <h3 className="text-xl font-semibold mb-2">Digite sua busca</h3>
+              <p className="text-muted-foreground">
+                Use a barra de pesquisa acima para encontrar mercados específicos
               </p>
             </div>
           )}

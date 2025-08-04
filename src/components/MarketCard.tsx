@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 
 interface Props {
   id: string
+  slug?: string
   question: string
   volume: string
   endsAt: string
@@ -16,7 +17,7 @@ interface Props {
   className?: string
 }
 
-export function MarketCard({ id, question, volume, endsAt, category, imageUrl, locale = 'pt', className }: Props) {
+export function MarketCard({ id, slug, question, volume, endsAt, category, imageUrl, locale = 'pt', className }: Props) {
   const t = useTranslations('markets')
   
   // Use a deterministic value based on the market ID to avoid hydration issues
@@ -48,8 +49,8 @@ export function MarketCard({ id, question, volume, endsAt, category, imageUrl, l
     return iconMap[cat ?? ''] ?? '❓'
   }
 
-  // Home cards should deep-link to market by id since markets come from DB
-  const eventUrl = `/${locale}/market/${id}`
+  // Home cards should deep-link to market by slug for SEO-friendly URLs
+  const eventUrl = `/${locale}/market/${slug || id}`
   
   return (
     <Link href={eventUrl}>

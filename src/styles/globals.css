@@ -259,3 +259,45 @@ h1, h2, h3, h4, h5, h6 {
 button {
   font-weight: 500;
 }
+
+/* Navbar category styles - follow LVHA order (Link-Visited-Hover-Active) */
+.navbar-category {
+  /* Base state */
+  color: hsl(var(--foreground) / 0.8);
+  transition: all 200ms ease;
+}
+
+.navbar-category:visited {
+  color: hsl(var(--foreground) / 0.8);
+}
+
+.navbar-category:hover {
+  color: hsl(var(--primary));
+  background-color: hsl(var(--primary) / 0.1);
+}
+
+.navbar-category:active {
+  color: hsl(var(--primary));
+  background-color: hsl(var(--primary) / 0.15);
+}
+
+/* Active page state - highest specificity */
+.navbar-category.active {
+  background-color: hsl(var(--primary) / 0.2) !important;
+  color: hsl(var(--primary)) !important;
+  font-weight: 600 !important;
+  border: 2px solid hsl(var(--primary) / 0.5) !important;
+  box-shadow: 0 2px 8px hsl(var(--primary) / 0.25) !important;
+  /* Temporário para debug - fundo vermelho bem visível */
+  outline: 3px solid red !important;
+}
+
+.navbar-category.active:hover {
+  background-color: hsl(var(--primary) / 0.25);
+  border-color: hsl(var(--primary) / 0.6);
+}
+
+.navbar-category.active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}

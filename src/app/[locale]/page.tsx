@@ -40,6 +40,7 @@ export default function HomePage() {
     return allEvents.flatMap((event: any) =>
       (event.markets ?? []).map((market: any) => ({
         id: market.id,
+        slug: market.slug,
         question: market.title,
         endsAt: new Date(market.closesAt).toISOString().split('T')[0],
         volume: `R$ ${Number(market.volume).toLocaleString('pt-BR')}`,

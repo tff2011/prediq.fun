@@ -7,7 +7,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher"
 import { SearchBar } from "./SearchBar"
 import { useTranslations } from "next-intl"
 import { TrendingUp, ChevronDown, Menu, X } from "lucide-react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { HowItWorksModal } from "./HowItWorksModal"
 import {
   DropdownMenu,
@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 interface NavbarProps {
   locale: string
@@ -24,7 +25,58 @@ interface NavbarProps {
 export function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('navigation')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  
+  const pathname = usePathname()
+
+  // Helper to determine if a given category is active based on the current pathname
+  const activeCategory = useMemo(() => {
+    console.log('Current pathname:', pathname) // Debug log
+    // Expecting paths like /pt/category/crypto or /en/category/technology
+    // Also handle aliases used on category page normalization
+    const match = pathname?.match(/^\/[^/]+\/category\/([^/?#]+)/i)
+    const detected = match?.[1]?.toLowerCase() ?? null
+    console.log('Detected active category:', detected) // Debug log
+    
+    // Handle URL aliases to navbar category mappings
+    const aliasMap: Record<string, string> = {
+      'economy': 'economics',
+      'tech': 'technology',
+      'culture': 'entertainment',
+      'world': 'other'
+    }
+    
+    const finalCategory = aliasMap[detected || ''] || detected
+    console.log('Final active category:', finalCategory) // Debug log
+    return finalCategory
+  }, [pathname])
+
+  const getCategoryClasses = (slug: string) => {
+    const isActive = activeCategory === slug
+    console.log(`=== CATEGORY DEBUG ===`)
+    console.log(`Slug: ${slug}`)
+    console.log(`Active Category: ${activeCategory}`)
+    console.log(`Is Active: ${isActive}`)
+    console.log(`Comparison: "${activeCategory}" === "${slug}" = ${activeCategory === slug}`)
+    
+    const classes = cn(
+      // Base styling
+      "relative px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap cursor-pointer",
+      "navbar-category", // This applies the LVHA styles from CSS
+      // Underline effect
+      "after:pointer-events-none after:absolute after:left-0 after:right-0 after:-bottom-[2px] after:h-[3px] after:rounded-full after:bg-primary after:transition-all after:duration-200",
+      // Active state class
+      isActive ? "active" : "",
+      // Underline states
+      isActive 
+        ? "after:opacity-100 after:scale-x-100" 
+        : "after:opacity-0 after:scale-x-0 hover:after:opacity-100 hover:after:scale-x-100"
+    )
+    
+    console.log(`Final classes for ${slug}:`, classes)
+    console.log(`========================`)
+    
+    return classes
+  }
+
   const handleLogin = () => {
     // TODO: Implementar lógica de login
     console.log('Login clicked')
@@ -123,7 +175,7 @@ export function Navbar({ locale }: NavbarProps) {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between py-2">
             {/* Left Navigation */}
-            <div className="flex items-center gap-6 overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-6">
               <Link
                 href={`/${locale}/trending`}
                 className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors whitespace-nowrap cursor-pointer"
@@ -140,28 +192,24 @@ export function Navbar({ locale }: NavbarProps) {
             </div>
 
             {/* Center Categories */}
-            <div className="hidden lg:flex items-center gap-6 overflow-x-auto scrollbar-hide">
-              <Link href={`/${locale}/category/politics`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.politics')}
-              </Link>
-              <Link href={`/${locale}/category/sports`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.sports')}
-              </Link>
-              <Link href={`/${locale}/category/crypto`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.crypto')}
-              </Link>
-              <Link href={`/${locale}/category/tech`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.technology')}
-              </Link>
-              <Link href={`/${locale}/category/culture`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.culture')}
-              </Link>
-              <Link href={`/${locale}/category/world`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.world')}
-              </Link>
-              <Link href={`/${locale}/category/economy`} className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap cursor-pointer">
-                {t('categories.economics')}
-              </Link>
+            <div className="hidden lg:flex items-center gap-3">
+              {[
+                { slug: 'politics', key: 'categories.politics' },
+                { slug: 'sports', key: 'categories.sports' },
+                { slug: 'crypto', key: 'categories.crypto' },
+                { slug: 'technology', key: 'categories.technology' },
+                { slug: 'entertainment', key: 'categories.entertainment' },
+                { slug: 'science', key: 'categories.science' },
+                { slug: 'economics', key: 'categories.economics' }
+              ].map(({ slug, key }) => (
+                <Link 
+                  key={slug}
+                  href={`/${locale}/category/${slug}`} 
+                  className={getCategoryClasses(slug)}
+                >
+                  {t(key as any)}
+                </Link>
+              ))}
             </div>
 
             {/* Right More Menu */}

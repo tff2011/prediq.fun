@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 
 interface Market {
   id: string
+  slug?: string
   question: string
   volume: string
   endsAt: string

@@ -33,6 +33,7 @@
       "economics": "Economia",
       "entertainment": "Entretenimento",
       "technology": "Tecnologia",
+      "science": "Ciência",
       "culture": "Cultura",
       "world": "Mundo"
     },
@@ -125,6 +126,7 @@
       }
     },
     "available": "mercados disponíveis",
-    "noMarketsFound": "Nenhum mercado encontrado."
+    "noMarketsFound": "Nenhum mercado encontrado.",
+    "categorySubtitle": "Navegue pelos mercados desta categoria"
   }
 }
