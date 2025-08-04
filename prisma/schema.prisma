@@ -23,30 +23,30 @@
      imageUrl    String?
      // SEO-friendly unique slug
      slug        String   @unique
-
+     
      // Market timing
      createdAt   DateTime @default(now())
      updatedAt   DateTime @updatedAt
      closesAt    DateTime
      resolvedAt  DateTime?
      resolvesAt  DateTime? // Expected resolution date
-
+     
      // Question field for admin
      question    String?  @default("")
-
+     
      // Market state
      status      MarketStatus @default(ACTIVE)
      resolution  MarketResolution?
      winningOutcome String?
-
+     
      // Market data
      volume      Decimal  @default(0) @db.Decimal(20, 2)
      liquidity   Decimal  @default(0) @db.Decimal(20, 2)
-
+     
      // Blockchain data (when integrated)
      contractAddress String?
      txHash          String?
-
+     
      // Relations
      createdBy   User     @relation(fields: [createdById], references: [id])
      createdById String
@@ -55,7 +55,8 @@
      outcomes    Outcome[]
      bets        Bet[]
      positions   Position[]
-
+    redirects   MarketSlugRedirect[]
+     
      @@index([status, closesAt])
      @@index([category])
      @@index([createdById])
@@ -273,9 +274,9 @@
    fromSlug  String   @unique
    toSlug    String
 
-   // Optional relation to market for traceability
-   market    Market?  @relation(fields: [marketId], references: [id])
+   // relation to market (optional), provide opposite field on Market as `redirects`
    marketId  String?
+   market    Market?  @relation(fields: [marketId], references: [id])
 
    @@index([toSlug])
  }
