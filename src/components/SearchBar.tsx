@@ -64,6 +64,13 @@ export function SearchBar({ onSearch, placeholder, className = "", variant = 'de
     },
     {
       enabled: debouncedQuery.length >= 2 && isExpanded,
+      staleTime: 2 * 60 * 1000, // 2 minutes
+      gcTime: 10 * 60 * 1000, // 10 minutes
+      retry: (failureCount, error) => {
+        // Don't retry on abort errors
+        if (error?.message?.includes('AbortError')) return false;
+        return failureCount < 2;
+      },
     }
   )
 
