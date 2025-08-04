@@ -1,6 +1,7 @@
 export const i18nConfig = {
   locales: ['pt', 'en'],
   defaultLocale: 'pt',
+  timeZone: 'America/Sao_Paulo'
 }
 
 export const languages = {
