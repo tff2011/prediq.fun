@@ -114,12 +114,12 @@ export default function AdminEventsPage() {
                 />
               </div>
               
-              <Select value={category} onValueChange={setCategory}>
+              <Select value={category || "all"} onValueChange={(value) => setCategory(value === "all" ? undefined : value)}>
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Categories</SelectItem>
+                  <SelectItem value="all">All Categories</SelectItem>
                   <SelectItem value="politics">Politics</SelectItem>
                   <SelectItem value="sports">Sports</SelectItem>
                   <SelectItem value="crypto">Crypto</SelectItem>

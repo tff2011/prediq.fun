@@ -1,0 +1,36 @@
+import { i18nConfig } from '@/i18n/config'
+import '@/styles/globals.css'
+import { Inter } from "next/font/google"
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
+import { ThemeProvider } from '@/components/theme-provider'
+import { ConditionalLayout } from '@/components/ConditionalLayout'
+import { TRPCReactProvider } from '~/trpc/react'
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+})
+
+export async function generateStaticParams() {
+  return i18nConfig.locales.map((locale) => ({ locale }))
+}
+
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const messages = await getMessages()
+  
+  return (
+    <NextIntlClientProvider messages={messages}>
+      <ConditionalLayout locale={locale}>
+        {children}
+      </ConditionalLayout>
+    </NextIntlClientProvider>
+  )
+}

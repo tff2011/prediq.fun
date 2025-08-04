@@ -1,31 +1,31 @@
 export const getAdminToken = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('adminToken');
-  }
-  return null;
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem('adminToken');
 };
 
 export const getAdminUser = () => {
-  if (typeof window !== 'undefined') {
-    const userStr = localStorage.getItem('adminUser');
-    if (userStr) {
-      try {
-        return JSON.parse(userStr);
-      } catch {
-        return null;
-      }
-    }
+  if (typeof window === 'undefined') return null;
+  
+  const userStr = localStorage.getItem('adminUser');
+  if (!userStr) return null;
+  
+  try {
+    return JSON.parse(userStr);
+  } catch {
+    return null;
   }
-  return null;
 };
 
 export const clearAdminAuth = () => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-  }
+  if (typeof window === 'undefined') return;
+  
+  localStorage.removeItem('adminToken');
+  localStorage.removeItem('adminUser');
 };
 
 export const isAuthenticated = () => {
-  return !!getAdminToken();
+  if (typeof window === 'undefined') return false;
+  
+  const token = localStorage.getItem('adminToken');
+  return !!token;
 };
