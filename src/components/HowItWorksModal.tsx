@@ -84,14 +84,20 @@ export function HowItWorksModal() {
                 </span>
               </div>
             </DialogHeader>
-            {/* Botão fechar reposicionado fora do fluxo do título */}
+            {/* Botão fechar reposicionado e perfeitamente centralizado no círculo */}
             <DialogClose asChild>
               <button
                 aria-label="Fechar"
-                className="absolute right-3 top-3 h-8 w-8 rounded-full flex items-center justify-center hover:bg-[hsl(var(--card)/0.5)] focus-ring"
+                className="absolute right-3 top-3 h-8 w-8 rounded-full grid place-items-center hover:bg-[hsl(var(--card)/0.5)] focus-ring"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" className="text-muted-foreground">
-                  <path fill="currentColor" d="M18 6L6 18M6 6l12 12" strokeWidth="2" strokeLinecap="round"/>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  className="text-muted-foreground block"
+                  style={{ display: 'block' }}
+                >
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" fill="none"/>
                 </svg>
               </button>
             </DialogClose>

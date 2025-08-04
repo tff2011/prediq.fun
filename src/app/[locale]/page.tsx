@@ -1,80 +1,42 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { MarketList } from '@/components/MarketList'
 import { PolymarketFilters } from '@/components/PolymarketFilters'
-
-const markets = [
-  {
-    id: 'eleicao2026',
-    question: 'Lula será reeleito em 2026?',
-    endsAt: '2026-10-02',
-    volume: 'R$ 124.850',
-    category: 'Política'
-  },
-  {
-    id: 'bitcoin',
-    question: 'Bitcoin ultrapassa R$500k até Dez/2025?',
-    endsAt: '2025-12-31',
-    volume: 'R$ 342.700',
-    category: 'Cripto'
-  },
-  {
-    id: 'copa2026',
-    question: 'Brasil vence a Copa do Mundo 2026?',
-    endsAt: '2026-07-19',
-    volume: 'R$ 587.300',
-    category: 'Esportes'
-  },
-  {
-    id: 'selic',
-    question: 'Taxa Selic abaixo de 10% em 2025?',
-    endsAt: '2025-12-31',
-    volume: 'R$ 95.800',
-    category: 'Economia'
-  },
-  {
-    id: 'trump2028',
-    question: 'Trump será eleito presidente dos EUA em 2028?',
-    endsAt: '2028-11-05',
-    volume: 'R$ 234.100',
-    category: 'Política'
-  },
-  {
-    id: 'ethereum',
-    question: 'Ethereum ultrapassa Bitcoin em capitalização até 2027?',
-    endsAt: '2027-01-01',
-    volume: 'R$ 178.900',
-    category: 'Cripto'
-  },
-  {
-    id: 'inflacao',
-    question: 'Inflação brasileira abaixo de 4% em 2025?',
-    endsAt: '2025-12-31',
-    volume: 'R$ 67.200',
-    category: 'Economia'
-  },
-  {
-    id: 'olimpiadas',
-    question: 'Brasil top 10 no quadro de medalhas Paris 2024?',
-    endsAt: '2024-08-11',
-    volume: 'R$ 412.500',
-    category: 'Esportes'
-  },
-]
+import { api } from '~/trpc/react'
+import { Skeleton } from '~/components/ui/skeleton'
 
 export default function HomePage() {
   const t = useTranslations()
-  const [filteredMarkets, setFilteredMarkets] = useState(markets)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
   const [sortBy, setSortBy] = useState('24hr Volume')
-  // TODO: Implement sorting functionality using sortBy
   const [hideSports, setHideSports] = useState(false)
   const [hideCrypto, setHideCrypto] = useState(false)
+  
+  // Fetch events from database
+  const { data: eventsData, isLoading } = api.event.getAll.useQuery({
+    featured: true,
+    limit: 50,
+  })
 
-  const applyFilters = useCallback(() => {
+  // Transform events to market format
+  const markets = useMemo(() => {
+    if (!eventsData?.events) return []
+    
+    return eventsData.events.flatMap((event: any) => 
+      event.markets.map((market: any) => ({
+        id: market.id,
+        question: market.title,
+        endsAt: new Date(market.closesAt).toISOString().split('T')[0],
+        volume: `R$ ${Number(market.volume).toLocaleString('pt-BR')}`,
+        category: getCategoryLabel(event.category),
+      }))
+    )
+  }, [eventsData])
+
+  const filteredMarkets = useMemo(() => {
     let filtered = [...markets]
 
     // Apply search filter
@@ -111,38 +73,63 @@ export default function HomePage() {
       filtered = filtered.filter(market => market.category !== 'Cripto')
     }
 
-    setFilteredMarkets(filtered)
-  }, [searchQuery, selectedCategory, hideSports, hideCrypto])
-
-  // Apply filters whenever dependencies change
-  useEffect(() => {
-    applyFilters()
-  }, [applyFilters])
+    return filtered
+  }, [markets, searchQuery, selectedCategory, hideSports, hideCrypto])
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
-    applyFilters()
   }
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category)
-    applyFilters()
   }
 
   const handleSortChange = (sort: string) => {
     setSortBy(sort)
     // TODO: Implement sorting logic
-    applyFilters()
   }
 
   const handleToggleSports = (hide: boolean) => {
     setHideSports(hide)
-    applyFilters()
   }
 
   const handleToggleCrypto = (hide: boolean) => {
     setHideCrypto(hide)
-    applyFilters()
+  }
+
+  // Update event status periodically
+  const updateStatusMutation = api.event.updateStatus.useMutation()
+  
+  useEffect(() => {
+    // Update status on mount and every minute
+    updateStatusMutation.mutate()
+    const interval = setInterval(() => {
+      updateStatusMutation.mutate()
+    }, 60000)
+    
+    return () => clearInterval(interval)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen">
+        <section className="container mx-auto px-4 pt-6">
+          <div className="rounded-xl border border-[hsl(var(--border)/0.35)]">
+            <div className="rounded-xl bg-[hsl(var(--card)/0.35)] backdrop-blur-md px-4 py-3">
+              <Skeleton className="h-8 w-48" />
+            </div>
+          </div>
+        </section>
+        
+        <section className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <Skeleton key={i} className="h-48 rounded-xl" />
+            ))}
+          </div>
+        </section>
+      </main>
+    )
   }
 
   return (
@@ -183,4 +170,18 @@ export default function HomePage() {
       </section>
     </main>
   )
+}
+
+function getCategoryLabel(category: string): string {
+  const categoryMap: Record<string, string> = {
+    'politics': 'Política',
+    'sports': 'Esportes',
+    'crypto': 'Cripto',
+    'economics': 'Economia',
+    'entertainment': 'Entretenimento',
+    'technology': 'Tecnologia',
+    'science': 'Ciência',
+    'other': 'Outros',
+  }
+  return categoryMap[category] || category
 }

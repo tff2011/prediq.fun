@@ -6,6 +6,25 @@
       "filters": "Filtros",
       "search": "Buscar"
     },
+    "filters": {
+      "sortBy": "Ordenar por:",
+      "frequency": "Frequência:",
+      "hideSports": "Ocultar esportes?",
+      "hideCrypto": "Ocultar cripto?",
+      "sortOptions": {
+        "24hrVolume": "Volume 24h",
+        "volume": "Volume",
+        "activity": "Atividade",
+        "newest": "Mais recentes",
+        "endingSoon": "Fechando em breve"
+      },
+      "frequencyOptions": {
+        "all": "Todos",
+        "daily": "Diário",
+        "weekly": "Semanal",
+        "monthly": "Mensal"
+      }
+    },
     "categories": {
       "all": "Todos",
       "politics": "Política",

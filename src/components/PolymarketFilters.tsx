@@ -46,8 +46,8 @@ export function PolymarketFilters({
   const t = useTranslations('markets')
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
-  const [sortBy, setSortBy] = useState('24hr Volume')
-  const [frequency, setFrequency] = useState('All')
+  const [sortBy, setSortBy] = useState('24hrVolume')
+  const [frequency, setFrequency] = useState('all')
   const [hideSports, setHideSports] = useState(false)
   const [hideCrypto, setHideCrypto] = useState(false)
   const [showSortDropdown, setShowSortDropdown] = useState(false)
@@ -214,17 +214,17 @@ export function PolymarketFilters({
             <div className="flex flex-wrap items-center gap-4 sm:gap-6">
               {/* Sort by dropdown */}
               <div ref={sortDropdownRef} className="flex items-center gap-2 relative">
-                <span className="text-sm text-muted-foreground">Sort by:</span>
+                <span className="text-sm text-muted-foreground">{t('filters.sortBy')}</span>
                 <button
                   onClick={() => setShowSortDropdown(!showSortDropdown)}
                   className="flex items-center gap-1 px-2 py-1 text-foreground hover:bg-accent hover:text-accent-foreground rounded-md font-medium cursor-pointer transition-colors duration-150"
                 >
-                  {sortBy}
+                  {t(`filters.sortOptions.${sortBy}`)}
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 {showSortDropdown && (
                   <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-lg z-50 min-w-32 backdrop-blur-sm">
-                    {['24hr Volume', 'Volume', 'Activity', 'Newest', 'Ending Soon'].map((option) => (
+                    {['24hrVolume', 'volume', 'activity', 'newest', 'endingSoon'].map((option) => (
                       <button
                         key={option}
                         onClick={() => {
@@ -234,7 +234,7 @@ export function PolymarketFilters({
                         }}
                         className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm transition-colors duration-150"
                       >
-                        {option}
+                        {t(`filters.sortOptions.${option}`)}
                       </button>
                     ))}
                   </div>
@@ -243,17 +243,17 @@ export function PolymarketFilters({
 
               {/* Frequency dropdown */}
               <div ref={frequencyDropdownRef} className="flex items-center gap-2 relative">
-                <span className="text-sm text-muted-foreground">Frequency:</span>
+                <span className="text-sm text-muted-foreground">{t('filters.frequency')}</span>
                 <button
                   onClick={() => setShowFrequencyDropdown(!showFrequencyDropdown)}
                   className="flex items-center gap-1 px-2 py-1 text-foreground hover:bg-accent hover:text-accent-foreground rounded-md font-medium cursor-pointer transition-colors duration-150"
                 >
-                  {frequency}
+                  {t(`filters.frequencyOptions.${frequency}`)}
                   <ChevronDown className="h-4 w-4" />
                 </button>
                 {showFrequencyDropdown && (
                   <div className="absolute top-full left-0 mt-1 bg-card rounded-lg shadow-lg z-50 min-w-24 backdrop-blur-sm">
-                    {['All', 'Daily', 'Weekly', 'Monthly'].map((option) => (
+                    {['all', 'daily', 'weekly', 'monthly'].map((option) => (
                       <button
                         key={option}
                         onClick={() => {
@@ -263,7 +263,7 @@ export function PolymarketFilters({
                         }}
                         className="block w-full text-left px-3 py-2 text-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer text-sm transition-colors duration-150"
                       >
-                        {option}
+                        {t(`filters.frequencyOptions.${option}`)}
                       </button>
                     ))}
                   </div>
@@ -272,7 +272,7 @@ export function PolymarketFilters({
 
               {/* Toggle switches */}
               <label className="flex items-center gap-1.5 cursor-pointer">
-                <span className="text-sm text-muted-foreground">Hide sports?</span>
+                <span className="text-sm text-muted-foreground">{t('filters.hideSports')}</span>
                 <input
                   type="checkbox"
                   checked={hideSports}
@@ -285,7 +285,7 @@ export function PolymarketFilters({
               </label>
               
               <label className="flex items-center gap-1.5 cursor-pointer">
-                <span className="text-sm text-muted-foreground">Hide crypto?</span>
+                <span className="text-sm text-muted-foreground">{t('filters.hideCrypto')}</span>
                 <input
                   type="checkbox"
                   checked={hideCrypto}

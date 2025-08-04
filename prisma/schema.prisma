@@ -43,6 +43,8 @@ model Market {
     // Relations
     createdBy   User     @relation(fields: [createdById], references: [id])
     createdById String
+    event       Event?   @relation(fields: [eventId], references: [id])
+    eventId     String?
     outcomes    Outcome[]
     bets        Bet[]
     positions   Position[]
@@ -50,6 +52,7 @@ model Market {
     @@index([status, closesAt])
     @@index([category])
     @@index([createdById])
+    @@index([eventId])
 }
 
 enum MarketStatus {
@@ -170,6 +173,73 @@ enum TransactionStatus {
     COMPLETED
     FAILED
     CANCELLED
+}
+
+// ==================== EVENTS ====================
+model Event {
+    id          String   @id @default(cuid())
+    title       String
+    subtitle    String?
+    description String?
+    category    String
+    sport       String?
+    
+    // Event timing
+    startsAt    DateTime
+    endsAt      DateTime?
+    
+    // Event details
+    imageUrl    String?
+    venue       String?
+    status      EventStatus @default(UPCOMING)
+    featured    Boolean  @default(false)
+    
+    // Metadata
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    
+    // Relations
+    createdBy   Admin    @relation(fields: [createdById], references: [id])
+    createdById String
+    markets     Market[]
+    
+    @@index([status, startsAt])
+    @@index([category])
+    @@index([featured])
+}
+
+enum EventStatus {
+    UPCOMING
+    LIVE
+    ENDED
+    CANCELLED
+}
+
+// ==================== ADMIN ====================
+model Admin {
+    id            String   @id @default(cuid())
+    username      String   @unique
+    passwordHash  String
+    name          String
+    email         String   @unique
+    role          AdminRole @default(MODERATOR)
+    active        Boolean  @default(true)
+    
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+    lastLoginAt   DateTime?
+    
+    // Relations
+    events        Event[]
+    
+    @@index([username])
+    @@index([email])
+}
+
+enum AdminRole {
+    SUPER_ADMIN
+    ADMIN
+    MODERATOR
 }
 
 // ==================== OLD POST MODEL (TO BE REMOVED) ====================
