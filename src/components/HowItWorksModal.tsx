@@ -63,7 +63,7 @@ export function HowItWorksModal() {
   return (
     <Dialog onOpenChange={(open) => !open && handleClose()}>
       <DialogTrigger asChild>
-        <Button variant="ghostTransparent" className="flex items-center gap-2 cursor-pointer focus-ring">
+        <Button variant="ghostTransparent" className="flex items-center gap-2 cursor-pointer focus:outline-none focus:ring-0">
           <Info size={16} />
           {t('button')}
         </Button>
@@ -73,9 +73,10 @@ export function HowItWorksModal() {
       <DialogContent className="sm:max-w-[600px] rounded-2xl border border-[hsl(var(--border)/0.35)] bg-[hsl(var(--card)/0.35)] backdrop-blur-md shadow-web3-2 p-0 overflow-hidden">
         {/* Header com gradient-border sutil e espaço p/ botão de fechar */}
         <div className="relative gradient-border rounded-t-2xl p-[1px]">
-          <div className="rounded-t-[calc(1rem-1px)] bg-[hsl(var(--card)/0.25)] pl-6 pr-12 py-4">
+          {/* Mais respiro nas bordas do título */}
+          <div className="rounded-t-[calc(1rem-1px)] bg-[hsl(var(--card)/0.25)] pl-7 pr-14 py-5">
             <DialogHeader>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-3">
                 <DialogTitle className="text-xl font-semibold tracking-tight">
                   {currentStep?.title}
                 </DialogTitle>
@@ -84,11 +85,11 @@ export function HowItWorksModal() {
                 </span>
               </div>
             </DialogHeader>
-            {/* Botão fechar reposicionado e perfeitamente centralizado no círculo */}
+            {/* Botão fechar reposicionado e com área de clique maior */}
             <DialogClose asChild>
               <button
                 aria-label="Fechar"
-                className="absolute right-3 top-3 h-8 w-8 rounded-full grid place-items-center hover:bg-[hsl(var(--card)/0.5)] focus-ring"
+                className="absolute right-3.5 top-3.5 h-9 w-9 rounded-full grid place-items-center hover:bg-[hsl(var(--card)/0.5)] focus:outline-none focus:ring-0"
               >
                 <svg
                   width="16"

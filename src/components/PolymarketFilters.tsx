@@ -14,16 +14,9 @@ const categories = [
   { id: 'world', name: 'world' },
 ]
 
-const getCategorySelectedStyle = (categoryId: string): string => {
-  const styles: Record<string, string> = {
-    politics: "bg-blue-600 text-white border-transparent hover:bg-blue-700 hover:shadow-md",
-    crypto: "bg-orange-600 text-white border-transparent hover:bg-orange-700 hover:shadow-md",
-    sports: "bg-green-600 text-white border-transparent hover:bg-green-700 hover:shadow-md",
-    economics: "bg-purple-600 text-white border-transparent hover:bg-purple-700 hover:shadow-md",
-    technology: "bg-indigo-600 text-white border-transparent hover:bg-indigo-700 hover:shadow-md",
-    world: "bg-red-600 text-white border-transparent hover:bg-red-700 hover:shadow-md",
-  }
-  return styles[categoryId] ?? "bg-gray-600 text-white border-transparent hover:bg-gray-700 hover:shadow-md"
+const getCategorySelectedStyle = (_categoryId: string): string => {
+  // Active = Button variant "default" (primary filled)
+  return "bg-primary text-primary-foreground border-transparent hover:bg-primary/90"
 }
 
 interface PolymarketFiltersProps {
@@ -121,27 +114,28 @@ export function PolymarketFilters({
     <div className="w-full">
       {/* First row - Search, Filter button, and Categories */}
       <div>
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+        <div className="container mx-auto px-4 py-2 lg:py-3">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 lg:gap-4">
+            {/* Search + Filters toggle */}
+            <div className="flex items-center gap-2 lg:gap-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <input
                   type="text"
                   placeholder={t('search.placeholder')}
                   value={searchQuery}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="w-full sm:w-64 pl-10 pr-4 py-2 bg-muted/30 border-0 rounded-lg text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring/50 focus:bg-background"
+                  className="w-[220px] sm:w-64 pl-9 pr-3 py-2 bg-background border border-input rounded-md text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/60"
                 />
               </div>
-              
-              <button 
+
+              <button
                 onClick={() => setShowFilters(!showFilters)}
                 className={cn(
-                  "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 cursor-pointer hover:bg-accent/10",
-                  showFilters 
-                    ? "bg-muted text-foreground border-muted-foreground hover:bg-muted/80" 
-                    : "bg-background border-input text-foreground hover:bg-accent hover:text-accent-foreground"
+                  "inline-flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all ease-web3 duration-200 cursor-pointer border",
+                  showFilters
+                    ? "bg-muted text-foreground border-input hover:bg-muted/80"
+                    : "border-input bg-background text-foreground/90 hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 <Filter className="h-4 w-4" />
@@ -154,13 +148,13 @@ export function PolymarketFilters({
               </button>
             </div>
 
-            {/* Category pills with arrow navigation */}
-            <div className="relative flex items-center w-full lg:w-auto">
+            {/* Category pills with arrows and fade edges */}
+            <div className="relative flex items-center w-full lg:w-auto select-none">
               {/* Left Arrow */}
               <button
                 onClick={() => scrollCategories('left')}
                 className={cn(
-                  "absolute left-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm rounded-full shadow-sm cursor-pointer hover:bg-accent transition-colors duration-150",
+                  "absolute left-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-xs rounded-full border border-input shadow-sm cursor-pointer hover:bg-accent transition-colors duration-150",
                   showLeftArrow ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                 )}
                 aria-label="Scroll left"
@@ -168,34 +162,42 @@ export function PolymarketFilters({
                 <ChevronLeft className="h-4 w-4" />
               </button>
 
+              {/* gradient fade edges */}
+              <div className="pointer-events-none absolute left-8 top-0 h-full w-6 bg-gradient-to-r from-background to-transparent"/>
+              <div className="pointer-events-none absolute right-8 top-0 h-full w-6 bg-gradient-to-l from-background to-transparent"/>
+
               {/* Categories container */}
-              <div 
+              <div
                 ref={categoriesRef}
                 onScroll={checkArrows}
-                className="flex items-center gap-2 overflow-x-auto scrollbar-hide scroll-smooth w-full px-12"
+                className="flex items-center gap-2 overflow-x-auto scroll-smooth w-full px-12 no-scrollbar"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => handleCategoryClick(category.id)}
-                    className={cn(
-                      "px-4 py-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors duration-150 cursor-pointer",
-                      selectedCategory === category.id
-                        ? getCategorySelectedStyle(category.id)
-                        : "bg-muted/30 text-foreground hover:bg-accent hover:text-accent-foreground"
-                    )}
-                  >
-                    {t(`categories.${category.name}`)}
-                  </button>
-                ))}
+                {categories.map((category) => {
+                  const isActive = selectedCategory === category.id
+                  return (
+                    <button
+                      key={category.id}
+                      onClick={() => handleCategoryClick(category.id)}
+                      className={cn(
+                        // Follow Button outline/default exactly
+                        "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all ease-web3 duration-200 border px-3.5 py-1.5",
+                        isActive
+                          ? "bg-[hsl(var(--primary)/0.12)] text-[hsl(var(--primary))] border-[hsl(var(--primary)/0.5)] shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.35)] hover:bg-[hsl(var(--primary)/0.18)]"
+                          : "border-input bg-background text-foreground/90 hover:bg-accent hover:text-accent-foreground"
+                      )}
+                    >
+                      {t(`categories.${category.name}`)}
+                    </button>
+                  )
+                })}
               </div>
 
               {/* Right Arrow */}
               <button
                 onClick={() => scrollCategories('right')}
                 className={cn(
-                  "absolute right-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-sm rounded-full shadow-sm cursor-pointer hover:bg-accent transition-colors duration-150",
+                  "absolute right-0 z-10 h-8 w-8 flex items-center justify-center bg-background/95 backdrop-blur-xs rounded-full border border-input shadow-sm cursor-pointer hover:bg-accent transition-colors duration-150",
                   showRightArrow ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                 )}
                 aria-label="Scroll right"

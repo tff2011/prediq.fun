@@ -19,7 +19,8 @@
       "technology": "Technology",
       "culture": "Culture",
       "world": "World",
-      "economics": "Economics"
+      "economics": "Economics",
+      "entertainment": "Entertainment"
     },
     "search": {
       "placeholder": "Search markets...",
@@ -47,7 +48,8 @@
         "technology": "Technology",
         "culture": "Culture",
         "world": "World",
-        "economics": "Economics"
+        "economics": "Economics",
+        "entertainment": "Entertainment"
       }
     },
     "more": "More",

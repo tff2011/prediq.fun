@@ -303,4 +303,53 @@ export const marketRouter = createTRPCRouter({
       count: cat._count.category,
     }));
   }),
+
+  // Search markets
+  search: publicProcedure
+    .input(
+      z.object({
+        query: z.string().min(1),
+        category: z.string().optional(),
+        limit: z.number().min(1).max(10).default(5),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const markets = await ctx.db.market.findMany({
+        where: {
+          AND: [
+            {
+              OR: [
+                { title: { contains: input.query, mode: "insensitive" } },
+                { description: { contains: input.query, mode: "insensitive" } },
+              ],
+            },
+            input.category ? { category: input.category } : {},
+            { status: "ACTIVE" },
+          ],
+        },
+        take: input.limit,
+        orderBy: [
+          { volume: "desc" },
+          { createdAt: "desc" },
+        ],
+        include: {
+          outcomes: true,
+          _count: {
+            select: {
+              bets: true,
+            },
+          },
+        },
+      });
+
+      return markets.map(market => ({
+        id: market.id,
+        slug: market.slug,
+        title: market.title,
+        category: market.category,
+        closesAt: market.closesAt,
+        outcomes: market.outcomes,
+        betCount: market._count.bets,
+      }));
+    }),
 });
