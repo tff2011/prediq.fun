@@ -96,7 +96,10 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
   const result = await next();
 
   const end = Date.now();
-  console.log(`[TRPC] ${path} took ${end - start}ms to execute`);
+  // Only log in development for debugging, suppress in production/dev for performance
+  if (t._config.isDev && process.env.NODE_ENV === 'development' && process.env.TRPC_DEBUG_LOGGING === 'true') {
+    console.log(`[TRPC] ${path} took ${end - start}ms to execute`);
+  }
 
   return result;
 });

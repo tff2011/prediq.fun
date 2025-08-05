@@ -1,0 +1,14 @@
+{
+  "title": "New Markets",
+  "description": "Most recent markets ordered by creation date",
+  "searchPlaceholder": "Search new markets...",
+  "stats": {
+    "today": "Created today",
+    "thisWeek": "This week",
+    "thisMonth": "This month"
+  },
+  "emptyState": {
+    "title": "No new markets found",
+    "description": "We couldn't find recent markets matching your selected filters. Try adjusting your search or explore other categories."
+  }
+}

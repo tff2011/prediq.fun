@@ -70,9 +70,42 @@ export const marketRouter = createTRPCRouter({
         status: z.nativeEnum(MarketStatus).optional(),
         limit: z.number().min(1).max(100).default(20),
         cursor: z.string().optional(),
+        sortBy: z.enum(["volume", "traders", "createdAt", "closesAt"]).default("volume"),
+        sortOrder: z.enum(["asc", "desc"]).default("desc"),
       })
     )
     .query(async ({ ctx, input }) => {
+      // Build orderBy based on sortBy parameter
+      let orderBy: any = [];
+      
+      switch (input.sortBy) {
+        case "traders":
+          // We'll need to count unique traders (users who made bets)
+          orderBy = [
+            { bets: { _count: "desc" } },
+            { createdAt: "desc" }
+          ];
+          break;
+        case "createdAt":
+          orderBy = [
+            { createdAt: input.sortOrder },
+          ];
+          break;
+        case "closesAt":
+          orderBy = [
+            { closesAt: input.sortOrder },
+            { createdAt: "desc" }
+          ];
+          break;
+        case "volume":
+        default:
+          orderBy = [
+            { volume: input.sortOrder },
+            { createdAt: "desc" },
+          ];
+          break;
+      }
+
       const markets = await ctx.db.market.findMany({
         where: {
           ...(input.category && { category: input.category }),
@@ -81,7 +114,56 @@ export const marketRouter = createTRPCRouter({
         },
         take: input.limit + 1,
         cursor: input.cursor ? { id: input.cursor } : undefined,
+        orderBy,
+        include: {
+          outcomes: true,
+          createdBy: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+          _count: {
+            select: {
+              bets: true,
+              positions: true,
+            },
+          },
+        },
+      });
+
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (markets.length > input.limit) {
+        const nextItem = markets.pop();
+        nextCursor = nextItem!.id;
+      }
+
+      return {
+        markets,
+        nextCursor,
+      };
+    }),
+
+  // Get trending markets (ordered by number of traders/bets)
+  getTrending: publicProcedure
+    .input(
+      z.object({
+        category: z.string().optional(),
+        limit: z.number().min(1).max(100).default(20),
+        cursor: z.string().optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const markets = await ctx.db.market.findMany({
+        where: {
+          status: "ACTIVE",
+          ...(input.category && { category: input.category }),
+        },
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
         orderBy: [
+          { bets: { _count: "desc" } },
           { volume: "desc" },
           { createdAt: "desc" },
         ],
@@ -97,6 +179,57 @@ export const marketRouter = createTRPCRouter({
           _count: {
             select: {
               bets: true,
+              positions: true,
+            },
+          },
+        },
+      });
+
+      let nextCursor: typeof input.cursor | undefined = undefined;
+      if (markets.length > input.limit) {
+        const nextItem = markets.pop();
+        nextCursor = nextItem!.id;
+      }
+
+      return {
+        markets,
+        nextCursor,
+      };
+    }),
+
+  // Get newest markets (ordered by creation date)
+  getNewest: publicProcedure
+    .input(
+      z.object({
+        category: z.string().optional(),
+        limit: z.number().min(1).max(100).default(20),
+        cursor: z.string().optional(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const markets = await ctx.db.market.findMany({
+        where: {
+          status: "ACTIVE",
+          ...(input.category && { category: input.category }),
+        },
+        take: input.limit + 1,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+        orderBy: [
+          { createdAt: "desc" },
+        ],
+        include: {
+          outcomes: true,
+          createdBy: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+          _count: {
+            select: {
+              bets: true,
+              positions: true,
             },
           },
         },

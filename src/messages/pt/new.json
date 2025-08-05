@@ -1,0 +1,14 @@
+{
+  "title": "Novos Mercados",
+  "description": "Mercados mais recentes ordenados por data de criação",
+  "searchPlaceholder": "Buscar mercados novos...",
+  "stats": {
+    "today": "Criados hoje",
+    "thisWeek": "Esta semana",
+    "thisMonth": "Este mês"
+  },
+  "emptyState": {
+    "title": "Nenhum mercado novo encontrado",
+    "description": "Não encontramos mercados recentes com os filtros selecionados. Tente ajustar sua busca ou explorar outras categorias."
+  }
+}

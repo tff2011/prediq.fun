@@ -1,0 +1,14 @@
+{
+  "title": "Trending",
+  "description": "Most popular markets ordered by number of traders",
+  "searchPlaceholder": "Search trending markets...",
+  "stats": {
+    "totalTraders": "Total Traders",
+    "activeMarkets": "Active Markets",
+    "volume24h": "24h Volume"
+  },
+  "emptyState": {
+    "title": "No trending markets found",
+    "description": "We couldn't find popular markets matching your selected filters. Try adjusting your search or explore other categories."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Em Alta",
+  "description": "Mercados mais populares ordenados por número de traders",
+  "searchPlaceholder": "Buscar mercados em alta...",
+  "stats": {
+    "totalTraders": "Total de Traders",
+    "activeMarkets": "Mercados Ativos",
+    "volume24h": "Volume 24h"
+  },
+  "emptyState": {
+    "title": "Nenhum mercado em alta encontrado",
+    "description": "Não encontramos mercados populares com os filtros selecionados. Tente ajustar sua busca ou explorar outras categorias."
+  }
+}
