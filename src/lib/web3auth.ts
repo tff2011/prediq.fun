@@ -7,8 +7,14 @@ import { WalletConnectV2Adapter } from '@web3auth/wallet-connect-v2-adapter'
 import { ethers } from 'ethers'
 import { Connection, PublicKey } from '@solana/web3.js'
 
-// Get from environment or set defaults for development
-const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || 'BPi5PB_UiIZ-cPz1GtV5i1I2iOSOHuimiXBI0e-Oe_u6X3oVAbCiAZOTEBtTXw4tsluTITPqA8zMsfxIKMjiqNQ'
+// Get from environment variables
+const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID
+const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
+const walletConnectProjectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
+
+if (!clientId) {
+  throw new Error('NEXT_PUBLIC_WEB3AUTH_CLIENT_ID is required')
+}
 
 // Polygon Mumbai testnet config (change to mainnet for production)
 const polygonChainConfig = {
@@ -43,55 +49,21 @@ export class Web3AuthService {
         config: { chainConfig: polygonChainConfig }
       })
 
-      this.web3auth = new Web3AuthNoModal({
-        clientId,
-        web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET, // Change to SAPPHIRE_MAINNET for production
-        chainConfig: polygonChainConfig,
-        privateKeyProvider: ethereumProvider,
-      })
-
-      // Configure OpenLogin adapter
+      // Configure basic OpenLogin adapter without custom login configs
       const openloginAdapter = new OpenloginAdapter({
         privateKeyProvider: ethereumProvider,
         adapterSettings: {
           uxMode: 'popup',
-          loginConfig: {
-            google: {
-              name: 'Google Login',
-              verifier: 'web3auth-google-verifier',
-              typeOfLogin: 'google',
-              clientId: 'google-client-id', // Replace with your Google OAuth client ID
-            },
-            email_passwordless: {
-              name: 'Email Passwordless',
-              verifier: 'web3auth-email-passwordless',
-              typeOfLogin: 'email_passwordless',
-            },
-          },
         },
       })
 
-      this.web3auth.configureAdapter(openloginAdapter)
-
-      // Configure WalletConnect adapter
-      const walletConnectV2Adapter = new WalletConnectV2Adapter({
+      this.web3auth = new Web3AuthNoModal({
+        clientId,
+        web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
+        chainConfig: polygonChainConfig,
         privateKeyProvider: ethereumProvider,
-        adapterSettings: {
-          qrcodeModal: null,
-          walletConnectInitOptions: {
-            projectId: 'YOUR_WALLET_CONNECT_PROJECT_ID', // Get from https://cloud.walletconnect.com
-            relayUrl: 'wss://relay.walletconnect.com',
-            metadata: {
-              name: 'PredIQ.fun',
-              description: 'Mercados de Previsão Descentralizados',
-              url: 'https://prediq.fun',
-              icons: ['https://prediq.fun/logo.png'],
-            },
-          },
-        },
+        adapters: [openloginAdapter],
       })
-
-      this.web3auth.configureAdapter(walletConnectV2Adapter)
 
       await this.web3auth.init()
       this.currentChain = 'polygon'
@@ -108,34 +80,21 @@ export class Web3AuthService {
         config: { chainConfig: solanaChainConfig }
       })
 
+      const openloginAdapter = new OpenloginAdapter({
+        privateKeyProvider: solanaProvider,
+        adapterSettings: {
+          uxMode: 'popup',
+        },
+      })
+
       this.web3auth = new Web3AuthNoModal({
         clientId,
         web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
         chainConfig: solanaChainConfig,
         privateKeyProvider: solanaProvider,
+        // Pass adapters in constructor instead of configuring them later
+        adapters: [openloginAdapter],
       })
-
-      const openloginAdapter = new OpenloginAdapter({
-        privateKeyProvider: solanaProvider,
-        adapterSettings: {
-          uxMode: 'popup',
-          loginConfig: {
-            google: {
-              name: 'Google Login',
-              verifier: 'web3auth-google-verifier',
-              typeOfLogin: 'google',
-              clientId: 'google-client-id',
-            },
-            email_passwordless: {
-              name: 'Email Passwordless',
-              verifier: 'web3auth-email-passwordless',
-              typeOfLogin: 'email_passwordless',
-            },
-          },
-        },
-      })
-
-      this.web3auth.configureAdapter(openloginAdapter)
 
       await this.web3auth.init()
       this.currentChain = 'solana'

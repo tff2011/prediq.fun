@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { web3AuthService } from '@/lib/web3auth'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 
 interface Web3AuthUser {
   email?: string
@@ -14,6 +15,7 @@ interface Web3AuthUser {
 }
 
 export function useWeb3Auth() {
+  const t = useTranslations('auth.modal.messages')
   const [user, setUser] = useState<Web3AuthUser | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isInitialized, setIsInitialized] = useState(false)
@@ -59,7 +61,7 @@ export function useWeb3Auth() {
 
   const login = useCallback(async (chain: 'polygon' | 'solana' = 'polygon') => {
     if (!isInitialized) {
-      toast.error('Web3Auth ainda está inicializando...')
+      toast.error(t('initializing'))
       return
     }
 
@@ -67,36 +69,36 @@ export function useWeb3Auth() {
     try {
       await web3AuthService.connect(chain)
       await fetchUserInfo()
-      toast.success('Login realizado com sucesso!')
+      toast.success(t('success'))
     } catch (error: any) {
       if (error?.message?.includes('User closed modal') || error?.message?.includes('user rejected')) {
-        toast.info('Login cancelado')
+        toast.info(t('cancelled'))
       } else {
-        toast.error('Erro ao fazer login')
+        toast.error(t('error'))
         console.error('Login error:', error)
       }
     } finally {
       setIsLoading(false)
     }
-  }, [isInitialized])
+  }, [isInitialized, t])
 
   const logout = useCallback(async () => {
     setIsLoading(true)
     try {
       await web3AuthService.logout()
       setUser(null)
-      toast.success('Logout realizado com sucesso!')
+      toast.success(t('logoutSuccess'))
     } catch (error) {
-      toast.error('Erro ao fazer logout')
+      toast.error(t('logoutError'))
       console.error('Logout error:', error)
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [t])
 
   const signMessage = useCallback(async (message: string) => {
     if (!web3AuthService.isConnected()) {
-      toast.error('Por favor, faça login primeiro')
+      toast.error(t('signFirst'))
       return null
     }
 
@@ -104,15 +106,15 @@ export function useWeb3Auth() {
       const signature = await web3AuthService.signMessage(message)
       return signature
     } catch (error) {
-      toast.error('Erro ao assinar mensagem')
+      toast.error(t('signError'))
       console.error('Sign message error:', error)
       return null
     }
-  }, [])
+  }, [t])
 
   const connectWallet = useCallback(async (walletType: 'metamask' | 'phantom' | 'walletconnect', chain: 'polygon' | 'solana' = 'polygon') => {
     if (!isInitialized) {
-      toast.error('Web3Auth ainda está inicializando...')
+      toast.error(t('initializing'))
       return
     }
 
@@ -120,24 +122,24 @@ export function useWeb3Auth() {
     try {
       await web3AuthService.connectWallet(walletType, chain)
       await fetchUserInfo()
-      toast.success(`Conectado com ${walletType}!`)
+      toast.success(`${t('connected')} ${walletType}!`)
     } catch (error: any) {
       if (error?.message?.includes('not detected')) {
-        toast.error(`${walletType} não foi encontrado. Por favor, instale a extensão.`)
+        toast.error(`${walletType} ${t('walletNotFound')}`)
       } else if (error?.message?.includes('User rejected')) {
-        toast.info('Conexão cancelada pelo usuário')
+        toast.info(t('walletCancelled'))
       } else {
-        toast.error(`Erro ao conectar com ${walletType}`)
+        toast.error(`${t('walletError')} ${walletType}`)
         console.error('Wallet connection error:', error)
       }
     } finally {
       setIsLoading(false)
     }
-  }, [isInitialized])
+  }, [isInitialized, t])
 
   const switchChain = useCallback(async (chain: 'polygon' | 'solana') => {
     if (!web3AuthService.isConnected()) {
-      toast.error('Por favor, faça login primeiro')
+      toast.error(t('signFirst'))
       return
     }
 
@@ -146,14 +148,14 @@ export function useWeb3Auth() {
       await web3AuthService.logout()
       await web3AuthService.connect(chain)
       await fetchUserInfo()
-      toast.success(`Mudado para ${chain === 'polygon' ? 'Polygon' : 'Solana'}`)
+      toast.success(`${t('switchChain')} ${chain === 'polygon' ? 'Polygon' : 'Solana'}`)
     } catch (error) {
-      toast.error('Erro ao mudar de rede')
+      toast.error(t('switchError'))
       console.error('Switch chain error:', error)
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [t])
 
   return {
     user,

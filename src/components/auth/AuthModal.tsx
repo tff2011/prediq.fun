@@ -26,7 +26,7 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) {
-  const t = useTranslations('auth')
+  const t = useTranslations('auth.modal')
   const [email, setEmail] = useState('')
   const [selectedProvider, setSelectedProvider] = useState<string | null>(null)
   const { login, connectWallet, isLoading, isInitialized } = useWeb3Auth()
@@ -59,7 +59,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
 
   const handleEmailContinue = async () => {
     if (!email || !email.includes('@')) {
-      toast.error('Por favor, insira um email válido')
+      toast.error(t('providers.email.invalid'))
       return
     }
     
@@ -82,7 +82,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
         <div className="relative bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(198_93%_60%)] p-6 pb-4">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-white text-center">
-              {mode === 'login' ? 'Bem-vindo de volta!' : 'Bem-vindo ao PredIQ.fun'}
+              {mode === 'login' ? t('login.title') : t('signup.title')}
             </DialogTitle>
           </DialogHeader>
           
@@ -101,15 +101,15 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
             <div className="mb-6 space-y-2 text-sm">
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Zap className="w-4 h-4 text-[hsl(var(--yes))]" />
-                <span>Crie e negocie em mercados de previsão</span>
+                <span>{t('signup.benefits.create')}</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Shield className="w-4 h-4 text-[hsl(var(--primary))]" />
-                <span>100% seguro com blockchain</span>
+                <span>{t('signup.benefits.secure')}</span>
               </div>
               <div className="flex items-center gap-2 text-muted-foreground">
                 <Sparkles className="w-4 h-4 text-[hsl(var(--no))]" />
-                <span>Ganhe recompensas por previsões corretas</span>
+                <span>{t('signup.benefits.rewards')}</span>
               </div>
             </div>
           )}
@@ -142,7 +142,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
                 />
               </svg>
             )}
-            Continuar com Google
+{t('providers.google')}
           </Button>
 
           <div className="relative">
@@ -150,7 +150,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
               <div className="w-full border-t border-border" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">ou</span>
+              <span className="bg-background px-2 text-muted-foreground">{t('providers.or')}</span>
             </div>
           </div>
 
@@ -159,7 +159,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
             <div className="flex gap-2">
               <Input
                 type="email"
-                placeholder="Digite seu email"
+                placeholder={t('providers.email.placeholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1"
@@ -175,7 +175,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
                   <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
                   <>
-                    Continuar
+                    {t('providers.email.continue')}
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </>
                 )}
@@ -201,7 +201,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
                   className="mb-2"
                 />
               )}
-              <span className="text-xs">MetaMask</span>
+              <span className="text-xs">{t('providers.wallets.metamask')}</span>
             </button>
 
             <button
@@ -216,7 +216,7 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
                   <span className="text-white font-bold text-sm">P</span>
                 </div>
               )}
-              <span className="text-xs">Phantom</span>
+              <span className="text-xs">{t('providers.wallets.phantom')}</span>
             </button>
 
             <button
@@ -231,20 +231,20 @@ export function AuthModal({ isOpen, onClose, mode = 'signup' }: AuthModalProps) 
                   <Wallet className="w-4 h-4 text-white" />
                 </div>
               )}
-              <span className="text-xs">WalletConnect</span>
+              <span className="text-xs">{t('providers.wallets.walletconnect')}</span>
             </button>
           </div>
 
           {/* Terms and Privacy */}
           <div className="text-center pt-4">
             <p className="text-xs text-muted-foreground">
-              Ao continuar, você concorda com nossos{' '}
+              {t('terms.text')}{' '}
               <a href="/terms" className="text-primary hover:underline">
-                Termos
+                {t('terms.terms')}
               </a>{' '}
-              e{' '}
+              {t('terms.and')}{' '}
               <a href="/privacy" className="text-primary hover:underline">
-                Privacidade
+                {t('terms.privacy')}
               </a>
             </p>
           </div>

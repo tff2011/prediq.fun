@@ -26,7 +26,9 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: z.string().optional(),
-    NEXT_PUBLIC_WEB3AUTH_NETWORK: z.enum(["testnet", "mainnet"]).default("testnet"),
+    NEXT_PUBLIC_WEB3AUTH_NETWORK: z.enum(["testnet", "mainnet", "sapphire_devnet"]).default("sapphire_devnet"),
+    NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: z.string().optional(),
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string().optional(),
     NEXT_PUBLIC_CHAIN_ID: z.string().default("80002"),
     NEXT_PUBLIC_RPC_URL: z.string().url().default("https://rpc-amoy.polygon.technology/"),
     NEXT_PUBLIC_BLOCK_EXPLORER: z.string().url().default("https://www.oklink.com/amoy"),
@@ -48,6 +50,8 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID,
     NEXT_PUBLIC_WEB3AUTH_NETWORK: process.env.NEXT_PUBLIC_WEB3AUTH_NETWORK,
+    NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID,
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
     NEXT_PUBLIC_CHAIN_ID: process.env.NEXT_PUBLIC_CHAIN_ID,
     NEXT_PUBLIC_RPC_URL: process.env.NEXT_PUBLIC_RPC_URL,
     NEXT_PUBLIC_BLOCK_EXPLORER: process.env.NEXT_PUBLIC_BLOCK_EXPLORER,

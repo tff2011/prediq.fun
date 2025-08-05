@@ -131,7 +131,7 @@ export function Navbar({ locale }: NavbarProps) {
                     onClick={logout}
                     disabled={authLoading}
                   >
-                    Sair
+                    {t('logout')}
                   </Button>
                 </>
               ) : (
