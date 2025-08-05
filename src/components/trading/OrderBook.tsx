@@ -22,15 +22,21 @@ interface OrderBookProps {
 export function OrderBook({ data }: OrderBookProps) {
   const t = useTranslations('markets')
   
-  // Generate mock order book data
+  // Generate deterministic mock order book data
   const generateOrders = (basePrice: number, side: 'buy' | 'sell'): OrderBookEntry[] => {
     const orders: OrderBookEntry[] = []
     let runningTotal = 0
     
+    // Use market ID to seed deterministic pseudo-random
+    const seed = data.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
+    
     for (let i = 0; i < 8; i++) {
       const priceVariation = side === 'buy' ? -i * 0.5 : i * 0.5
       const price = Math.max(0.01, Math.min(0.99, (basePrice + priceVariation) / 100))
-      const amount = Math.floor(Math.random() * 1000) + 100
+      
+      // Generate deterministic amount based on seed, side, and index
+      const sideMultiplier = side === 'buy' ? 1 : 2
+      const amount = Math.floor(((Math.sin(seed + i * sideMultiplier * 0.3) + 1) / 2 * 900) + 100)
       runningTotal += amount
       
       orders.push({

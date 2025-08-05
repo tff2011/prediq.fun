@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TRPCReactProvider } from "~/trpc/react";
 import { GTMWrapper } from "@/components/GTMWrapper";
+import { Toaster } from "sonner";
 import "@/styles/globals.css";
 
 const inter = Inter({
@@ -36,6 +37,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <Toaster richColors closeButton />
           </ThemeProvider>
         </TRPCReactProvider>
       </body>

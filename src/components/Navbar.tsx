@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { SearchBar } from "./SearchBar"
 import { useTranslations } from "next-intl"
-import { TrendingUp, ChevronDown, Menu, X } from "lucide-react"
+import { TrendingUp, ChevronDown, Menu, X, User } from "lucide-react"
 import { useMemo, useState } from "react"
 import { HowItWorksModal } from "./HowItWorksModal"
+import { AuthModal } from "./auth/AuthModal"
+import { useWeb3Auth } from "@/hooks/useWeb3Auth"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,7 +27,10 @@ interface NavbarProps {
 export function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('navigation')
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [authModalOpen, setAuthModalOpen] = useState(false)
+  const [authMode, setAuthMode] = useState<'login' | 'signup'>('signup')
   const pathname = usePathname()
+  const { user, logout, isLoading: authLoading } = useWeb3Auth()
 
   // Helper to determine if a given category is active based on the current pathname
   const activeCategory = useMemo(() => {
@@ -66,16 +71,17 @@ export function Navbar({ locale }: NavbarProps) {
   }
 
   const handleLogin = () => {
-    // TODO: Implementar lógica de login
-    console.log('Login clicked')
+    setAuthMode('login')
+    setAuthModalOpen(true)
   }
   
   const handleSignup = () => {
-    // TODO: Implementar lógica de cadastro
-    console.log('Signup clicked')
+    setAuthMode('signup')
+    setAuthModalOpen(true)
   }
   
   return (
+    <>
     <header className={cn(
       "sticky top-0 z-[100] w-full supports-[backdrop-filter]:bg-[hsl(var(--card)/0.6)] bg-background/90",
       "backdrop-blur-md border-b border-[hsl(var(--border)/0.6)]"
@@ -105,22 +111,51 @@ export function Navbar({ locale }: NavbarProps) {
 
             {/* Desktop Actions */}
             <div className="hidden md:flex items-center gap-3 shrink-0 ml-auto">
-              <Button
-                variant="ghostTransparent"
-                size="sm"
-                className="cursor-pointer focus-ring"
-                onClick={handleLogin}
-              >
-                {t('login')}
-              </Button>
-              <Button
-                size="sm"
-                variant="primaryGradient"
-                className="font-semibold cursor-pointer"
-                onClick={handleSignup}
-              >
-                {t('signup')}
-              </Button>
+              {user ? (
+                <>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/50 border border-border">
+                    <User className="w-4 h-4" />
+                    <span className="text-sm font-medium truncate max-w-[150px]">
+                      {user.name || user.address?.slice(0, 6) + '...' + user.address?.slice(-4)}
+                    </span>
+                    {user.chain && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                        {user.chain === 'polygon' ? 'MATIC' : 'SOL'}
+                      </span>
+                    )}
+                  </div>
+                  <Button
+                    variant="ghostTransparent"
+                    size="sm"
+                    className="cursor-pointer"
+                    onClick={logout}
+                    disabled={authLoading}
+                  >
+                    Sair
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant="ghostTransparent"
+                    size="sm"
+                    className="cursor-pointer focus-ring"
+                    onClick={handleLogin}
+                    disabled={authLoading}
+                  >
+                    {t('login')}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="primaryGradient"
+                    className="font-semibold cursor-pointer"
+                    onClick={handleSignup}
+                    disabled={authLoading}
+                  >
+                    {t('signup')}
+                  </Button>
+                </>
+              )}
               <Button
                 variant="ghostTransparent"
                 size="sm"
@@ -272,5 +307,13 @@ export function Navbar({ locale }: NavbarProps) {
       )}
 
     </header>
+
+    {/* Auth Modal */}
+    <AuthModal 
+      isOpen={authModalOpen} 
+      onClose={() => setAuthModalOpen(false)} 
+      mode={authMode}
+    />
+    </>
   )
 }

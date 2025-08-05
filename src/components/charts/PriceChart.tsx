@@ -24,19 +24,22 @@ export function PriceChart({ data }: PriceChartProps) {
   const t = useTranslations('markets')
   const [timeframe, setTimeframe] = useState('24h')
 
-  // Mock price history data
+  // Generate deterministic mock data based on market ID
   const generateMockData = (hours: number): PriceData[] => {
     const now = new Date()
     const mockData: PriceData[] = []
+    
+    // Use market ID to seed deterministic pseudo-random
+    const seed = data.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)
     
     for (let i = hours; i >= 0; i--) {
       const time = new Date(now.getTime() - i * 60 * 60 * 1000)
       const baseYes = data.oddsYes
       const baseNo = data.oddsNo
       
-      // Add some random fluctuation around base odds
-      const yesVariation = (Math.random() - 0.5) * 10
-      const noVariation = (Math.random() - 0.5) * 10
+      // Generate deterministic variation based on seed and index
+      const yesVariation = ((Math.sin(seed + i * 0.1) + 1) / 2 - 0.5) * 10
+      const noVariation = ((Math.cos(seed + i * 0.1) + 1) / 2 - 0.5) * 10
       
       mockData.push({
         time: time.toISOString(),

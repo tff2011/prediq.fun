@@ -1,0 +1,46 @@
+// Backup do schema atual para referência
+// Este arquivo será usado para adicionar os modelos Comment e CommentLike
+
+// ==================== COMMENTS ====================
+model Comment {
+    id        String   @id @default(cuid())
+    content   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    
+    // User's market position when commenting
+    position  String?  // 'yes' | 'no' | null
+    
+    // Relations
+    marketId  String
+    market    Market   @relation(fields: [marketId], references: [id], onDelete: Cascade)
+    authorId  String
+    author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+    
+    // Parent comment for replies (optional)
+    parentId  String?
+    parent    Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+    replies   Comment[] @relation("CommentReplies")
+    
+    // Likes relation
+    likes     CommentLike[]
+    
+    @@index([marketId, createdAt])
+    @@index([authorId])
+    @@index([parentId])
+}
+
+model CommentLike {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    
+    // Relations
+    commentId String
+    comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+    userId    String
+    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@unique([commentId, userId])
+    @@index([commentId])
+    @@index([userId])
+}

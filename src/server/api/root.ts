@@ -4,6 +4,7 @@ import { betRouter } from "~/server/api/routers/bet";
 import { userRouter } from "~/server/api/routers/user";
 import { eventRouter } from "~/server/api/routers/event";
 import { adminRouter } from "~/server/api/routers/admin";
+import { commentRouter } from "~/server/api/routers/comment";
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 
 /**
@@ -18,6 +19,7 @@ export const appRouter = createTRPCRouter({
   user: userRouter,
   event: eventRouter,
   admin: adminRouter,
+  comment: commentRouter,
 });
 
 // export type definition of API
