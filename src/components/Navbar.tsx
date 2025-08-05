@@ -29,12 +29,9 @@ export function Navbar({ locale }: NavbarProps) {
 
   // Helper to determine if a given category is active based on the current pathname
   const activeCategory = useMemo(() => {
-    console.log('Current pathname:', pathname) // Debug log
-    // Expecting paths like /pt/category/crypto or /en/category/technology
-    // Also handle aliases used on category page normalization
-    const match = pathname?.match(/^\/[^/]+\/category\/([^/?#]+)/i)
+    // Handle both /category/slug and /locale/category/slug patterns
+    const match = pathname?.match(/^(?:\/[^/]+)?\/category\/([^/?#]+)/i)
     const detected = match?.[1]?.toLowerCase() ?? null
-    console.log('Detected active category:', detected) // Debug log
     
     // Handle URL aliases to navbar category mappings
     const aliasMap: Record<string, string> = {
@@ -45,17 +42,11 @@ export function Navbar({ locale }: NavbarProps) {
     }
     
     const finalCategory = aliasMap[detected || ''] || detected
-    console.log('Final active category:', finalCategory) // Debug log
     return finalCategory
   }, [pathname])
 
   const getCategoryClasses = (slug: string) => {
     const isActive = activeCategory === slug
-    console.log(`=== CATEGORY DEBUG ===`)
-    console.log(`Slug: ${slug}`)
-    console.log(`Active Category: ${activeCategory}`)
-    console.log(`Is Active: ${isActive}`)
-    console.log(`Comparison: "${activeCategory}" === "${slug}" = ${activeCategory === slug}`)
     
     const classes = cn(
       // Base styling
@@ -70,9 +61,6 @@ export function Navbar({ locale }: NavbarProps) {
         ? "after:opacity-100 after:scale-x-100" 
         : "after:opacity-0 after:scale-x-0 hover:after:opacity-100 hover:after:scale-x-100"
     )
-    
-    console.log(`Final classes for ${slug}:`, classes)
-    console.log(`========================`)
     
     return classes
   }

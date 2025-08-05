@@ -146,7 +146,7 @@ export function PriceChart({ data }: PriceChartProps) {
             <path
               d={yesPath}
               fill="none"
-              stroke="rgb(var(--yes))"
+              stroke="hsl(var(--yes))"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -154,7 +154,7 @@ export function PriceChart({ data }: PriceChartProps) {
             <path
               d={noPath}
               fill="none"
-              stroke="rgb(var(--no))"
+              stroke="hsl(var(--no))"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -164,14 +164,14 @@ export function PriceChart({ data }: PriceChartProps) {
           {/* Current Price Indicators */}
           <div className="absolute top-4 right-4 space-y-1">
             <div className="flex items-center gap-2 text-sm">
-              <div className="w-2 h-2 rounded-full bg-[rgb(var(--yes))]" />
-              <span className="font-medium text-[rgb(var(--yes))]">
+              <div className="w-2 h-2 rounded-full bg-[hsl(var(--yes))]" />
+              <span className="font-medium text-[hsl(var(--yes-foreground))]">
                 SIM {data.oddsYes}%
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <div className="w-2 h-2 rounded-full bg-[rgb(var(--no))]" />
-              <span className="font-medium text-[rgb(var(--no))]">
+              <div className="w-2 h-2 rounded-full bg-[hsl(var(--no))]" />
+              <span className="font-medium text-[hsl(var(--no-foreground))]">
                 NÃO {data.oddsNo}%
               </span>
             </div>
@@ -191,15 +191,15 @@ export function PriceChart({ data }: PriceChartProps) {
 
       {/* Price Summary */}
       <div className="grid grid-cols-2 gap-4 text-sm">
-        <div className="p-3 bg-[rgb(var(--yes)/0.1)] rounded-lg border border-[rgb(var(--yes)/0.2)]">
-          <div className="text-[rgb(var(--yes))] font-medium">SIM</div>
+        <div className="p-3 bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.2)] rounded-lg border border-[hsl(var(--yes)/0.3)]">
+          <div className="text-[hsl(var(--yes-foreground))] font-medium">SIM</div>
           <div className="text-lg font-bold text-foreground">{data.oddsYes}%</div>
           <div className="text-xs text-muted-foreground">
             +{Math.abs(data.oddsYes - 50).toFixed(1)}% {t('event.chart.change.today')}
           </div>
         </div>
-        <div className="p-3 bg-[rgb(var(--no)/0.1)] rounded-lg border border-[rgb(var(--no)/0.2)]">
-          <div className="text-[rgb(var(--no))] font-medium">NÃO</div>
+        <div className="p-3 bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.2)] rounded-lg border border-[hsl(var(--no)/0.3)]">
+          <div className="text-[hsl(var(--no-foreground))] font-medium">NÃO</div>
           <div className="text-lg font-bold text-foreground">{data.oddsNo}%</div>
           <div className="text-xs text-muted-foreground">
             {data.oddsNo > 50 ? '+' : '-'}{Math.abs(data.oddsNo - 50).toFixed(1)}% {t('event.chart.change.today')}

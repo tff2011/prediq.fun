@@ -127,11 +127,11 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                 <div className="flex items-center gap-4 text-sm">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-[hsl(var(--yes))]" />
-                    <span>SIM {data.oddsYes}%</span>
+                    <span className="text-[hsl(var(--yes-foreground))]">SIM {data.oddsYes}%</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-[hsl(var(--no))]" />
-                    <span>NÃO {data.oddsNo}%</span>
+                    <span className="text-[hsl(var(--no-foreground))]">NÃO {data.oddsNo}%</span>
                   </div>
                 </div>
               </div>
@@ -149,12 +149,12 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                 <div
                   className={`cursor-pointer transition-all ease-web3 duration-200 rounded-md p-4 text-center space-y-2 ${
                     selectedOutcome === 'yes'
-                      ? 'ring-2 ring-[hsl(var(--yes))] bg-[hsl(var(--yes)/0.10)]'
-                      : 'hover:bg-[hsl(var(--yes)/0.06)] bg-[hsl(var(--yes)/0.05)]/40'
+                      ? 'ring-2 ring-[hsl(var(--yes))] bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.3)]'
+                      : 'hover:bg-[hsl(var(--yes-container)/0.7)] dark:hover:bg-[hsl(var(--yes)/0.4)] bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.2)]'
                   }`}
                   onClick={() => setSelectedOutcome('yes')}
                 >
-                  <h4 className="text-lg font-bold text-[hsl(var(--yes))]">
+                  <h4 className="text-lg font-bold text-[hsl(var(--yes-foreground))]">
                     {t('card.yes')}
                   </h4>
                   <div className="text-2xl font-bold text-foreground">{data.oddsYes}%</div>
@@ -166,12 +166,12 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                 <div
                   className={`cursor-pointer transition-all ease-web3 duration-200 rounded-md p-4 text-center space-y-2 ${
                     selectedOutcome === 'no'
-                      ? 'ring-2 ring-[hsl(var(--no))] bg-[hsl(var(--no)/0.10)]'
-                      : 'hover:bg-[hsl(var(--no)/0.06)] bg-[hsl(var(--no)/0.05)]/40'
+                      ? 'ring-2 ring-[hsl(var(--no))] bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.3)]'
+                      : 'hover:bg-[hsl(var(--no-container)/0.7)] dark:hover:bg-[hsl(var(--no)/0.4)] bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.2)]'
                   }`}
                   onClick={() => setSelectedOutcome('no')}
                 >
-                  <h4 className="text-lg font-bold text-[hsl(var(--no))]">
+                  <h4 className="text-lg font-bold text-[hsl(var(--no-foreground))]">
                     {t('card.no')}
                   </h4>
                   <div className="text-2xl font-bold text-foreground">{data.oddsNo}%</div>
@@ -203,7 +203,7 @@ export function MarketDetailComponent({ data }: { data: MarketData }) {
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">{t('event.trading.potential')}:</span>
-                        <span className="font-semibold text-[hsl(var(--yes))]">
+                        <span className={`font-semibold ${selectedOutcome === 'yes' ? 'text-[hsl(var(--yes-foreground))]' : 'text-[hsl(var(--no-foreground))]'}`}>
                           R$ {calculatePayout(selectedOutcome)}
                         </span>
                       </div>

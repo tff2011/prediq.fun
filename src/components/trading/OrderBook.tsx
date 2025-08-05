@@ -64,7 +64,7 @@ export function OrderBook({ data }: OrderBookProps) {
         {/* Background bar */}
         <div 
           className={`absolute inset-y-0 right-0 ${
-            isBuy ? 'bg-[rgb(var(--yes)/0.1)]' : 'bg-[rgb(var(--no)/0.1)]'
+            isBuy ? 'bg-[hsl(var(--yes-container))] dark:bg-[hsl(var(--yes)/0.2)]' : 'bg-[hsl(var(--no-container))] dark:bg-[hsl(var(--no)/0.2)]'
           }`}
           style={{ width: `${widthPercentage}%` }}
         />
@@ -72,7 +72,7 @@ export function OrderBook({ data }: OrderBookProps) {
         {/* Content */}
         <div className="relative z-10 flex justify-between w-full">
           <span className={`font-mono ${
-            isBuy ? 'text-[rgb(var(--yes))]' : 'text-[rgb(var(--no))]'
+            isBuy ? 'text-[hsl(var(--yes-foreground))]' : 'text-[hsl(var(--no-foreground))]'
           }`}>
             R$ {order.price.toFixed(3)}
           </span>
@@ -92,7 +92,7 @@ export function OrderBook({ data }: OrderBookProps) {
       {/* SIM Orders */}
       <div className="space-y-2">
         <div className="flex items-center gap-2 pb-2">
-          <div className="w-3 h-3 rounded-full bg-[rgb(var(--yes))]" />
+          <div className="w-3 h-3 rounded-full bg-[hsl(var(--yes))]" />
           <h4 className="font-semibold text-sm">SIM - {data.oddsYes}%</h4>
         </div>
         
@@ -117,7 +117,7 @@ export function OrderBook({ data }: OrderBookProps) {
         
         {/* Current Price */}
         <div className="flex justify-center py-2 border-y border-border">
-          <span className="text-sm font-bold text-[rgb(var(--yes))]">
+          <span className="text-sm font-bold text-[hsl(var(--yes-foreground))]">
             R$ {(data.oddsYes / 100).toFixed(3)}
           </span>
         </div>
@@ -141,7 +141,7 @@ export function OrderBook({ data }: OrderBookProps) {
       {/* NÃO Orders */}
       <div className="space-y-2">
         <div className="flex items-center gap-2 pb-2">
-          <div className="w-3 h-3 rounded-full bg-[rgb(var(--no))]" />
+          <div className="w-3 h-3 rounded-full bg-[hsl(var(--no))]" />
           <h4 className="font-semibold text-sm">NÃO - {data.oddsNo}%</h4>
         </div>
         
@@ -166,7 +166,7 @@ export function OrderBook({ data }: OrderBookProps) {
         
         {/* Current Price */}
         <div className="flex justify-center py-2 border-y border-border">
-          <span className="text-sm font-bold text-[rgb(var(--no))]">
+          <span className="text-sm font-bold text-[hsl(var(--no-foreground))]">
             R$ {(data.oddsNo / 100).toFixed(3)}
           </span>
         </div>
