@@ -26,7 +26,14 @@ export const env = createEnv({
    */
   client: {
     NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: z.string().optional(),
-    NEXT_PUBLIC_WEB3AUTH_NETWORK: z.enum(["testnet", "mainnet", "sapphire_devnet"]).default("sapphire_devnet"),
+    NEXT_PUBLIC_WEB3AUTH_NETWORK: z.string().transform((val) => {
+      // Handle Railway's escaped quotes
+      const cleanVal = val.replace(/^["']|["']$/g, '').replace(/\\"/g, '"');
+      if (!["testnet", "mainnet", "sapphire_devnet"].includes(cleanVal)) {
+        throw new Error(`Invalid network: ${cleanVal}. Expected 'testnet', 'mainnet', or 'sapphire_devnet'`);
+      }
+      return cleanVal;
+    }).default("sapphire_devnet"),
     NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: z.string().optional(),
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string().optional(),
     NEXT_PUBLIC_CHAIN_ID: z.string().default("80002"),
