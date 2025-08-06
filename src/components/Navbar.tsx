@@ -246,7 +246,7 @@ export function Navbar({ locale }: NavbarProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="w-48 bg-card border border-border shadow-lg z-50 backdrop-blur-sm frosted"
+                  className="w-48 bg-card border border-border shadow-lg z-[200] backdrop-blur-sm frosted"
                   sideOffset={5}
                 >
                   <DropdownMenuItem asChild>
