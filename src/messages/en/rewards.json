@@ -1,0 +1,39 @@
+{
+  "rewards": {
+    "title": "Daily Rewards",
+    "subtitle": "Earn rewards by placing orders within the spread. Rewards are distributed directly to wallets every day at midnight UTC.",
+    "learnMore": "Learn more",
+    "currentEarnings": "AUG 6 EARNINGS",
+    "categories": {
+      "all": "All",
+      "politics": "Politics",
+      "sports": "Sports", 
+      "crypto": "Crypto",
+      "culture": "Pop Culture",
+      "world": "Middle East",
+      "business": "Business",
+      "science": "Science"
+    },
+    "search": {
+      "placeholder": "Search"
+    },
+    "table": {
+      "market": "Market",
+      "maxSpread": "Max Spread",
+      "minShares": "Min Shares", 
+      "reward": "Reward",
+      "completion": "Comp.",
+      "earnings": "Earnings",
+      "percent": "Percent",
+      "price": "Price",
+      "rules": "Rules"
+    },
+    "empty": {
+      "title": "No reward markets found",
+      "description": "No markets match your current filters. Try adjusting your search criteria."
+    },
+    "documentation": {
+      "link": "Learn more about Liquidity Rewards"
+    }
+  }
+}

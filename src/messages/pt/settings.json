@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "title": "Configurações",
+    "sections": {
+      "profile": "Perfil",
+      "notifications": "Notificações",
+      "twoFactor": "Autenticação 2FA",
+      "privateKey": "Exportar Chave Privada"
+    },
+    "profile": {
+      "title": "Configurações do Perfil",
+      "upload": "Upload",
+      "email": "E-mail",
+      "username": "Nome de usuário",
+      "usernamePlaceholder": "Digite seu nome de usuário",
+      "bio": "Bio",
+      "bioPlaceholder": "Conte-nos sobre você",
+      "saveChanges": "Salvar alterações",
+      "saved": "Perfil atualizado com sucesso!"
+    },
+    "notifications": {
+      "title": "Configurações de Notificações",
+      "email": "E-mail",
+      "inApp": "No app",
+      "resolutions": "Resoluções",
+      "orderFills": "Preenchimento de Ordens",
+      "hideSmallFills": "Ocultar preenchimentos pequenos (<1 ação)"
+    },
+    "twoFactor": {
+      "title": "Autenticação de Dois Fatores",
+      "enable": "Ativar 2FA",
+      "description": "Adicione uma camada extra de segurança à sua conta usando um aplicativo autenticador",
+      "setupInstructions": "Por favor, baixe um aplicativo autenticador como Google Authenticator ou Authy para completar a configuração."
+    },
+    "privateKey": {
+      "title": "Exportar Chave Privada",
+      "description": "Exportar sua chave privada lhe dá controle direto e segurança sobre seus fundos. Isso se aplica se você se inscreveu via e-mail.",
+      "warning": "NÃO compartilhe sua chave privada com ninguém. Nunca pediremos sua chave privada.",
+      "basicSteps": "Passos Básicos",
+      "step1": "Inicie o processo abaixo e faça login no Magic.Link",
+      "step2": "Exporte sua chave privada e armazene com segurança a chave privada exibida.",
+      "step3": "Saia do Magic.Link",
+      "startExport": "Iniciar Exportação",
+      "reveal": "Revelar Chave Privada",
+      "yourKey": "Sua Chave Privada",
+      "copied": "Chave privada copiada para a área de transferência!",
+      "exportStarted": "Processo de exportação de chave privada iniciado!"
+    }
+  }
+}

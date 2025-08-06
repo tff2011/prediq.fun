@@ -2,6 +2,35 @@
   "profile": {
     "title": "My Profile",
     "subtitle": "Manage your information and settings",
+    "editProfile": "Edit profile",
+    "addressCopied": "Address copied to clipboard",
+    "joined": "Joined",
+    "stats": {
+      "portfolioValue": "Portfolio Value",
+      "profitLoss": "Profit/loss",
+      "volumeTraded": "Volume traded",
+      "marketsTraded": "Markets traded"
+    },
+    "tabs": {
+      "positions": "Positions",
+      "activity": "Activity"
+    },
+    "positions": {
+      "noPositions": "No positions found",
+      "noPositionsDesc": "Start trading to see your positions here",
+      "market": "MARKET",
+      "avg": "AVG",
+      "current": "CURRENT", 
+      "value": "VALUE"
+    },
+    "activity": {
+      "noActivity": "No activity found.",
+      "noActivityDesc": "Your trading activity will appear here",
+      "minAmount": "Min amount",
+      "type": "TYPE",
+      "market": "MARKET",
+      "amount": "AMOUNT"
+    },
     "sections": {
       "personal": "Personal Information",
       "preferences": "Preferences",

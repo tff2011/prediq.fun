@@ -59,6 +59,23 @@
     "leaderboard": "Leaderboard",
     "dashboards": "Dashboards",
     "rewards": "Rewards",
+    "logged": {
+      "portfolio": "Portfolio",
+      "cash": "Cash",
+      "deposit": "Deposit",
+      "menu": {
+        "profile": "Profile",
+        "settings": "Settings",
+        "watchlist": "Watchlist",
+        "rewards": "Rewards",
+        "documentation": "Documentation",
+        "claimPromo": "Claim Promo",
+        "termsOfUse": "Terms of Use",
+        "darkMode": "Dark mode",
+        "lightMode": "Light mode",
+        "logout": "Logout"
+      }
+    },
     "myMarkets": "My Markets",
     "about": "About",
     "mobile": {

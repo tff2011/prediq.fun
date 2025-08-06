@@ -4,9 +4,126 @@ import { TRPCError } from "@trpc/server";
 import {
   createTRPCRouter,
   protectedProcedure,
+  publicProcedure,
 } from "~/server/api/trpc";
 
 export const userRouter = createTRPCRouter({
+  // Create or update user from Web3Auth login
+  createOrUpdateWeb3User: publicProcedure
+    .input(
+      z.object({
+        email: z.string().email(),
+        name: z.string().optional(),
+        image: z.string().url().optional(),
+        walletAddress: z.string(),
+        walletChain: z.enum(['polygon', 'solana']),
+        web3Provider: z.string().default('web3auth'),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Check if user already exists by wallet address
+      let user = await ctx.db.user.findUnique({
+        where: { walletAddress: input.walletAddress },
+      });
+
+      if (user) {
+        // Update existing user
+        user = await ctx.db.user.update({
+          where: { walletAddress: input.walletAddress },
+          data: {
+            name: input.name || user.name,
+            email: input.email,
+            image: input.image || user.image,
+            walletChain: input.walletChain,
+            web3Provider: input.web3Provider,
+            updatedAt: new Date(),
+          },
+        });
+      } else {
+        // Check if user exists by email
+        const existingUserByEmail = await ctx.db.user.findUnique({
+          where: { email: input.email },
+        });
+
+        if (existingUserByEmail) {
+          // Update existing user with wallet info
+          user = await ctx.db.user.update({
+            where: { email: input.email },
+            data: {
+              walletAddress: input.walletAddress,
+              walletChain: input.walletChain,
+              web3Provider: input.web3Provider,
+              name: input.name || existingUserByEmail.name,
+              image: input.image || existingUserByEmail.image,
+              updatedAt: new Date(),
+            },
+          });
+        } else {
+          // Create new user
+          user = await ctx.db.user.create({
+            data: {
+              email: input.email,
+              name: input.name,
+              image: input.image,
+              walletAddress: input.walletAddress,
+              walletChain: input.walletChain,
+              web3Provider: input.web3Provider,
+              balance: 0, // Start with $0 balance
+            },
+          });
+        }
+      }
+
+      return {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        image: user.image,
+        walletAddress: user.walletAddress,
+        walletChain: user.walletChain,
+        balance: user.balance.toNumber(),
+        totalInvested: user.totalInvested.toNumber(),
+        totalWinnings: user.totalWinnings.toNumber(),
+        createdAt: user.createdAt,
+      };
+    }),
+
+  // Get user by wallet address
+  getByWallet: publicProcedure
+    .input(
+      z.object({
+        walletAddress: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const user = await ctx.db.user.findUnique({
+        where: { walletAddress: input.walletAddress },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          image: true,
+          walletAddress: true,
+          walletChain: true,
+          balance: true,
+          totalInvested: true,
+          totalWinnings: true,
+          totalWagered: true,
+          createdAt: true,
+        },
+      });
+
+      if (!user) return null;
+
+      return {
+        ...user,
+        balance: user.balance.toNumber(),
+        totalInvested: user.totalInvested.toNumber(),
+        totalWinnings: user.totalWinnings.toNumber(),
+        totalWagered: user.totalWagered.toNumber(),
+      };
+    }),
+
   // Get current user profile
   getProfile: protectedProcedure.query(async ({ ctx }) => {
     const user = await ctx.db.user.findUnique({

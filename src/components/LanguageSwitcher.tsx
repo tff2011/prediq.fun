@@ -19,8 +19,11 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
     <Button 
       variant="ghost" 
       size="sm" 
-      onClick={toggleLanguage}
-      className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:scale-105 focus-ring"
+      onClick={(e) => {
+        e.stopPropagation()
+        toggleLanguage()
+      }}
+      className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:scale-105 focus-ring h-auto p-1"
     >
       <span className="text-lg">{currentLanguage.flag}</span>
     </Button>

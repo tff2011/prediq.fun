@@ -55,10 +55,27 @@
       }
     },
     "more": "Mais",
-    "activity": "Atividade",
+    "activity": "Atividade", 
     "leaderboard": "Ranking",
     "dashboards": "Painéis",
     "rewards": "Recompensas",
+    "logged": {
+      "portfolio": "Portfólio",
+      "cash": "Saldo",
+      "deposit": "Depositar",
+      "menu": {
+        "profile": "Perfil",
+        "settings": "Configurações",
+        "watchlist": "Lista de Observação",
+        "rewards": "Recompensas",
+        "documentation": "Documentação",
+        "claimPromo": "Resgatar Promo",
+        "termsOfUse": "Termos de Uso",
+        "darkMode": "Modo escuro",
+        "lightMode": "Modo claro",
+        "logout": "Sair"
+      }
+    },
     "myMarkets": "Meus Mercados",
     "about": "Sobre",
     "mobile": {

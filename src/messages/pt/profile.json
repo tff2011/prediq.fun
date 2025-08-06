@@ -2,6 +2,35 @@
   "profile": {
     "title": "Meu Perfil",
     "subtitle": "Gerencie suas informações e configurações",
+    "editProfile": "Editar perfil",
+    "addressCopied": "Endereço copiado para a área de transferência",
+    "joined": "Entrou em",
+    "stats": {
+      "portfolioValue": "Valor do Portfólio",
+      "profitLoss": "Lucro/prejuízo",
+      "volumeTraded": "Volume negociado",
+      "marketsTraded": "Mercados negociados"
+    },
+    "tabs": {
+      "positions": "Posições",
+      "activity": "Atividade"
+    },
+    "positions": {
+      "noPositions": "Nenhuma posição encontrada",
+      "noPositionsDesc": "Comece a negociar para ver suas posições aqui",
+      "market": "MERCADO",
+      "avg": "MÉDIA",
+      "current": "ATUAL",
+      "value": "VALOR"
+    },
+    "activity": {
+      "noActivity": "Nenhuma atividade encontrada.",
+      "noActivityDesc": "Sua atividade de negociação aparecerá aqui",
+      "minAmount": "Valor mínimo",
+      "type": "TIPO",
+      "market": "MERCADO",
+      "amount": "VALOR"
+    },
     "sections": {
       "personal": "Informações Pessoais",
       "preferences": "Preferências",

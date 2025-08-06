@@ -17,7 +17,7 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 import { toast } from 'sonner'
-import { useWeb3Auth } from '@/hooks/useWeb3Auth'
+import { useWeb3Auth } from '@/contexts/Web3AuthContext'
 
 interface AuthModalProps {
   isOpen: boolean

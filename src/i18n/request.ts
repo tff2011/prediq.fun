@@ -16,7 +16,11 @@ async function loadMessages(locale: string) {
     'terms',
     'privacy',
     'trending',
-    'new'
+    'new',
+    'settings',
+    'rewards',
+    'leaderboard',
+    'activity'
   ]
 
   const messages: Record<string, unknown> = {}

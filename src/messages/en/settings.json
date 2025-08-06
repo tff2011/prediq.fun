@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "title": "Settings",
+    "sections": {
+      "profile": "Profile",
+      "notifications": "Notifications",
+      "twoFactor": "Two-Factor Auth",
+      "privateKey": "Export Private Key"
+    },
+    "profile": {
+      "title": "Profile Settings",
+      "upload": "Upload",
+      "email": "Email",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself",
+      "saveChanges": "Save changes",
+      "saved": "Profile updated successfully!"
+    },
+    "notifications": {
+      "title": "Notifications Settings",
+      "email": "Email",
+      "inApp": "In-app",
+      "resolutions": "Resolutions",
+      "orderFills": "Order Fills",
+      "hideSmallFills": "Hide small fills (<1 share)"
+    },
+    "twoFactor": {
+      "title": "Two-Factor Authentication",
+      "enable": "Enable 2FA",
+      "description": "Add an extra layer of security to your account using an authenticator app",
+      "setupInstructions": "Please download an authenticator app like Google Authenticator or Authy to complete the setup."
+    },
+    "privateKey": {
+      "title": "Export Private Key",
+      "description": "Exporting your private key gives you direct control and security over your funds. This is applicable if you've signed up via email.",
+      "warning": "DO NOT share your private key with anyone. We will never ask for your private key.",
+      "basicSteps": "Basic Steps",
+      "step1": "Start the process below and sign into Magic.Link",
+      "step2": "Export your private key and securely store the private key displayed.",
+      "step3": "Log out of Magic.Link",
+      "startExport": "Start Export",
+      "reveal": "Reveal Private Key",
+      "yourKey": "Your Private Key",
+      "copied": "Private key copied to clipboard!",
+      "exportStarted": "Private key export process started!"
+    }
+  }
+}

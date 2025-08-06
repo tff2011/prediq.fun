@@ -1,0 +1,39 @@
+{
+  "rewards": {
+    "title": "Recompensas Diárias",
+    "subtitle": "Ganhe recompensas fazendo pedidos dentro do spread. As recompensas são distribuídas diretamente nas carteiras todos os dias à meia-noite UTC.",
+    "learnMore": "Saiba mais",
+    "currentEarnings": "GANHOS 6 AGO",
+    "categories": {
+      "all": "Todos",
+      "politics": "Política",
+      "sports": "Esportes", 
+      "crypto": "Cripto",
+      "culture": "Cultura Pop",
+      "world": "Oriente Médio",
+      "business": "Negócios",
+      "science": "Ciência"
+    },
+    "search": {
+      "placeholder": "Buscar"
+    },
+    "table": {
+      "market": "Mercado",
+      "maxSpread": "Spread Máx",
+      "minShares": "Ações Mín", 
+      "reward": "Recompensa",
+      "completion": "Comp.",
+      "earnings": "Ganhos",
+      "percent": "Porcentagem",
+      "price": "Preço",
+      "rules": "Regras"
+    },
+    "empty": {
+      "title": "Nenhum mercado de recompensa encontrado",
+      "description": "Nenhum mercado corresponde aos seus filtros atuais. Tente ajustar seus critérios de busca."
+    },
+    "documentation": {
+      "link": "Saiba mais sobre Recompensas de Liquidez"
+    }
+  }
+}

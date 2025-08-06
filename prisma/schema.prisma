@@ -317,6 +317,11 @@
      emailVerified DateTime?
      image         String?
 
+     // Web3 wallet data
+     walletAddress String?   @unique
+     walletChain   String?   // 'polygon' or 'solana'
+     web3Provider  String?   // 'web3auth', 'metamask', 'phantom', etc.
+
      // User stats
      balance       Decimal   @default(0) @db.Decimal(20, 6)
      totalInvested Decimal   @default(0) @db.Decimal(20, 6)

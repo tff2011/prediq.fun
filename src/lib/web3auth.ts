@@ -1,6 +1,6 @@
 import { Web3AuthNoModal } from '@web3auth/no-modal'
 import { CHAIN_NAMESPACES, IProvider, WALLET_ADAPTERS, WEB3AUTH_NETWORK } from '@web3auth/base'
-import { OpenloginAdapter } from '@web3auth/openlogin-adapter'
+import { AuthAdapter } from '@web3auth/auth-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { SolanaPrivateKeyProvider } from '@web3auth/solana-provider'
 import { WalletConnectV2Adapter } from '@web3auth/wallet-connect-v2-adapter'
@@ -16,15 +16,15 @@ if (!clientId) {
   throw new Error('NEXT_PUBLIC_WEB3AUTH_CLIENT_ID is required')
 }
 
-// Polygon Mumbai testnet config (change to mainnet for production)
+// Polygon Amoy testnet config (Mumbai is deprecated)
 const polygonChainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
-  chainId: '0x13881', // Mumbai testnet
-  rpcTarget: 'https://rpc-mumbai.maticvigil.com/',
-  displayName: 'Polygon Mumbai Testnet',
-  blockExplorer: 'https://mumbai.polygonscan.com/',
-  ticker: 'MATIC',
-  tickerName: 'Matic',
+  chainId: '0x13882', // Amoy testnet (80002)
+  rpcTarget: 'https://rpc-amoy.polygon.technology/',
+  displayName: 'Polygon Amoy Testnet',
+  blockExplorer: 'https://amoy.polygonscan.com/',
+  ticker: 'POL',
+  tickerName: 'Polygon',
 }
 
 // Solana devnet config (change to mainnet for production)
@@ -45,26 +45,50 @@ export class Web3AuthService {
 
   async initPolygon() {
     try {
+      // Use Polygon Amoy testnet (replacement for deprecated Mumbai)
+      const amoyChainConfig = {
+        chainNamespace: CHAIN_NAMESPACES.EIP155,
+        chainId: '0x13882', // Amoy testnet (80002)
+        rpcTarget: 'https://rpc-amoy.polygon.technology/',
+        displayName: 'Polygon Amoy Testnet',
+        blockExplorer: 'https://amoy.polygonscan.com/',
+        ticker: 'POL',
+        tickerName: 'Polygon',
+      }
+
       const ethereumProvider = new EthereumPrivateKeyProvider({
-        config: { chainConfig: polygonChainConfig }
+        config: { 
+          chainConfig: amoyChainConfig
+        }
       })
 
-      // Configure basic OpenLogin adapter without custom login configs
-      const openloginAdapter = new OpenloginAdapter({
+      // Configure Auth adapter for NoModal SDK with Google OAuth login config
+      const authAdapter = new AuthAdapter({
         privateKeyProvider: ethereumProvider,
         adapterSettings: {
           uxMode: 'popup',
+          loginConfig: {
+            google: {
+              verifier: 'prediq-google-auth', // Unique identifier for Prediq platform
+              typeOfLogin: 'google',
+              clientId: googleClientId || '', // Google OAuth Client ID
+            },
+          },
         },
       })
+
+      // Web3Auth configuration ready
 
       this.web3auth = new Web3AuthNoModal({
         clientId,
         web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-        chainConfig: polygonChainConfig,
         privateKeyProvider: ethereumProvider,
-        adapters: [openloginAdapter],
       })
 
+      // Configure the auth adapter (SDK v9 approach)
+      this.web3auth.configureAdapter(authAdapter)
+      
+      // Always init before connecting
       await this.web3auth.init()
       this.currentChain = 'polygon'
       return this.web3auth
@@ -80,22 +104,30 @@ export class Web3AuthService {
         config: { chainConfig: solanaChainConfig }
       })
 
-      const openloginAdapter = new OpenloginAdapter({
+      const authAdapter = new AuthAdapter({
         privateKeyProvider: solanaProvider,
         adapterSettings: {
           uxMode: 'popup',
+          loginConfig: {
+            google: {
+              verifier: 'prediq-google-auth', // Unique identifier for Prediq platform
+              typeOfLogin: 'google',
+              clientId: googleClientId || '', // Google OAuth Client ID
+            },
+          },
         },
       })
 
       this.web3auth = new Web3AuthNoModal({
         clientId,
         web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_DEVNET,
-        chainConfig: solanaChainConfig,
         privateKeyProvider: solanaProvider,
-        // Pass adapters in constructor instead of configuring them later
-        adapters: [openloginAdapter],
       })
 
+      // Configure the auth adapter (SDK v9 approach)
+      this.web3auth.configureAdapter(authAdapter)
+      
+      // Always init before connecting
       await this.web3auth.init()
       this.currentChain = 'solana'
       return this.web3auth
@@ -119,8 +151,17 @@ export class Web3AuthService {
         throw new Error('Web3Auth not initialized')
       }
 
-      // Connect using OpenLogin adapter for social login
-      this.provider = await this.web3auth.connectTo(WALLET_ADAPTERS.OPENLOGIN, {
+      // Check if already connected to avoid "Already connected" error
+      if (this.web3auth.status === 'connected') {
+        // Ensure provider is set even when already connected
+        if (!this.provider) {
+          this.provider = this.web3auth.provider
+        }
+        return this.provider
+      }
+
+      // Use connectTo with AUTH adapter for NoModal SDK - default Google login
+      this.provider = await this.web3auth.connectTo(WALLET_ADAPTERS.AUTH, {
         loginProvider: 'google',
       })
 
@@ -291,7 +332,11 @@ export class Web3AuthService {
   }
 
   isConnected() {
-    return this.web3auth?.status === 'connected' ?? false
+    const connected = this.web3auth?.status === 'connected'
+    if (connected && !this.provider && this.web3auth?.provider) {
+      this.provider = this.web3auth.provider
+    }
+    return connected && this.provider !== null
   }
 
   getProvider() {
