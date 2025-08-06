@@ -55,8 +55,11 @@
       }
     },
     "more": "More",
-    "myMarkets": "My Markets",
+    "activity": "Activity",
     "leaderboard": "Leaderboard",
+    "dashboards": "Dashboards",
+    "rewards": "Rewards",
+    "myMarkets": "My Markets",
     "about": "About",
     "mobile": {
       "home": "Home",

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { LanguageSwitcher } from "./LanguageSwitcher"
 import { SearchBar } from "./SearchBar"
 import { useTranslations } from "next-intl"
-import { TrendingUp, ChevronDown, Menu, X, User } from "lucide-react"
+import { TrendingUp, ChevronDown, Menu, X, User, Activity, Trophy, BarChart3, Gift } from "lucide-react"
 import { useMemo, useState } from "react"
 import { HowItWorksModal } from "./HowItWorksModal"
 import { AuthModal } from "./auth/AuthModal"
@@ -251,34 +251,38 @@ export function Navbar({ locale }: NavbarProps) {
                 >
                   <DropdownMenuItem asChild>
                     <Link
-                      href={`/${locale}/create-market`}
-                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      href={`/${locale}/activity`}
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center gap-2"
                     >
-                      {t('createMarket')}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href={`/${locale}/my-markets`}
-                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      {t('myMarkets')}
+                      <Activity className="h-4 w-4" />
+                      {t('activity')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link
                       href={`/${locale}/leaderboard`}
-                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center gap-2"
                     >
+                      <Trophy className="h-4 w-4" />
                       {t('leaderboard')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link
-                      href={`/${locale}/about`}
-                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      href={`/${locale}/dashboards`}
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center gap-2"
                     >
-                      {t('about')}
+                      <BarChart3 className="h-4 w-4" />
+                      {t('dashboards')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href={`/${locale}/rewards`}
+                      className="w-full cursor-pointer hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground flex items-center gap-2"
+                    >
+                      <Gift className="h-4 w-4" />
+                      {t('rewards')}
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>

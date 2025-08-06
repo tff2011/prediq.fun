@@ -1,0 +1,44 @@
+{
+  "activity": {
+    "title": "Activity",
+    "filters": {
+      "all": "All",
+      "minAmount": "Min amount",
+      "categories": {
+        "all": "All",
+        "politics": "Politics", 
+        "sports": "Sports",
+        "crypto": "Crypto",
+        "culture": "Culture",
+        "world": "World",
+        "economy": "Economy",
+        "trump": "Trump"
+      },
+      "amounts": {
+        "none": "None",
+        "10": "$10",
+        "100": "$100", 
+        "1000": "$1,000",
+        "10000": "$10,000",
+        "100000": "$100,000"
+      }
+    },
+    "actions": {
+      "bought": "bought",
+      "sold": "sold"
+    },
+    "outcomes": {
+      "yes": "Yes",
+      "no": "No",
+      "up": "Up",
+      "down": "Down"
+    },
+    "empty": {
+      "title": "No activity found",
+      "description": "No transactions match your current filters. Try adjusting your search criteria."
+    },
+    "transaction": {
+      "viewOnPolygonscan": "View on Polygonscan"
+    }
+  }
+}

@@ -55,8 +55,11 @@
       }
     },
     "more": "Mais",
-    "myMarkets": "Meus Mercados",
+    "activity": "Atividade",
     "leaderboard": "Ranking",
+    "dashboards": "Painéis",
+    "rewards": "Recompensas",
+    "myMarkets": "Meus Mercados",
     "about": "Sobre",
     "mobile": {
       "home": "Início",

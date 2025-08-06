@@ -1,0 +1,20 @@
+{
+  "leaderboard": {
+    "title": "Ranking",
+    "periods": {
+      "day": "Dia",
+      "week": "Semana", 
+      "month": "Mês",
+      "all": "Todos"
+    },
+    "reset": "Reinicia em",
+    "tabs": {
+      "volume": "Volume",
+      "profit": "Lucro"
+    },
+    "empty": {
+      "title": "Nenhum ranking disponível",
+      "description": "Os rankings aparecerão aqui quando os usuários começarem a negociar."
+    }
+  }
+}
